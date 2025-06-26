@@ -30,9 +30,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // EmailJS initialization
 function initEmailJS() {
-  // Initialize EmailJS with your public key
-  emailjs.init("qXByuv7y4-smb5Nug");
-  console.log('EmailJS initialized with public key: qXByuv7y4-smb5Nug');
+  // Initialize EmailJS with your public key from config
+  emailjs.init(window.DentalistConfig.EMAILJS_PUBLIC_KEY);
+  if (window.DentalistConfig.EMAILJS_DEBUG) {
+    console.log('EmailJS initialized with public key:', window.DentalistConfig.EMAILJS_PUBLIC_KEY);
+  }
 }
 
 // Navigation functionality
@@ -296,7 +298,7 @@ function initContactForm() {
     }
 
     // Validate reCAPTCHA (only if enabled)
-    if (RECAPTCHA_ENABLED) {
+    if (window.DentalistConfig.RECAPTCHA_ENABLED) {
       const recaptchaResponse = grecaptcha.getResponse();
       if (!recaptchaResponse) {
         showMessage('Prosím potvrďte, že nejste robot.', 'error');
@@ -327,7 +329,7 @@ function initContactForm() {
       contactForm.reset();
       
       // Reset reCAPTCHA (only if enabled)
-      if (RECAPTCHA_ENABLED && typeof grecaptcha !== 'undefined') {
+      if (window.DentalistConfig.RECAPTCHA_ENABLED && typeof grecaptcha !== 'undefined') {
         grecaptcha.reset();
       }
     } catch (error) {
@@ -394,15 +396,17 @@ function initContactForm() {
     formMessage.className = `form-message ${type}`;
     formMessage.style.display = 'block';
 
-    // Auto-hide message after 5 seconds
+    // Auto-hide message after configured delay
     setTimeout(() => {
       formMessage.style.display = 'none';
-    }, 5000);
+    }, window.DentalistConfig.MESSAGE_AUTO_HIDE_DELAY);
   }
 
   async function sendContactForm(data) {
     try {
-      console.log('Odesílám data:', data); // Debug log
+      if (window.DentalistConfig.EMAILJS_DEBUG) {
+        console.log('Odesílám data:', data);
+      }
       
       // EmailJS template parameters
       const templateParams = {
@@ -411,44 +415,45 @@ function initContactForm() {
         phone: data.phone,
         subject: data.subject,
         message: data.message,
-        to_email: 'jiri.klusal@gmail.com'
+        to_email: window.DentalistConfig.TARGET_EMAIL
       };
 
       // Add reCAPTCHA response only if enabled
-      if (RECAPTCHA_ENABLED) {
+      if (window.DentalistConfig.RECAPTCHA_ENABLED) {
         const recaptchaResponse = grecaptcha.getResponse();
         templateParams['g-recaptcha-response'] = recaptchaResponse;
       }
 
-      console.log('Template params:', templateParams); // Debug log
-
-      // DŮLEŽITÉ: Zkontrolujte tyto hodnoty ve vašem EmailJS dashboard!
-      const serviceId = 'service_lfqx5fh';     
-      const templateId = 'template_f0w827z';   
-      
-      console.log('Používám Service ID:', serviceId);
-      console.log('Používám Template ID:', templateId);
-      console.log('Odesílám na EmailJS API...');
+      if (window.DentalistConfig.EMAILJS_DEBUG) {
+        console.log('Template params:', templateParams);
+        console.log('Používám Service ID:', window.DentalistConfig.EMAILJS_SERVICE_ID);
+        console.log('Používám Template ID:', window.DentalistConfig.EMAILJS_TEMPLATE_ID);
+        console.log('Odesílám na EmailJS API...');
+      }
 
       // Send email via EmailJS
       const response = await emailjs.send(
-        serviceId,
-        templateId,
+        window.DentalistConfig.EMAILJS_SERVICE_ID,
+        window.DentalistConfig.EMAILJS_TEMPLATE_ID,
         templateParams
       );
 
-      console.log('Email sent successfully:', response);
+      if (window.DentalistConfig.EMAILJS_DEBUG) {
+        console.log('Email sent successfully:', response);
+      }
       return response;
 
     } catch (error) {
       console.error('EmailJS error details:', error);
-      console.error('Error status:', error.status);
-      console.error('Error text:', error.text);
-      
-      // Specific error for Service ID not found
-      if (error.text && error.text.includes('service ID not found')) {
-        console.error('🔥 CHYBA: Service ID "service_lfqx5fh" nebyl nalezen!');
-        console.error('📋 Jděte na https://dashboard.emailjs.com/admin a zkontrolujte správné Service ID');
+      if (window.DentalistConfig.EMAILJS_DEBUG) {
+        console.error('Error status:', error.status);
+        console.error('Error text:', error.text);
+        
+        // Specific error for Service ID not found
+        if (error.text && error.text.includes('service ID not found')) {
+          console.error('🔥 CHYBA: Service ID "' + window.DentalistConfig.EMAILJS_SERVICE_ID + '" nebyl nalezen!');
+          console.error('📋 Jděte na https://dashboard.emailjs.com/admin a zkontrolujte správné Service ID');
+        }
       }
       
       throw error;
@@ -522,28 +527,51 @@ function initContactForm() {
 
   // Add test data fill functionality (REMOVE IN PRODUCTION)
   const fillTestButton = document.querySelector('#fillTestData');
-  if (fillTestButton) {
-    console.log('✅ Testovací tlačítko nalezeno, přidávám event listener...');
+  if (fillTestButton && window.DentalistConfig.SHOW_TEST_BUTTON) {
+    if (window.DentalistConfig.DEBUG_MODE) {
+      console.log('✅ Testovací tlačítko nalezeno, přidávám event listener...');
+    }
     fillTestButton.addEventListener('click', function() {
-      console.log('🧪 Tlačítko pro testovací data bylo kliknuto!');
+      if (window.DentalistConfig.DEBUG_MODE) {
+        console.log('🧪 Tlačítko pro testovací data bylo kliknuto!');
+      }
       fillTestData();
     });
-  } else {
+    fillTestButton.style.display = 'block';
+  } else if (fillTestButton && !window.DentalistConfig.SHOW_TEST_BUTTON) {
+    fillTestButton.style.display = 'none';
+    if (window.DentalistConfig.DEBUG_MODE) {
+      console.log('🚫 Testovací tlačítko je skryto (SHOW_TEST_BUTTON = false)');
+    }
+  } else if (window.DentalistConfig.DEBUG_MODE) {
     console.log('❌ Testovací tlačítko nebylo nalezeno!');
   }
 
   function fillTestData() {
-    console.log('🧪 Vyplňuji testovací data...');
+    if (window.DentalistConfig.DEBUG_MODE) {
+      console.log('🧪 Vyplňuji testovací data...');
+    }
     
-    // Test data
-    const testData = {
-      firstName: 'Jan',
-      lastName: 'Novák',
-      email: 'jan.novak@email.cz',
-      phone: '+420777123456',
-      subject: 'Testovací zpráva z formuláře',
-      message: 'Toto je testovací zpráva pro ověření funkčnosti EmailJS služby. Pokud tuto zprávu vidíte, formulář funguje správně!'
-    };
+    // Test data from config
+    const testData = window.DentalistConfig.TEST_DATA;
+    
+    // Náhodný výběr alternativní zprávy (50% šance)
+    let selectedMessage = testData;
+    if (Math.random() > 0.5 && window.DentalistConfig.ALTERNATIVE_TEST_MESSAGES) {
+      const alternatives = window.DentalistConfig.ALTERNATIVE_TEST_MESSAGES;
+      const randomIndex = Math.floor(Math.random() * alternatives.length);
+      const randomAlt = alternatives[randomIndex];
+      
+      selectedMessage = {
+        ...testData,
+        subject: randomAlt.subject,
+        message: randomAlt.message
+      };
+      
+      if (window.DentalistConfig.DEBUG_MODE) {
+        console.log('🎲 Použita náhodná alternativní zpráva:', randomAlt.subject);
+      }
+    }
     
     // Fill form fields
     const firstNameField = document.getElementById('firstName');
@@ -553,20 +581,22 @@ function initContactForm() {
     const subjectField = document.getElementById('subject');
     const messageField = document.getElementById('message');
     
-    console.log('🔍 Kontrolujem pole formuláře...');
-    console.log('firstName pole:', firstNameField ? 'nalezeno' : 'NENALEZENO');
-    console.log('lastName pole:', lastNameField ? 'nalezeno' : 'NENALEZENO');
-    console.log('email pole:', emailField ? 'nalezeno' : 'NENALEZENO');
-    console.log('phone pole:', phoneField ? 'nalezeno' : 'NENALEZENO');
-    console.log('subject pole:', subjectField ? 'nalezeno' : 'NENALEZENO');
-    console.log('message pole:', messageField ? 'nalezeno' : 'NENALEZENO');
+    if (window.DentalistConfig.FORM_DEBUG) {
+      console.log('🔍 Kontrolujem pole formuláře...');
+      console.log('firstName pole:', firstNameField ? 'nalezeno' : 'NENALEZENO');
+      console.log('lastName pole:', lastNameField ? 'nalezeno' : 'NENALEZENO');
+      console.log('email pole:', emailField ? 'nalezeno' : 'NENALEZENO');
+      console.log('phone pole:', phoneField ? 'nalezeno' : 'NENALEZENO');
+      console.log('subject pole:', subjectField ? 'nalezeno' : 'NENALEZENO');
+      console.log('message pole:', messageField ? 'nalezeno' : 'NENALEZENO');
+    }
     
-    if (firstNameField) firstNameField.value = testData.firstName;
-    if (lastNameField) lastNameField.value = testData.lastName;
-    if (emailField) emailField.value = testData.email;
-    if (phoneField) phoneField.value = testData.phone;
-    if (subjectField) subjectField.value = testData.subject;
-    if (messageField) messageField.value = testData.message;
+    if (firstNameField) firstNameField.value = selectedMessage.firstName;
+    if (lastNameField) lastNameField.value = selectedMessage.lastName;
+    if (emailField) emailField.value = selectedMessage.email;
+    if (phoneField) phoneField.value = selectedMessage.phone;
+    if (subjectField) subjectField.value = selectedMessage.subject;
+    if (messageField) messageField.value = selectedMessage.message;
     
     // Remove any error styling from fields
     const allFields = document.querySelectorAll('#contactForm input, #contactForm textarea');
@@ -574,7 +604,9 @@ function initContactForm() {
       field.classList.remove('error');
     });
     
-    console.log('✅ Testovací data vyplněna!');
+    if (window.DentalistConfig.DEBUG_MODE) {
+      console.log('✅ Testovací data vyplněna!');
+    }
     
     // Hide reCAPTCHA error if visible
     const recaptchaError = document.getElementById('recaptcha-error');
@@ -582,8 +614,8 @@ function initContactForm() {
       recaptchaError.style.display = 'none';
     }
     
-    const recaptchaStatus = RECAPTCHA_ENABLED ? 'zapnutá' : 'vypnutá';
-    const message = RECAPTCHA_ENABLED ? 
+    const recaptchaStatus = window.DentalistConfig.RECAPTCHA_ENABLED ? 'zapnutá' : 'vypnutá';
+    const message = window.DentalistConfig.RECAPTCHA_ENABLED ? 
       'Testovací data byla vyplněna. Nyní potvrďte reCAPTCHA a můžete otestovat odeslání.' :
       'Testovací data byla vyplněna. reCAPTCHA je vypnutá - můžete rovnou otestovat odeslání.';
     
@@ -847,18 +879,18 @@ function initLanguageSwitcher() {
   window.switchLanguage = switchLanguage;
 }
 
-// reCAPTCHA Configuration - ZMĚŇTE NA false PRO VYPNUTÍ reCAPTCHA
-const RECAPTCHA_ENABLED = false; // Změňte na false pro vypnutí reCAPTCHA
+// reCAPTCHA Configuration - KONFIGURACI NAJDETE V config.js
+// Již se nenastavuje zde - vše je v config.js souboru
 
 // If reCAPTCHA is enabled, initialize it
-if (RECAPTCHA_ENABLED) {
+if (window.DentalistConfig && window.DentalistConfig.RECAPTCHA_ENABLED) {
   // Initialize reCAPTCHA (v2 or v3 based on your preference)
   // For v2:
-  // grecaptcha.render('recaptcha', { 'sitekey' : 'your-site-key' });
+  // grecaptcha.render('recaptcha', { 'sitekey' : window.DentalistConfig.RECAPTCHA_SITE_KEY });
 
   // For v3 (invisible):
   // grecaptcha.ready(function() {
-  //   grecaptcha.execute('your-site-key', {action: 'homepage'}).then(function(token) {
+  //   grecaptcha.execute(window.DentalistConfig.RECAPTCHA_SITE_KEY, {action: 'homepage'}).then(function(token) {
   //      // Add your logic to submit to your backend server here.
   //   });
   // });
@@ -867,13 +899,17 @@ if (RECAPTCHA_ENABLED) {
 function initRecaptchaState() {
     const contactFormSection = document.querySelector('.contact-form-section');
     
-    if (!RECAPTCHA_ENABLED && contactFormSection) {
+    if (!window.DentalistConfig.RECAPTCHA_ENABLED && contactFormSection) {
       // Add CSS class to hide reCAPTCHA
       contactFormSection.classList.add('recaptcha-disabled');
-      console.log('🔒 reCAPTCHA je vypnutá (RECAPTCHA_ENABLED = false)');
-    } else if (RECAPTCHA_ENABLED && contactFormSection) {
+      if (window.DentalistConfig.RECAPTCHA_DEBUG) {
+        console.log('🔒 reCAPTCHA je vypnutá (RECAPTCHA_ENABLED = false)');
+      }
+    } else if (window.DentalistConfig.RECAPTCHA_ENABLED && contactFormSection) {
       // Remove CSS class to show reCAPTCHA
       contactFormSection.classList.remove('recaptcha-disabled');
-      console.log('🛡️ reCAPTCHA je zapnutá (RECAPTCHA_ENABLED = true)');
+      if (window.DentalistConfig.RECAPTCHA_DEBUG) {
+        console.log('🛡️ reCAPTCHA je zapnutá (RECAPTCHA_ENABLED = true)');
+      }
     }
   }
