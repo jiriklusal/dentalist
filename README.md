@@ -1,125 +1,125 @@
-# Dentalist - Moderní responzivní web
+# Dentalist - Modern Responsive Website
 
-Moderní responzivní webová stránka pro stomatologickou ordinace Dentalist v Hlučíně.
+Modern responsive website for Dentalist dental practice in Hlučín, Czech Republic.
 
-## 📋 Obsah projektu
+## 📋 Project Content
 
-- `index.html` - Hlavní HTML struktura
-- `style.css` - CSS styly a responzivní design
-- `script.js` - JavaScript funkcionality
-- `README.md` - Dokumentace projektu
+- `index.html` - Main HTML structure
+- `style.css` - CSS styles and responsive design
+- `script.js` - JavaScript functionalities
+- `README.md` - Project documentation
 
-## 🌟 Funkce
+## 🌟 Features
 
-- **Responzivní design** - Optimalizováno pro mobily, tablety i desktop
-- **Moderní UI/UX** - Čistý, profesionální vzhled
-- **Rychlé načítání** - Optimalizováno pro rychlost
-- **SEO friendly** - Správná HTML struktura a meta tagy
-- **Accessibility** - Přístupnost pro handicapované uživatele
-- **Smooth scrolling** - Plynulé scrollování mezi sekcemi
-- **Mobile-first** - Navrženo primárně pro mobilní zařízení
+- **Responsive design** - Optimized for mobile, tablet and desktop
+- **Modern UI/UX** - Clean, professional appearance
+- **Fast loading** - Performance optimized
+- **SEO friendly** - Proper HTML structure and meta tags
+- **Accessibility** - Accessible for disabled users
+- **Smooth scrolling** - Smooth scrolling between sections
+- **Mobile-first** - Designed primarily for mobile devices
 
-## 🚀 Nasazení na hosting
+## 🚀 Deployment to Hosting
 
-### Levné hosting možnosti:
+### Affordable hosting options:
 
-1. **Netlify** (zdarma) - doporučeno
-   - Zaregistrujte se na netlify.com
-   - Nahrajte složku s projektem
-   - Automatické nasazení
+1. **Netlify** (free) - recommended
+   - Register at netlify.com
+   - Upload project folder
+   - Automatic deployment
 
-2. **Vercel** (zdarma)
-   - Zaregistrujte se na vercel.com
-   - Připojte GitHub repozitář nebo nahrajte soubory
+2. **Vercel** (free)
+   - Register at vercel.com
+   - Connect GitHub repository or upload files
 
-3. **GitHub Pages** (zdarma)
-   - Vytvořte GitHub repozitář
-   - Nahrajte soubory
-   - Aktivujte GitHub Pages v nastavení
+3. **GitHub Pages** (free)
+   - Create GitHub repository
+   - Upload files
+   - Activate GitHub Pages in settings
 
-4. **Wedos** (Česká republika)
-   - Webhosting Basic od 49 Kč/měsíc
-   - Nahrajte soubory přes FTP do složky www
+4. **Wedos** (Czech Republic)
+   - Web hosting Basic from 49 CZK/month
+   - Upload files via FTP to www folder
 
-### Kroky pro nasazení:
+### Deployment steps:
 
-1. **Stáhněte všechny soubory**
-2. **Nahrajte na váš hosting**
-3. **Ujistěte se, že index.html je v kořenovém adresáři**
-4. **Otestujte web v prohlížeči**
+1. **Download all files**
+2. **Upload to your hosting**
+3. **Make sure index.html is in root directory**
+4. **Test the website in browser**
 
-## 📱 Responzivní breakpointy
+## 📱 Responsive Breakpoints
 
 - **Mobile**: < 480px
 - **Tablet**: 480px - 768px  
 - **Desktop**: > 768px
 
-## 🎨 Barevná paleta
+## 🎨 Color Palette
 
-- **Primární modrá**: #2563eb
-- **Sekundární zelená**: #10b981
-- **Accent žlutá**: #f59e0b
-- **Tmavý text**: #1f2937
-- **Světlý text**: #6b7280
+- **Primary blue**: #2563eb
+- **Secondary green**: #10b981
+- **Accent yellow**: #f59e0b
+- **Dark text**: #1f2937
+- **Light text**: #6b7280
 
-## 📄 Sekce webu
+## 📄 Website Sections
 
-1. **Hero** - Úvodní sekce s hlavním nadpisem
-2. **O nás** - Informace o ordinaci a týmu
-3. **Služby** - Přehled poskytovaných služeb
-4. **Galerie** - Fotografie ordinace (placeholder)
-5. **Ceník** - Ceny služeb
-6. **Kontakt** - Kontaktní informace a ordinační hodiny
+1. **Hero** - Introduction section with main headline
+2. **About** - Information about the practice and team
+3. **Services** - Overview of provided services
+4. **Gallery** - Practice photos
+5. **Pricing** - Service prices
+6. **Contact** - Contact information and office hours
 
-## 🛠 Použité technologie
+## 🛠 Technologies Used
 
-- **HTML5** - Sémantická struktura
-- **CSS3** - Moderní styly s CSS Grid a Flexbox
-- **Vanilla JavaScript** - Žádné externí závislosti
-- **Font Awesome** - Ikony (CDN)
-- **Google Fonts** - Písmo Inter (CDN)
+- **HTML5** - Semantic structure
+- **CSS3** - Modern styles with CSS Grid and Flexbox
+- **Vanilla JavaScript** - No external dependencies
+- **Font Awesome** - Icons (CDN)
+- **Google Fonts** - Inter font (CDN)
 
-## 📈 Optimalizace
+## 📈 Optimization
 
-- Minimální použití externích zdrojů
-- Optimalizované CSS a JavaScript
-- Lazy loading pro obrázky (připraveno)
-- Service Worker podpora (připraveno)
-- Gzip komprese doporučena na serveru
+- Minimal use of external resources
+- Optimized CSS and JavaScript
+- Lazy loading for images (ready)
+- Service Worker support (ready)
+- Gzip compression recommended on server
 
-## 🔧 Úpravy a údržba
+## 🔧 Modifications and Maintenance
 
-### Změna kontaktních údajů:
-Editujte sekci `#contact` v `index.html`
+### Changing contact information:
+Edit the `#contact` section in `index.html`
 
-### Změna služeb:
-Editujte sekci `#services` v `index.html`
+### Changing services:
+Edit the `#services` section in `index.html`
 
-### Změna týmu:
-Editujte sekci `.team-grid` v `index.html`
+### Changing team:
+Edit the `.team-grid` section in `index.html`
 
-### Změna barev:
-Upravte CSS proměnné v `:root` sekci v `style.css`
+### Changing colors:
+Update CSS variables in `:root` section in `style.css`
 
-## 📸 Přidání skutečných obrázků
+## 📸 Adding Real Images
 
-1. Vytvořte složku `images/`
-2. Nahrajte obrázky
-3. Nahraďte `.gallery-placeholder` skutečnými `<img>` tagy
-4. Aktualizujte hero sekci s logem nebo fotografií ordinace
+1. Create `images/` folder
+2. Upload images
+3. Replace `.gallery-placeholder` with actual `<img>` tags
+4. Update hero section with logo or practice photo
 
-## 🌐 SEO doporučení
+## 🌐 SEO Recommendations
 
-1. Přidejte meta description
-2. Nastavte Open Graph tagy pro sociální sítě
-3. Přidejte strukturovaná data (JSON-LD)
-4. Vytvořte sitemap.xml
-5. Nastavte Google Analytics
+1. Add meta description
+2. Set Open Graph tags for social media
+3. Add structured data (JSON-LD)
+4. Create sitemap.xml
+5. Set up Google Analytics
 
-## 📞 Podpora
+## 📞 Support
 
-Pro technickou podporu nebo úpravy kontaktujte vývojáře.
+For technical support or modifications, contact the developer.
 
-## 📝 Licence
+## 📝 License
 
-Tento projekt je vytvořen pro Dentalist s.r.o. Všechna práva vyhrazena.
+This project is created for Dentalist s.r.o. All rights reserved.
