@@ -1,5 +1,25 @@
 // Wait for DOM to be fully loaded
+// Global function to attach lightbox events (used when recreating lightbox after language change)
+function attachLightboxEvents() {
+  if (!galleryLightbox || !galleryCloseBtn || !galleryPrevBtn || !galleryNextBtn) return;
+
+  // Close lightbox events
+  galleryCloseBtn.addEventListener('click', closeLightbox);
+  galleryLightbox.addEventListener('click', function (e) {
+    if (e.target === galleryLightbox) {
+      closeLightbox();
+    }
+  });
+
+  // Navigation events
+  galleryPrevBtn.addEventListener('click', showPrevImage);
+  galleryNextBtn.addEventListener('click', showNextImage);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
+  // Language switcher (initialize first to set correct language)
+  initLanguageSwitcher();
+
   // Initialize EmailJS
   initEmailJS();
 
@@ -23,9 +43,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Navbar scroll effect
   initNavbarScroll();
-
-  // Language switcher
-  initLanguageSwitcher();
 });
 
 // EmailJS initialization
@@ -103,29 +120,88 @@ function initSmoothScrolling() {
   });
 }
 
+// Global variables for gallery functionality
+let galleryCurrentImageIndex = 0;
+let galleryAllImages = [];
+let galleryLightbox = null;
+let galleryLightboxImg = null;
+let galleryLightboxCaption = null;
+let galleryCloseBtn = null;
+let galleryPrevBtn = null;
+let galleryNextBtn = null;
+// Global functions for gallery lightbox
+function openLightbox(index) {
+  galleryCurrentImageIndex = index;
+  updateLightboxImage();
+  galleryLightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  // Focus on close button for accessibility
+  galleryCloseBtn.focus();
+}
+
+function closeLightbox() {
+  galleryLightbox.classList.remove('active');
+  document.body.style.overflow = '';
+
+  // Return focus to the clicked image
+  galleryAllImages[galleryCurrentImageIndex].focus();
+}
+
+function showPrevImage() {
+  galleryCurrentImageIndex =
+    galleryCurrentImageIndex > 0 ? galleryCurrentImageIndex - 1 : galleryAllImages.length - 1;
+  updateLightboxImage();
+}
+
+function showNextImage() {
+  galleryCurrentImageIndex =
+    galleryCurrentImageIndex < galleryAllImages.length - 1 ? galleryCurrentImageIndex + 1 : 0;
+  updateLightboxImage();
+}
+
+function updateLightboxImage() {
+  const currentImg = galleryAllImages[galleryCurrentImageIndex];
+  galleryLightboxImg.src = currentImg.src;
+  galleryLightboxImg.alt = currentImg.alt;
+
+  // Update caption
+  const caption = currentImg.alt || `${window.DentalistConfig.getMessage('imageCounter')} ${galleryCurrentImageIndex + 1}`;
+  galleryLightboxCaption.textContent = caption;
+
+  // Update counter
+  const counter = document.querySelector('.lightbox-counter');
+  counter.textContent = `${galleryCurrentImageIndex + 1} / ${galleryAllImages.length}`;
+
+  // Show/hide navigation buttons based on image availability
+  galleryPrevBtn.style.display = galleryAllImages.length > 1 ? 'block' : 'none';
+  galleryNextBtn.style.display = galleryAllImages.length > 1 ? 'block' : 'none';
+}
+
 // Gallery functionality
 function initGallery() {
   // Select both gallery images and other lightbox-enabled images
   const galleryImages = document.querySelectorAll('.gallery-item img');
   const otherImages = document.querySelectorAll('.lightbox-enabled');
-  const allImages = [...galleryImages, ...otherImages];
+  galleryAllImages = [...galleryImages, ...otherImages];
 
-  if (allImages.length === 0) return;
+  if (galleryAllImages.length === 0) {
+    return;
+  }
 
   // Create lightbox HTML
   createLightbox();
 
-  const lightbox = document.querySelector('.lightbox');
-  const lightboxImg = document.querySelector('.lightbox-img');
-  const lightboxCaption = document.querySelector('.lightbox-caption');
-  const closeBtn = document.querySelector('.lightbox-close');
-  const prevBtn = document.querySelector('.lightbox-prev');
-  const nextBtn = document.querySelector('.lightbox-next');
-
-  let currentImageIndex = 0;
+  // Get lightbox elements after creation and store globally
+  galleryLightbox = document.querySelector('.lightbox');
+  galleryLightboxImg = document.querySelector('.lightbox-img');
+  galleryLightboxCaption = document.querySelector('.lightbox-caption');
+  galleryCloseBtn = document.querySelector('.lightbox-close');
+  galleryPrevBtn = document.querySelector('.lightbox-prev');
+  galleryNextBtn = document.querySelector('.lightbox-next');
 
   // Add click event to all lightbox-enabled images
-  allImages.forEach((img, index) => {
+  galleryAllImages.forEach((img, index) => {
     img.addEventListener('click', function () {
       openLightbox(index);
     });
@@ -143,7 +219,7 @@ function initGallery() {
     img.setAttribute('role', 'button');
     img.setAttribute(
       'aria-label',
-      `Zobrazit obrázek ${index + 1} ve větší velikosti`
+      `${window.DentalistConfig.getMessage('showImageLarger')} ${index + 1}`
     );
 
     // Add visual indicator that image is clickable
@@ -151,21 +227,12 @@ function initGallery() {
     img.classList.add('lightbox-clickable');
   });
 
-  // Close lightbox events
-  closeBtn.addEventListener('click', closeLightbox);
-  lightbox.addEventListener('click', function (e) {
-    if (e.target === lightbox) {
-      closeLightbox();
-    }
-  });
-
-  // Navigation events
-  prevBtn.addEventListener('click', showPrevImage);
-  nextBtn.addEventListener('click', showNextImage);
+  // Attach initial lightbox events
+  attachLightboxEvents();
 
   // Keyboard navigation
   document.addEventListener('keydown', function (e) {
-    if (!lightbox.classList.contains('active')) return;
+    if (!galleryLightbox || !galleryLightbox.classList.contains('active')) return;
 
     switch (e.key) {
       case 'Escape':
@@ -184,9 +251,9 @@ function initGallery() {
     const lightboxHTML = `
             <div class="lightbox">
                 <div class="lightbox-content">
-                    <button class="lightbox-close" aria-label="Zavřít galerii">&times;</button>
-                    <button class="lightbox-prev" aria-label="Předchozí obrázek">&#10094;</button>
-                    <button class="lightbox-next" aria-label="Další obrázek">&#10095;</button>
+                    <button class="lightbox-close" aria-label="${window.DentalistConfig.getMessage('closeGallery')}">&times;</button>
+                    <button class="lightbox-prev" aria-label="${window.DentalistConfig.getMessage('previousImage')}">&#10094;</button>
+                    <button class="lightbox-next" aria-label="${window.DentalistConfig.getMessage('nextImage')}">&#10095;</button>
                     <img class="lightbox-img" src="" alt="">
                     <div class="lightbox-caption"></div>
                     <div class="lightbox-counter"></div>
@@ -194,54 +261,6 @@ function initGallery() {
             </div>
         `;
     document.body.insertAdjacentHTML('beforeend', lightboxHTML);
-  }
-
-  function openLightbox(index) {
-    currentImageIndex = index;
-    updateLightboxImage();
-    lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
-
-    // Focus on close button for accessibility
-    closeBtn.focus();
-  }
-
-  function closeLightbox() {
-    lightbox.classList.remove('active');
-    document.body.style.overflow = '';
-
-    // Return focus to the clicked image
-    allImages[currentImageIndex].focus();
-  }
-
-  function showPrevImage() {
-    currentImageIndex =
-      currentImageIndex > 0 ? currentImageIndex - 1 : allImages.length - 1;
-    updateLightboxImage();
-  }
-
-  function showNextImage() {
-    currentImageIndex =
-      currentImageIndex < allImages.length - 1 ? currentImageIndex + 1 : 0;
-    updateLightboxImage();
-  }
-
-  function updateLightboxImage() {
-    const currentImg = allImages[currentImageIndex];
-    lightboxImg.src = currentImg.src;
-    lightboxImg.alt = currentImg.alt;
-
-    // Update caption
-    const caption = currentImg.alt || `Obrázek ${currentImageIndex + 1}`;
-    lightboxCaption.textContent = caption;
-
-    // Update counter
-    const counter = document.querySelector('.lightbox-counter');
-    counter.textContent = `${currentImageIndex + 1} / ${allImages.length}`;
-
-    // Show/hide navigation buttons based on image availability
-    prevBtn.style.display = allImages.length > 1 ? 'block' : 'none';
-    nextBtn.style.display = allImages.length > 1 ? 'block' : 'none';
   }
 }
 
@@ -293,7 +312,7 @@ function initContactForm() {
 
     // Validate form
     if (!validateForm(data)) {
-      showMessage('Prosím vyplňte všechna povinná pole správně.', 'error');
+      showMessage(window.DentalistConfig.getMessage('fillRequiredFields'), 'error');
       return;
     }
 
@@ -301,7 +320,7 @@ function initContactForm() {
     if (window.DentalistConfig.RECAPTCHA_ENABLED) {
       const recaptchaResponse = grecaptcha.getResponse();
       if (!recaptchaResponse) {
-        showMessage('Prosím potvrďte, že nejste robot.', 'error');
+        showMessage(window.DentalistConfig.getMessage('confirmNotRobot'), 'error');
         document.getElementById('recaptcha-error').style.display = 'block';
         return;
       } else {
@@ -316,14 +335,14 @@ function initContactForm() {
     const submitBtn = contactForm.querySelector('.form-submit');
     const originalText = submitBtn.innerHTML;
     submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span>Odesílám...</span>';
+    submitBtn.innerHTML = `<span>${window.DentalistConfig.getMessage('sending')}</span>`;
 
     try {
       // Send email via EmailJS
       await sendContactForm(data);
       
       // Show success message
-      showMessage('Vaše zpráva byla úspěšně odeslána. Ozveme se vám co nejdříve.', 'success');
+      showMessage(window.DentalistConfig.getMessage('messageSentSuccess'), 'success');
       
       // Reset form
       contactForm.reset();
@@ -342,24 +361,24 @@ function initContactForm() {
       });
       
       // More specific error messages
-      let errorMessage = 'Nastala chyba při odesílání zprávy. ';
+      let errorMessage = window.DentalistConfig.getMessage('errorSending');
       
       if (error.text && error.text.includes('service ID not found')) {
-        errorMessage += 'EmailJS služba není správně nakonfigurována. Service ID nebylo nalezeno.';
+        errorMessage += window.DentalistConfig.getMessage('emailjsServiceNotConfigured');
       } else if (error.text && error.text.includes('template')) {
-        errorMessage += 'Problém s email template. Template ID nebylo nalezeno.';
+        errorMessage += window.DentalistConfig.getMessage('emailTemplateNotFound');
       } else if (error.status === 400) {
-        errorMessage += 'Neplatné údaje ve formuláři nebo chybná konfigurace EmailJS.';
+        errorMessage += window.DentalistConfig.getMessage('invalidFormData');
       } else if (error.status === 412) {
-        errorMessage += 'EmailJS služba není správně nakonfigurována.';
+        errorMessage += window.DentalistConfig.getMessage('emailjsNotConfigured');
       } else if (error.status === 422) {
-        errorMessage += 'Template obsahuje chyby.';
+        errorMessage += window.DentalistConfig.getMessage('templateErrors');
       } else if (error.text && error.text.includes('service')) {
-        errorMessage += 'Problém s email službou.';
+        errorMessage += window.DentalistConfig.getMessage('emailServiceProblem');
       } else if (!navigator.onLine) {
-        errorMessage += 'Zkontrolujte internetové připojení.';
+        errorMessage += window.DentalistConfig.getMessage('checkConnection');
       } else {
-        errorMessage += `Zkuste to prosím později. (Chyba: ${error.status || 'neznámá'})`;
+        errorMessage += `${window.DentalistConfig.getMessage('tryLater')} (Error: ${error.status || window.DentalistConfig.getMessage('unknownError')})`;
       }
       
       showMessage(errorMessage, 'error');
@@ -405,7 +424,7 @@ function initContactForm() {
   async function sendContactForm(data) {
     try {
       if (window.DentalistConfig.EMAILJS_DEBUG) {
-        console.log('Odesílám data:', data);
+        console.log('Sending data:', data);
       }
       
       // EmailJS template parameters
@@ -426,9 +445,9 @@ function initContactForm() {
 
       if (window.DentalistConfig.EMAILJS_DEBUG) {
         console.log('Template params:', templateParams);
-        console.log('Používám Service ID:', window.DentalistConfig.EMAILJS_SERVICE_ID);
-        console.log('Používám Template ID:', window.DentalistConfig.EMAILJS_TEMPLATE_ID);
-        console.log('Odesílám na EmailJS API...');
+        console.log('Using Service ID:', window.DentalistConfig.EMAILJS_SERVICE_ID);
+        console.log('Using Template ID:', window.DentalistConfig.EMAILJS_TEMPLATE_ID);
+        console.log('Sending to EmailJS API...');
       }
 
       // Send email via EmailJS
@@ -451,8 +470,8 @@ function initContactForm() {
         
         // Specific error for Service ID not found
         if (error.text && error.text.includes('service ID not found')) {
-          console.error('🔥 CHYBA: Service ID "' + window.DentalistConfig.EMAILJS_SERVICE_ID + '" nebyl nalezen!');
-          console.error('📋 Jděte na https://dashboard.emailjs.com/admin a zkontrolujte správné Service ID');
+          console.error('🔥 ERROR: Service ID "' + window.DentalistConfig.EMAILJS_SERVICE_ID + '" was not found!');
+          console.error('📋 Go to https://dashboard.emailjs.com/admin and check the correct Service ID');
         }
       }
       
@@ -529,11 +548,11 @@ function initContactForm() {
   const fillTestButton = document.querySelector('#fillTestData');
   if (fillTestButton && window.DentalistConfig.SHOW_TEST_BUTTON) {
     if (window.DentalistConfig.DEBUG_MODE) {
-      console.log('✅ Testovací tlačítko nalezeno, přidávám event listener...');
+      console.log('✅ Test button found, adding event listener...');
     }
     fillTestButton.addEventListener('click', function() {
       if (window.DentalistConfig.DEBUG_MODE) {
-        console.log('🧪 Tlačítko pro testovací data bylo kliknuto!');
+        console.log('🧪 Test data button was clicked!');
       }
       fillTestData();
     });
@@ -541,21 +560,21 @@ function initContactForm() {
   } else if (fillTestButton && !window.DentalistConfig.SHOW_TEST_BUTTON) {
     fillTestButton.style.display = 'none';
     if (window.DentalistConfig.DEBUG_MODE) {
-      console.log('🚫 Testovací tlačítko je skryto (SHOW_TEST_BUTTON = false)');
+      console.log('🚫 Test button is hidden (SHOW_TEST_BUTTON = false)');
     }
   } else if (window.DentalistConfig.DEBUG_MODE) {
-    console.log('❌ Testovací tlačítko nebylo nalezeno!');
+    console.log('❌ Test button was not found!');
   }
 
   function fillTestData() {
     if (window.DentalistConfig.DEBUG_MODE) {
-      console.log('🧪 Vyplňuji testovací data...');
+      console.log('🧪 Filling test data...');
     }
     
     // Test data from config
     const testData = window.DentalistConfig.TEST_DATA;
     
-    // Náhodný výběr alternativní zprávy (50% šance)
+    // Random selection of alternative message (50% chance)
     let selectedMessage = testData;
     if (Math.random() > 0.5 && window.DentalistConfig.ALTERNATIVE_TEST_MESSAGES) {
       const alternatives = window.DentalistConfig.ALTERNATIVE_TEST_MESSAGES;
@@ -569,7 +588,7 @@ function initContactForm() {
       };
       
       if (window.DentalistConfig.DEBUG_MODE) {
-        console.log('🎲 Použita náhodná alternativní zpráva:', randomAlt.subject);
+        console.log('🎲 Used random alternative message:', randomAlt.subject);
       }
     }
     
@@ -582,13 +601,13 @@ function initContactForm() {
     const messageField = document.getElementById('message');
     
     if (window.DentalistConfig.FORM_DEBUG) {
-      console.log('🔍 Kontrolujem pole formuláře...');
-      console.log('firstName pole:', firstNameField ? 'nalezeno' : 'NENALEZENO');
-      console.log('lastName pole:', lastNameField ? 'nalezeno' : 'NENALEZENO');
-      console.log('email pole:', emailField ? 'nalezeno' : 'NENALEZENO');
-      console.log('phone pole:', phoneField ? 'nalezeno' : 'NENALEZENO');
-      console.log('subject pole:', subjectField ? 'nalezeno' : 'NENALEZENO');
-      console.log('message pole:', messageField ? 'nalezeno' : 'NENALEZENO');
+      console.log('🔍 Checking form fields...');
+      console.log('firstName field:', firstNameField ? 'found' : 'NOT FOUND');
+      console.log('lastName field:', lastNameField ? 'found' : 'NOT FOUND');
+      console.log('email field:', emailField ? 'found' : 'NOT FOUND');
+      console.log('phone field:', phoneField ? 'found' : 'NOT FOUND');
+      console.log('subject field:', subjectField ? 'found' : 'NOT FOUND');
+      console.log('message field:', messageField ? 'found' : 'NOT FOUND');
     }
     
     if (firstNameField) firstNameField.value = selectedMessage.firstName;
@@ -605,7 +624,7 @@ function initContactForm() {
     });
     
     if (window.DentalistConfig.DEBUG_MODE) {
-      console.log('✅ Testovací data vyplněna!');
+      console.log('✅ Test data filled!');
     }
     
     // Hide reCAPTCHA error if visible
@@ -614,10 +633,12 @@ function initContactForm() {
       recaptchaError.style.display = 'none';
     }
     
-    const recaptchaStatus = window.DentalistConfig.RECAPTCHA_ENABLED ? 'zapnutá' : 'vypnutá';
+    const recaptchaStatus = window.DentalistConfig.RECAPTCHA_ENABLED ? 
+      window.DentalistConfig.getMessage('recaptchaEnabled') : 
+      window.DentalistConfig.getMessage('recaptchaDisabledStatus');
     const message = window.DentalistConfig.RECAPTCHA_ENABLED ? 
-      'Testovací data byla vyplněna. Nyní potvrďte reCAPTCHA a můžete otestovat odeslání.' :
-      'Testovací data byla vyplněna. reCAPTCHA je vypnutá - můžete rovnou otestovat odeslání.';
+      `${window.DentalistConfig.getMessage('testDataFilled')} ${window.DentalistConfig.getMessage('confirmRecaptcha')}` :
+      `${window.DentalistConfig.getMessage('testDataFilled')} ${window.DentalistConfig.getMessage('recaptchaDisabled')}`;
     
     showMessage(`${message} (reCAPTCHA: ${recaptchaStatus})`, 'success');
   }
@@ -873,14 +894,113 @@ function initLanguageSwitcher() {
       en: 'Dentalist - Modern Dental Practice',
     };
     document.title = titles[lang];
+    
+    // Update gallery aria-labels
+    updateGalleryLabels();
+    
+    // Recreate lightbox with current language
+    recreateLightbox();
+  }
+
+  // Helper function to update gallery labels
+  function updateGalleryLabels() {
+    const galleryImages = document.querySelectorAll('.gallery-item img');
+    const otherImages = document.querySelectorAll('.lightbox-enabled');
+    const allImages = [...galleryImages, ...otherImages];
+    
+    allImages.forEach((img, index) => {
+      img.setAttribute(
+        'aria-label',
+        `${window.DentalistConfig.getMessage('showImageLarger')} ${index + 1}`
+      );
+    });
+  }
+  
+  // Helper function to update lightbox labels
+  function updateLightboxLabels() {
+    const lightboxClose = document.querySelector('.lightbox-close');
+    const lightboxPrev = document.querySelector('.lightbox-prev');
+    const lightboxNext = document.querySelector('.lightbox-next');
+    const lightboxCaption = document.querySelector('.lightbox-caption');
+    const lightbox = document.querySelector('.lightbox');
+    
+    if (lightboxClose) {
+      lightboxClose.setAttribute('aria-label', window.DentalistConfig.getMessage('closeGallery'));
+    }
+    if (lightboxPrev) {
+      lightboxPrev.setAttribute('aria-label', window.DentalistConfig.getMessage('previousImage'));
+    }
+    if (lightboxNext) {
+      lightboxNext.setAttribute('aria-label', window.DentalistConfig.getMessage('nextImage'));
+    }
+    
+    // Update caption if lightbox is currently open
+    if (lightbox && lightbox.classList.contains('active') && lightboxCaption) {
+      const lightboxImg = document.querySelector('.lightbox-img');
+      if (lightboxImg) {
+        const galleryImages = document.querySelectorAll('.gallery-item img');
+        const otherImages = document.querySelectorAll('.lightbox-enabled');
+        const allImages = [...galleryImages, ...otherImages];
+        
+        // Find current image index
+        let currentIndex = 0;
+        for (let i = 0; i < allImages.length; i++) {
+          if (allImages[i].src === lightboxImg.src) {
+            currentIndex = i;
+            break;
+          }
+        }
+        
+        const caption = lightboxImg.alt || `${window.DentalistConfig.getMessage('imageCounter')} ${currentIndex + 1}`;
+        lightboxCaption.textContent = caption;
+      }
+    }
+  }
+  
+  // Helper function to recreate lightbox with current language
+  function recreateLightbox() {
+    // Remove existing lightbox if it exists
+    const existingLightbox = document.querySelector('.lightbox');
+    if (existingLightbox) {
+      existingLightbox.remove();
+    }
+    
+    // Create new lightbox with current language
+    const lightboxHTML = `
+            <div class="lightbox">
+                <div class="lightbox-content">
+                    <button class="lightbox-close" aria-label="${window.DentalistConfig.getMessage('closeGallery')}">&times;</button>
+                    <button class="lightbox-prev" aria-label="${window.DentalistConfig.getMessage('previousImage')}">&#10094;</button>
+                    <button class="lightbox-next" aria-label="${window.DentalistConfig.getMessage('nextImage')}">&#10095;</button>
+                    <img class="lightbox-img" src="" alt="">
+                    <div class="lightbox-caption"></div>
+                    <div class="lightbox-counter"></div>
+                </div>
+            </div>
+        `;
+    document.body.insertAdjacentHTML('beforeend', lightboxHTML);
+    
+    // Update global references to new lightbox elements
+    galleryLightbox = document.querySelector('.lightbox');
+    galleryLightboxImg = document.querySelector('.lightbox-img');
+    galleryLightboxCaption = document.querySelector('.lightbox-caption');
+    galleryCloseBtn = document.querySelector('.lightbox-close');
+    galleryPrevBtn = document.querySelector('.lightbox-prev');
+    galleryNextBtn = document.querySelector('.lightbox-next');
+    
+    // Re-attach event listeners for the new lightbox
+    if (galleryCloseBtn && galleryPrevBtn && galleryNextBtn && galleryLightbox) {
+      // Re-attach gallery functionality to new lightbox
+      attachLightboxEvents();
+    }
   }
 
   // Expose switchLanguage function globally for potential external use
   window.switchLanguage = switchLanguage;
 }
 
-// reCAPTCHA Configuration - KONFIGURACI NAJDETE V config.js
-// Již se nenastavuje zde - vše je v config.js souboru
+// reCAPTCHA Configuration - CONFIGURATION CAN BE FOUND IN config.js
+// No longer configured here - everything is in the config.js file
 
 // If reCAPTCHA is enabled, initialize it
 if (window.DentalistConfig && window.DentalistConfig.RECAPTCHA_ENABLED) {
@@ -903,13 +1023,13 @@ function initRecaptchaState() {
       // Add CSS class to hide reCAPTCHA
       contactFormSection.classList.add('recaptcha-disabled');
       if (window.DentalistConfig.RECAPTCHA_DEBUG) {
-        console.log('🔒 reCAPTCHA je vypnutá (RECAPTCHA_ENABLED = false)');
+        console.log('🔒 reCAPTCHA is disabled (RECAPTCHA_ENABLED = false)');
       }
     } else if (window.DentalistConfig.RECAPTCHA_ENABLED && contactFormSection) {
       // Remove CSS class to show reCAPTCHA
       contactFormSection.classList.remove('recaptcha-disabled');
       if (window.DentalistConfig.RECAPTCHA_DEBUG) {
-        console.log('🛡️ reCAPTCHA je zapnutá (RECAPTCHA_ENABLED = true)');
+        console.log('🛡️ reCAPTCHA is enabled (RECAPTCHA_ENABLED = true)');
       }
     }
   }
