@@ -1102,28 +1102,47 @@ document.addEventListener('DOMContentLoaded', function() {
 // Function to update reCAPTCHA theme
 function updateRecaptchaTheme(theme) {
   const recaptchaElement = document.querySelector('.g-recaptcha');
-  if (!recaptchaElement) return;
+  if (!recaptchaElement) {
+    console.log('⚠️ reCAPTCHA element not found');
+    return;
+  }
   
   try {
     // Update the data-theme attribute
     recaptchaElement.setAttribute('data-theme', theme);
+    console.log(`🔄 reCAPTCHA data-theme updated to: ${theme}`);
     
-    // If reCAPTCHA is already rendered, re-render it with new theme
-    if (typeof grecaptcha !== 'undefined' && grecaptcha.getResponse) {
-      // Get the current response (if any)
-      const currentResponse = grecaptcha.getResponse();
+    // If reCAPTCHA is already rendered, try to re-render it with new theme
+    if (typeof grecaptcha !== 'undefined' && grecaptcha.getResponse !== undefined) {
       
-      // Reset and re-render with new theme
+      // Check if reCAPTCHA is already rendered
       if (recaptchaElement.children.length > 0) {
-        grecaptcha.reset();
-        // Re-render with new theme parameters
-        setTimeout(() => {
-          grecaptcha.render(recaptchaElement, {
-            'sitekey': recaptchaElement.getAttribute('data-sitekey'),
-            'theme': theme
-          });
-        }, 100);
+        try {
+          // Reset current reCAPTCHA
+          grecaptcha.reset();
+          console.log('🔄 reCAPTCHA reset successful');
+          
+          // Re-render with new theme after a short delay
+          setTimeout(() => {
+            try {
+              grecaptcha.render(recaptchaElement, {
+                'sitekey': recaptchaElement.getAttribute('data-sitekey'),
+                'theme': theme
+              });
+              console.log(`✅ reCAPTCHA re-rendered with ${theme} theme`);
+            } catch (renderError) {
+              console.warn('⚠️ Could not re-render reCAPTCHA:', renderError);
+              // Fallback: just update the attribute and let it load naturally
+            }
+          }, 150);
+        } catch (resetError) {
+          console.warn('⚠️ Could not reset reCAPTCHA:', resetError);
+        }
+      } else {
+        console.log('📝 reCAPTCHA not yet rendered, theme will be applied on load');
       }
+    } else {
+      console.log('📝 reCAPTCHA API not loaded yet, theme will be applied on load');
     }
     
     console.log(`🔄 reCAPTCHA theme updated to: ${theme}`);

@@ -126,14 +126,20 @@ body.dark-theme .logo-img {
 
 /* Language switcher in dark theme */
 body.dark-theme .lang-btn {
-    color: var(--text-white);
-    border-color: var(--border-gray);
+    color: #f7fafc !important;
+    border-color: #4a5568 !important;
 }
 
 body.dark-theme .lang-btn:hover {
-    background: var(--accent-primary);
-    color: var(--text-dark);
-    border-color: var(--accent-primary);
+    background: #63b3ed !important;
+    color: #1a202c !important;
+    border-color: #63b3ed !important;
+}
+
+body.dark-theme .lang-btn.active {
+    background: #63b3ed !important;
+    color: #1a202c !important;
+    border-color: #63b3ed !important;
 }
 
 .lang-btn.active {
@@ -1531,26 +1537,57 @@ body.dark-theme .bar {
         left: -100%;
         top: 70px;
         flex-direction: column;
-        background-color: var(--bg-white);
+        background-color: #ffffff;
         width: 100%;
         text-align: center;
         transition: 0.3s;
         box-shadow: var(--shadow-lg);
         padding: 20px 0;
+        z-index: 999;
+        opacity: 1;
+        backdrop-filter: none;
     }
 
     /* Mobile nav menu in dark theme */
     body.dark-theme .nav-menu {
-        background-color: var(--bg-primary);
-        color: var(--text-white);
+        background-color: #1a202c !important;
+        color: #f7fafc !important;
+        border: 1px solid #4a5568 !important;
+        opacity: 1 !important;
+        backdrop-filter: none !important;
     }
 
     body.dark-theme .nav-menu a {
-        color: var(--text-white);
+        color: #f7fafc !important;
     }
 
     body.dark-theme .nav-menu a:hover {
-        color: var(--accent-primary);
+        color: #63b3ed !important;
+    }
+
+    /* Theme switcher in mobile menu dark theme */
+    body.dark-theme .nav-menu .theme-btn {
+        color: #f7fafc !important;
+        border-color: #4a5568 !important;
+    }
+
+    body.dark-theme .nav-menu .theme-btn:hover {
+        background: #63b3ed !important;
+        color: #1a202c !important;
+        border-color: #63b3ed !important;
+    }
+
+    /* Language switcher in mobile menu dark theme */
+    body.dark-theme .nav-menu .lang-btn {
+        color: #f7fafc !important;
+        border-color: #4a5568 !important;
+    }
+
+    body.dark-theme .nav-menu .lang-btn:hover,
+    body.dark-theme .nav-menu .lang-btn.active {
+        background: #63b3ed !important;
+        color: #1a202c !important;
+        border-color: #63b3ed !important;
     }
 
     .nav-menu.active {
@@ -2011,36 +2048,39 @@ body.dark-theme .bar {
     .container {
         padding: 0 15px;
     }
+    
+    /* Mobile dark theme specific fixes */
+    body.dark-theme .nav-menu {
+        background-color: #1a202c !important;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    body.dark-theme .logo-img {
+        filter: none !important; /* Ensure no invert on mobile dark theme */
+    }
+    
+    body.dark-theme .g-recaptcha {
+        /* Force reCAPTCHA dark theme on mobile */
+        filter: none !important;
+    }
+    
+    /* Ensure mobile navbar is fully opaque in dark theme */
+    body.dark-theme #navbar {
+        background: #1a202c !important;
+        backdrop-filter: none !important;
+    }
 }
 
-#recaptcha-error {
-    font-weight: 500;
+/* Ensure mobile navbar is fully opaque in light theme */
+#navbar {
+    background: #ffffff !important;
+    backdrop-filter: none !important;
 }
 
-/* reCAPTCHA error in dark theme */
-body.dark-theme #recaptcha-error {
-    color: #fca5a5 !important; /* Light red for dark theme */
-}
-
-/* reCAPTCHA disabled state */
-.recaptcha-disabled .g-recaptcha {
-    display: none !important;
-}
-
-.recaptcha-disabled #recaptcha-error {
-    display: none !important;
-}
-
-/* Favicon styling - rounded corners */
-link[rel="icon"],
-link[rel="shortcut icon"],
-link[rel="apple-touch-icon"] {
-    border-radius: 50%;
-}
-
-/* Apple touch icon specific styling for better appearance */
-link[rel="apple-touch-icon"] {
-    border-radius: 20%;
+/* Ensure mobile nav menu is fully opaque in light theme */
+.nav-menu {
+    background-color: #ffffff !important;
+    backdrop-filter: none !important;
 }
 
 /* =============================================================================
@@ -2096,8 +2136,9 @@ body.dark-theme {
 
 /* Navigation in dark theme */
 body.dark-theme #navbar {
-    background: rgba(26, 32, 44, 0.95) !important;
+    background: #1a202c !important;
     border-bottom: 1px solid #4a5568 !important;
+    backdrop-filter: none !important;
 }
 
 body.dark-theme .nav-link {
