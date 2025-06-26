@@ -11,6 +11,9 @@
 // 🔧 MAIN DEBUG MODE - controls all other settings
 // true = DEVELOPMENT mode (reCAPTCHA disabled, test button enabled, debug on)
 // false = PRODUCTION mode (reCAPTCHA enabled, test button disabled, debug off)
+//
+// 🚀 PRO GITHUB PAGES: Automaticky se změní na false při nasazení
+// 💡 Pro manuální změnu: true → false před nahráním na server
 const DEBUG_MODE = true;
 
 // =============================================================================
