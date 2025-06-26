@@ -1112,31 +1112,65 @@ function updateRecaptchaTheme(theme) {
     recaptchaElement.setAttribute('data-theme', theme);
     console.log(`🔄 reCAPTCHA data-theme updated to: ${theme}`);
     
-    // If reCAPTCHA is already rendered, try to re-render it with new theme
+    // If reCAPTCHA is already rendered, try multiple approaches to update theme
     if (typeof grecaptcha !== 'undefined' && grecaptcha.getResponse !== undefined) {
       
       // Check if reCAPTCHA is already rendered
       if (recaptchaElement.children.length > 0) {
         try {
-          // Reset current reCAPTCHA
-          grecaptcha.reset();
-          console.log('🔄 reCAPTCHA reset successful');
+          // Get the current widget ID
+          const widgetId = recaptchaElement.getAttribute('data-widget-id');
           
-          // Re-render with new theme after a short delay
+          if (widgetId !== null) {
+            // Reset and re-render with new theme
+            grecaptcha.reset(parseInt(widgetId));
+            console.log('🔄 reCAPTCHA reset with widget ID');
+            
+            // Re-render after reset
+            setTimeout(() => {
+              try {
+                const newWidgetId = grecaptcha.render(recaptchaElement, {
+                  'sitekey': recaptchaElement.getAttribute('data-sitekey'),
+                  'theme': theme
+                });
+                recaptchaElement.setAttribute('data-widget-id', newWidgetId);
+                console.log(`✅ reCAPTCHA re-rendered with ${theme} theme, new widget ID: ${newWidgetId}`);
+              } catch (renderError) {
+                console.warn('⚠️ Could not re-render reCAPTCHA:', renderError);
+              }
+            }, 200);
+          } else {
+            // Fallback: clear content and re-render
+            recaptchaElement.innerHTML = '';
+            setTimeout(() => {
+              try {
+                const newWidgetId = grecaptcha.render(recaptchaElement, {
+                  'sitekey': recaptchaElement.getAttribute('data-sitekey'),
+                  'theme': theme
+                });
+                recaptchaElement.setAttribute('data-widget-id', newWidgetId);
+                console.log(`✅ reCAPTCHA rendered fresh with ${theme} theme, widget ID: ${newWidgetId}`);
+              } catch (renderError) {
+                console.warn('⚠️ Could not render fresh reCAPTCHA:', renderError);
+              }
+            }, 200);
+          }
+        } catch (resetError) {
+          console.warn('⚠️ Could not reset reCAPTCHA:', resetError);
+          // Force re-render by clearing and re-creating
+          recaptchaElement.innerHTML = '';
           setTimeout(() => {
             try {
-              grecaptcha.render(recaptchaElement, {
+              const newWidgetId = grecaptcha.render(recaptchaElement, {
                 'sitekey': recaptchaElement.getAttribute('data-sitekey'),
                 'theme': theme
               });
-              console.log(`✅ reCAPTCHA re-rendered with ${theme} theme`);
+              recaptchaElement.setAttribute('data-widget-id', newWidgetId);
+              console.log(`✅ reCAPTCHA force-rendered with ${theme} theme`);
             } catch (renderError) {
-              console.warn('⚠️ Could not re-render reCAPTCHA:', renderError);
-              // Fallback: just update the attribute and let it load naturally
+              console.warn('⚠️ Could not force-render reCAPTCHA:', renderError);
             }
-          }, 150);
-        } catch (resetError) {
-          console.warn('⚠️ Could not reset reCAPTCHA:', resetError);
+          }, 300);
         }
       } else {
         console.log('📝 reCAPTCHA not yet rendered, theme will be applied on load');
@@ -1150,3 +1184,41 @@ function updateRecaptchaTheme(theme) {
     console.warn('⚠️ Could not update reCAPTCHA theme:', error);
   }
 }
+
+// =============================================================================
+// RECAPTCHA CALLBACK FOR THEME INITIALIZATION
+// =============================================================================
+
+// Global callback for reCAPTCHA when it's ready
+window.onRecaptchaReady = function() {
+  console.log('🛡️ reCAPTCHA API loaded');
+  
+  const recaptchaElement = document.querySelector('.g-recaptcha');
+  if (!recaptchaElement) {
+    console.log('⚠️ reCAPTCHA element not found');
+    return;
+  }
+  
+  // Set initial theme based on current state
+  const isDark = document.body.classList.contains('dark-theme');
+  const theme = isDark ? 'dark' : 'light';
+  
+  // Update the data-theme attribute
+  recaptchaElement.setAttribute('data-theme', theme);
+  
+  try {
+    // Render reCAPTCHA with correct theme
+    const widgetId = grecaptcha.render(recaptchaElement, {
+      'sitekey': recaptchaElement.getAttribute('data-sitekey'),
+      'theme': theme
+    });
+    
+    // Store widget ID for future theme changes
+    recaptchaElement.setAttribute('data-widget-id', widgetId);
+    console.log(`✅ reCAPTCHA rendered with ${theme} theme, widget ID: ${widgetId}`);
+  } catch (error) {
+    console.warn('⚠️ Could not render reCAPTCHA:', error);
+  }
+};
+
+// =============================================================================

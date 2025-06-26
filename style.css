@@ -1594,6 +1594,12 @@ body.dark-theme .bar {
         left: 0;
     }
 
+    /* Ensure mobile nav menu is fully opaque in light theme */
+    .nav-menu {
+        background-color: #ffffff !important;
+        backdrop-filter: none !important;
+    }
+
     .language-switcher {
         margin-left: 0;
         margin-top: 20px;
@@ -2005,9 +2011,47 @@ body.dark-theme .bar {
     transform-origin: 0 0;
 }
 
+/* reCAPTCHA dark theme fallback - force dark appearance when JS fails */
+body.dark-theme .g-recaptcha {
+    /* Apply a dark filter to light reCAPTCHA as fallback */
+    filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9) !important;
+    border-radius: 4px;
+    background: #2d3748;
+    padding: 2px;
+}
+
+/* Try to detect if reCAPTCHA loaded with correct theme and remove filter */
+body.dark-theme .g-recaptcha[data-theme="dark"] {
+    filter: none !important;
+    background: transparent;
+    padding: 0;
+}
+
+/* Light theme - ensure no filters */
+body:not(.dark-theme) .g-recaptcha {
+    filter: none !important;
+    background: transparent;
+    padding: 0;
+}
+
 @media (max-width: 480px) {
     .g-recaptcha {
         transform: scale(0.75);
+    }
+    
+    /* Enhanced dark theme fallback for mobile */
+    body.dark-theme .g-recaptcha {
+        filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.95) !important;
+        background: #2d3748;
+        border-radius: 4px;
+        padding: 3px;
+    }
+    
+    /* If correctly themed, remove filters */
+    body.dark-theme .g-recaptcha[data-theme="dark"] {
+        filter: none !important;
+        background: transparent;
+        padding: 0;
     }
 
     /* Extra small mobile devices */
@@ -2059,28 +2103,17 @@ body.dark-theme .bar {
         filter: none !important; /* Ensure no invert on mobile dark theme */
     }
     
-    body.dark-theme .g-recaptcha {
-        /* Force reCAPTCHA dark theme on mobile */
-        filter: none !important;
-    }
-    
     /* Ensure mobile navbar is fully opaque in dark theme */
     body.dark-theme #navbar {
         background: #1a202c !important;
         backdrop-filter: none !important;
     }
-}
-
-/* Ensure mobile navbar is fully opaque in light theme */
-#navbar {
-    background: #ffffff !important;
-    backdrop-filter: none !important;
-}
-
-/* Ensure mobile nav menu is fully opaque in light theme */
-.nav-menu {
-    background-color: #ffffff !important;
-    backdrop-filter: none !important;
+    
+    /* Ensure mobile navbar is fully opaque in light theme */
+    #navbar {
+        background: #ffffff !important;
+        backdrop-filter: none !important;
+    }
 }
 
 /* =============================================================================
@@ -2237,18 +2270,42 @@ body.dark-theme .section-header p {
     color: #a0aec0 !important;
 }
 
-/* Cards and components in dark theme */
+/* Cards and components in dark theme - with varied backgrounds for visual hierarchy */
 body.dark-theme .service-card,
 body.dark-theme .team-member,
 body.dark-theme .contact-item,
-body.dark-theme .highlight-item,
-body.dark-theme .cooperation-item,
+body.dark-theme .gallery-item {
+    background: #1a202c !important;
+    color: #f7fafc !important;
+    border-color: #4a5568 !important;
+}
+
+/* Staff cards - slightly lighter background for contrast */
+body.dark-theme .staff-member {
+    background: #2d3748 !important;
+    color: #f7fafc !important;
+    border-color: #4a5568 !important;
+}
+
+/* Cooperation items - all with lighter background for better contrast */
+body.dark-theme .cooperation-item {
+    background: #2d3748 !important; /* All cooperation items lighter */
+    color: #f7fafc !important;
+    border-color: #4a5568 !important;
+}
+
+/* Highlight items - darkest background like sections */
+body.dark-theme .highlight-item {
+    background: #1a202c !important;
+    color: #f7fafc !important;
+    border-color: #4a5568 !important;
+}
+
+/* Section containers - darkest background */
 body.dark-theme .staff-section,
-body.dark-theme .staff-member,
 body.dark-theme .cooperation-section,
 body.dark-theme .opening-hours,
-body.dark-theme .contact-form-section,
-body.dark-theme .gallery-item {
+body.dark-theme .contact-form-section {
     background: #1a202c !important;
     color: #f7fafc !important;
     border-color: #4a5568 !important;
@@ -2257,8 +2314,26 @@ body.dark-theme .gallery-item {
 body.dark-theme .service-card:hover,
 body.dark-theme .team-member:hover,
 body.dark-theme .contact-item:hover,
-body.dark-theme .staff-member:hover,
 body.dark-theme .gallery-item:hover {
+    border-color: #63b3ed !important;
+    box-shadow: 0 10px 15px -3px rgba(99, 179, 237, 0.1), 0 4px 6px -4px rgba(99, 179, 237, 0.1) !important;
+}
+
+body.dark-theme .staff-member:hover {
+    background: #4a5568 !important;
+    border-color: #63b3ed !important;
+    box-shadow: 0 10px 15px -3px rgba(99, 179, 237, 0.1), 0 4px 6px -4px rgba(99, 179, 237, 0.1) !important;
+}
+
+/* Cooperation items hover - all same lighter hover */
+body.dark-theme .cooperation-item:hover {
+    background: #4a5568 !important; /* All cooperation items hover to lightest */
+    border-color: #63b3ed !important;
+    box-shadow: 0 10px 15px -3px rgba(99, 179, 237, 0.1), 0 4px 6px -4px rgba(99, 179, 237, 0.1) !important;
+}
+
+body.dark-theme .highlight-item:hover {
+    background: #4a5568 !important;
     border-color: #63b3ed !important;
     box-shadow: 0 10px 15px -3px rgba(99, 179, 237, 0.1), 0 4px 6px -4px rgba(99, 179, 237, 0.1) !important;
 }
@@ -2269,7 +2344,7 @@ body.dark-theme .pricing {
 }
 
 body.dark-theme .pricing-grid {
-    background: #1a202c !important;
+    background: #4a5568 !important; /* Darker background for separators */
 }
 
 body.dark-theme .pricing-item {

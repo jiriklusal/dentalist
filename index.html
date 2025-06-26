@@ -697,7 +697,7 @@
                         
                         <!-- reCAPTCHA -->
                         <div class="form-group">
-                            <div class="g-recaptcha" data-sitekey="6LccuG4rAAAAAKxHyObMhxb-Cab_-8-a5FoNQicp" data-theme="light"></div>
+                            <div class="g-recaptcha" data-sitekey="6LccuG4rAAAAAKxHyObMhxb-Cab_-8-a5FoNQicp" id="recaptcha-widget"></div>
                             <div id="recaptcha-error" style="color: #ef4444; font-size: 0.875rem; margin-top: 5px; display: none;">
                                 <span data-cs="Prosím potvrďte, že nejste robot." data-en="Please verify that you are not a robot.">Prosím potvrďte, že nejste robot.</span>
                             </div>
@@ -751,7 +751,7 @@
     <!-- EmailJS Library -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <!-- Google reCAPTCHA -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaReady&render=explicit" async defer></script>
     <!-- Konfigurace -->
     <script src="config.js"></script>
     <script src="script.js"></script>
