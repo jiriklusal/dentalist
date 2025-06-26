@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dentalist - Moderní stomatologická ordinace</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="img/Logo-a-zub-bila-bez-pozadi.png" alt="Dentalist Logo" class="logo-img">
+                <h2>DENTALIST</h2>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link" data-cs="Domů" data-en="Home">Domů</a>
+                <a href="#about" class="nav-link" data-cs="O nás" data-en="About">O nás</a>
+                <a href="#services" class="nav-link" data-cs="Služby" data-en="Services">Služby</a>
+                <a href="#gallery" class="nav-link" data-cs="Galerie" data-en="Gallery">Galerie</a>
+                <a href="#pricing" class="nav-link" data-cs="Ceník" data-en="Pricing">Ceník</a>
+                <a href="#contact" class="nav-link" data-cs="Kontakt" data-en="Contact">Kontakt</a>
+                <div class="language-switcher">
+                    <button class="lang-btn active" data-lang="cs">CS</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title" data-cs="ZDRAVÉ ZUBY PRO VÁŠ ÚSMĚV" data-en="HEALTHY TEETH FOR YOUR SMILE">ZDRAVÉ ZUBY PRO VÁŠ ÚSMĚV</h1>
+                <p class="hero-subtitle" data-cs="Jsme moderní ordinace pro celou rodinu v centru Hlučína" data-en="We are a modern dental practice for the whole family in the center of Hlučín">Jsme moderní ordinace pro celou rodinu v centru Hlučína</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary" data-cs="Objednání" data-en="Appointment">Objednání</a>
+                    <a href="#services" class="btn btn-secondary" data-cs="Naše služby" data-en="Our Services">Naše služby</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="img/ordinace.jpg" alt="Moderní zubní ordinace" class="hero-main-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-cs="O NÁS" data-en="ABOUT US">O NÁS</h2>
+                <p data-cs="Moderní stomatologické pracoviště s lidským přístupem" data-en="Modern dental practice with a human approach">Moderní stomatologické pracoviště s lidským přístupem</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-images">
+                    <div class="about-image-main">
+                        <img src="img/budova.jpg" alt="Dům zdraví Hlučín" class="building-image">
+                    </div>
+                    <div class="about-image-grid">
+                        <img src="img/Recepce-scaled.jpg" alt="Recepce ordinace" class="about-img">
+                        <img src="img/mikroskop.jpg" alt="Operační mikroskop" class="about-img">
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p data-cs="Jsme moderní stomatologické pracoviště poskytující komplexní zubní ošetření včetně dentální hygieny. Při práci používáme operační mikroskop a lupové brýle tak, abychom zuby viděli do detailu a citlivě zrekonstruovali." data-en="We are a modern dental practice providing comprehensive dental treatment including dental hygiene. We use an operating microscope and magnifying glasses so that we can see teeth in detail and sensitively reconstruct them.">Jsme moderní stomatologické pracoviště poskytující komplexní zubní ošetření včetně dentální hygieny. Při práci používáme operační mikroskop a lupové brýle tak, abychom zuby viděli do detailu a citlivě zrekonstruovali.</p>
+                    <p data-cs="Důraz klademe na komfort pacienta a ošetření bez bolesti. Dnes se už nemusíte bát jít k zubaři." data-en="We emphasize patient comfort and painless treatment. Today you don't have to be afraid to go to the dentist anymore.">Důraz klademe na komfort pacienta a ošetření bez bolesti. Dnes se už nemusíte bát jít k zubaři.</p>
+                    <p data-cs="Najdete nás v prvním patře v Domě zdraví v Hlučíně." data-en="You can find us on the first floor of the Health House in Hlučín.">Najdete nás v prvním patře v Domě zdraví v Hlučíně.</p>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <h3 data-cs="Náš tým" data-en="Our Team">Náš tým</h3>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h4>MDDr. Adam Kotula</h4>
+                        <p>Vedoucí zubní lékař</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h4>MDDr. Soňa Chamlarová</h4>
+                        <p>Zubní lékař</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h4>MDDr. Adam Neuwirth</h4>
+                        <p>Zubní lékař</p>
+                    </div>
+                </div>
+                
+                <div class="staff-section">
+                    <h4>Dentální hygiena a personál</h4>
+                    <div class="staff-grid">
+                        <div class="staff-member">
+                            <span class="staff-name">Karla Petrášová</span>
+                            <span class="staff-role">Zubní instrumentářka</span>
+                        </div>
+                        <div class="staff-member">
+                            <span class="staff-name">Nela Pučalíková</span>
+                            <span class="staff-role">Zubní instrumentářka</span>
+                        </div>
+                        <div class="staff-member">
+                            <span class="staff-name">Kateřina Klimšová</span>
+                            <span class="staff-role">Zubní instrumentářka</span>
+                        </div>
+                        <div class="staff-member">
+                            <span class="staff-name">Gabriela Waclawiková, DiS.</span>
+                            <span class="staff-role">Recepční</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-cs="SLUŽBY" data-en="SERVICES">SLUŽBY</h2>
+                <p data-cs="Komplexní péče o vaše zubní zdraví" data-en="Comprehensive care for your dental health">Komplexní péče o vaše zubní zdraví</p>
+            </div>
+            
+            <div class="services-info">
+                <p data-cs="Na první návštěvě Vám po vyšetření a zhotovení rentgenových snímků vše podrobně vysvětlíme. Vyslechneme si Vaše přání a navrhneme vhodný léčebný plán s orientačními cenami zákroků." data-en="On your first visit, after examination and X-rays, we will explain everything in detail. We will listen to your wishes and propose a suitable treatment plan with approximate prices for procedures.">Na první návštěvě Vám po vyšetření a zhotovení rentgenových snímků vše podrobně vysvětlíme. Vyslechneme si Vaše přání a navrhneme vhodný léčebný plán s orientačními cenami zákroků.</p>
+                <p data-cs="Základem zdravých zubů je kromě správného čištění z velké části i prevence. Případné včasné řešení problému ochrání Váš chrup od rozsáhlých zásahů s větší finanční náročností." data-en="The basis of healthy teeth is largely prevention in addition to proper cleaning. Early problem solving will protect your teeth from extensive procedures with greater financial demands.">Základem zdravých zubů je kromě správného čištění z velké části i prevence. Případné včasné řešení problému ochrání Váš chrup od rozsáhlých zásahů s větší finanční náročností.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 data-cs="Vstupní vyšetření a prevence" data-en="Initial Examination and Prevention">Vstupní vyšetření a prevence</h3>
+                    <p data-cs="Komplexní vyšetření s návrhem léčebného plánu" data-en="Comprehensive examination with treatment plan proposal">Komplexní vyšetření s návrhem léčebného plánu</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tooth"></i>
+                    </div>
+                    <h3 data-cs="Ošetření kazů" data-en="Cavity Treatment">Ošetření kazů</h3>
+                    <p data-cs="Moderní kompozitní výplně s použitím mikroskopu" data-en="Modern composite fillings using microscope">Moderní kompozitní výplně s použitím mikroskopu</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <h3 data-cs="Ošetření zubních kanálků" data-en="Root Canal Treatment">Ošetření zubních kanálků</h3>
+                    <p data-cs="Endodontické ošetření s použitím operačního mikroskopu" data-en="Endodontic treatment using operating microscope">Endodontické ošetření s použitím operačního mikroskopu</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3 data-cs="Protetika" data-en="Prosthetics">Protetika</h3>
+                    <p data-cs="Korunky, můstky a náhrady zubů" data-en="Crowns, bridges and tooth replacements">Korunky, můstky a náhrady zubů</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h3 data-cs="Stomatochirurgie" data-en="Oral Surgery">Stomatochirurgie</h3>
+                    <p data-cs="Chirurgické zákroky v dutině ústní" data-en="Surgical procedures in the oral cavity">Chirurgické zákroky v dutině ústní</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-sparkles"></i>
+                    </div>
+                    <h3 data-cs="Dentální hygiena" data-en="Dental Hygiene">Dentální hygiena</h3>
+                    <p data-cs="Profesionální čištění a bělení zubů" data-en="Professional teeth cleaning and whitening">Profesionální čištění a bělení zubů</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3 data-cs="Parodontologie" data-en="Periodontology">Parodontologie</h3>
+                    <p data-cs="Léčba onemocnění dásní a parodontu" data-en="Treatment of gum and periodontal diseases">Léčba onemocnění dásní a parodontu</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-cs="FOTOGALERIE" data-en="PHOTO GALLERY">FOTOGALERIE</h2>
+                <p data-cs="Nahlédněte do naší moderní ordinace" data-en="Take a look at our modern practice">Nahlédněte do naší moderní ordinace</p>
+            </div>
+            
+            <div class="gallery-grid" id="gallery-grid">
+                <div class="gallery-item">
+                    <img src="img/ordinace.jpg" alt="Moderní zubní ordinace" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 data-cs="Moderní ordinace" data-en="Modern Practice">Moderní ordinace</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/ordinace-stena.jpg" alt="Interiér ordinace" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 data-cs="Interiér ordinace" data-en="Practice Interior">Interiér ordinace</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/Recepce-scaled.jpg" alt="Recepce" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 data-cs="Recepce" data-en="Reception">Recepce</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/mikroskop.jpg" alt="Operační mikroskop" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 data-cs="Operační mikroskop" data-en="Surgical Microscope">Operační mikroskop</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/oprava-zuby.jpeg" alt="Zubní ošetření" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 data-cs="Zubní ošetření" data-en="Dental Treatment">Zubní ošetření</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/3-scaled.jpg" alt="Detailní práce" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 data-cs="Detailní práce" data-en="Detailed Work">Detailní práce</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-cs="CENÍK" data-en="PRICE LIST">CENÍK</h2>
+                <p data-cs="Transparentní ceny našich služeb" data-en="Transparent prices of our services">Transparentní ceny našich služeb</p>
+            </div>
+            
+            <div class="pricing-grid">
+                <div class="pricing-item">
+                    <div class="pricing-service">Vstupní konzultace</div>
+                    <div class="pricing-price">1 494 Kč</div>
+                </div>
+                <div class="pricing-item">
+                    <div class="pricing-service">Estetická fotokompozitní výplň</div>
+                    <div class="pricing-price">od 2 838 Kč</div>
+                </div>
+                <div class="pricing-item">
+                    <div class="pricing-service">Ošetření kořenových kanálků</div>
+                    <div class="pricing-price">od 7 096 Kč</div>
+                </div>
+                <div class="pricing-item">
+                    <div class="pricing-service">Estetická celokeramická korunka</div>
+                    <div class="pricing-price">od 11 233 Kč</div>
+                </div>
+                <div class="pricing-item">
+                    <div class="pricing-service">Ošetření extrakční rány</div>
+                    <div class="pricing-price">od 1 120 Kč</div>
+                </div>
+                <div class="pricing-item">
+                    <div class="pricing-service">Dentální hygiena</div>
+                    <div class="pricing-price">od 1 025 Kč</div>
+                </div>
+                <div class="pricing-item">
+                    <div class="pricing-service">Bělení zubů</div>
+                    <div class="pricing-price">6 009 Kč</div>
+                </div>
+                <div class="pricing-item free">
+                    <div class="pricing-service">Preventivní prohlídka</div>
+                    <div class="pricing-price">hrazeno</div>
+                </div>
+                <div class="pricing-item free">
+                    <div class="pricing-service">Intraorální / panoramatický rentgen</div>
+                    <div class="pricing-price">hrazeno</div>
+                </div>
+                <div class="pricing-item free">
+                    <div class="pricing-service">Anestezie</div>
+                    <div class="pricing-price">hrazeno</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-cs="KONTAKT" data-en="CONTACT">KONTAKT</h2>
+                <p data-cs="Těšíme se na vaši návštěvu" data-en="We look forward to your visit">Těšíme se na vaši návštěvu</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4 data-cs="Telefon" data-en="Phone">Telefon</h4>
+                            <a href="tel:+420606163646">+420 606 163 646</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4 data-cs="Email" data-en="Email">Email</h4>
+                            <a href="mailto:info@dentalist.cz">info@dentalist.cz</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4 data-cs="Adresa" data-en="Address">Adresa</h4>
+                            <p>DENTALIST s.r.o.<br>
+                            Dům zdraví, 1.patro<br>
+                            Školní 637/2<br>
+                            748 01, Hlučín</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-image">
+                    <img src="img/budova.jpg" alt="Dům zdraví Hlučín - budova ordinace" class="building-image">
+                </div>
+            </div>
+                
+                <div class="opening-hours">
+                    <h3 data-cs="Ordinační hodiny" data-en="Opening Hours">Ordinační hodiny</h3>
+                    <div class="hours-grid">
+                        <div class="hours-item">
+                            <span class="day">Pondělí</span>
+                            <span class="time">7:00 – 17:00</span>
+                        </div>
+                        <div class="hours-item">
+                            <span class="day">Úterý</span>
+                            <span class="time">7:00 – 20:00</span>
+                        </div>
+                        <div class="hours-item">
+                            <span class="day">Středa</span>
+                            <span class="time">7:00 – 20:00</span>
+                        </div>
+                        <div class="hours-item">
+                            <span class="day">Čtvrtek</span>
+                            <span class="time">7:00 – 20:00</span>
+                        </div>
+                        <div class="hours-item">
+                            <span class="day">Pátek</span>
+                            <span class="time">7:00 – 14:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="img/Logo-a-zub-bila-bez-pozadi.png" alt="Dentalist Logo" class="footer-logo-img">
+                    <h3>DENTALIST</h3>
+                    <p data-cs="Zdravé zuby pro váš úsměv" data-en="Healthy teeth for your smile">Zdravé zuby pro váš úsměv</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4 data-cs="Kontakt" data-en="Contact">Kontakt</h4>
+                        <p>+420 606 163 646</p>
+                        <p>info@dentalist.cz</p>
+                    </div>
+                    <div class="footer-section">
+                        <h4 data-cs="Adresa" data-en="Address">Adresa</h4>
+                        <p>Dům zdraví, 1.patro<br>
+                        Školní 637/2<br>
+                        748 01, Hlučín</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 DENTALIST s.r.o. Všechna práva vyhrazena.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
