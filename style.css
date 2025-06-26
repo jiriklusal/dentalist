@@ -2001,3 +2001,300 @@ link[rel="apple-touch-icon"] {
 link[rel="apple-touch-icon"] {
     border-radius: 20%;
 }
+
+/* =============================================================================
+   DARK THEME IMPLEMENTATION
+   ============================================================================= */
+
+/* Theme switcher button styles */
+.theme-switcher {
+    display: flex;
+    margin-left: 15px;
+}
+
+.theme-btn {
+    width: 40px;
+    height: 32px;
+    border: 1px solid var(--border-light);
+    background: transparent;
+    color: var(--text-dark);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    outline: none;
+}
+
+.theme-btn:hover {
+    background: var(--primary-color);
+    color: var(--text-white);
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+.theme-btn:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.theme-btn:active {
+    transform: scale(0.95);
+}
+
+/* Dark theme styles - using simple body class approach */
+body.dark-theme {
+    background-color: #1a202c !important;
+    color: #f7fafc !important;
+    transition: all 0.3s ease !important;
+}
+
+/* Navigation in dark theme */
+body.dark-theme #navbar {
+    background: rgba(26, 32, 44, 0.95) !important;
+    border-bottom: 1px solid #4a5568 !important;
+}
+
+body.dark-theme .nav-link {
+    color: #f7fafc !important;
+}
+
+body.dark-theme .nav-link:hover {
+    color: #63b3ed !important;
+}
+
+body.dark-theme .nav-link.active {
+    color: #63b3ed !important;
+}
+
+body.dark-theme .nav-logo h2 {
+    color: #f7fafc !important;
+}
+
+body.dark-theme .theme-btn {
+    color: #f7fafc !important;
+    border-color: #4a5568 !important;
+}
+
+body.dark-theme .theme-btn:hover {
+    background: #63b3ed !important;
+    color: #1a202c !important;
+    border-color: #63b3ed !important;
+}
+
+body.dark-theme .lang-btn {
+    color: #f7fafc !important;
+    border-color: #4a5568 !important;
+}
+
+body.dark-theme .lang-btn:hover,
+body.dark-theme .lang-btn.active {
+    background: #63b3ed !important;
+    color: #1a202c !important;
+    border-color: #63b3ed !important;
+}
+
+body.dark-theme .bar {
+    background-color: #f7fafc !important;
+}
+
+/* Sections in dark theme */
+body.dark-theme .hero {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 50%, #4a5568 100%) !important;
+    color: #ffffff !important;
+}
+
+body.dark-theme .about {
+    background: #2d3748 !important;
+}
+
+body.dark-theme .services {
+    background: #1a202c !important;
+}
+
+body.dark-theme .gallery {
+    background: #2d3748 !important;
+}
+
+body.dark-theme .pricing {
+    background: #1a202c !important;
+}
+
+body.dark-theme .contact {
+    background: #2d3748 !important;
+}
+
+body.dark-theme .footer {
+    background: #2d3748 !important;
+    color: #ffffff !important;
+}
+
+/* Typography in dark theme */
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3,
+body.dark-theme h4,
+body.dark-theme h5,
+body.dark-theme h6 {
+    color: #f7fafc !important;
+}
+
+body.dark-theme p {
+    color: #f7fafc !important;
+}
+
+body.dark-theme .section-header h2 {
+    color: #f7fafc !important;
+}
+
+body.dark-theme .section-header p {
+    color: #a0aec0 !important;
+}
+
+/* Cards and components in dark theme */
+body.dark-theme .service-card,
+body.dark-theme .team-member,
+body.dark-theme .contact-item,
+body.dark-theme .highlight-item,
+body.dark-theme .cooperation-item,
+body.dark-theme .staff-section,
+body.dark-theme .staff-member,
+body.dark-theme .cooperation-section,
+body.dark-theme .opening-hours,
+body.dark-theme .contact-form-section,
+body.dark-theme .gallery-item {
+    background: #1a202c !important;
+    color: #f7fafc !important;
+    border-color: #4a5568 !important;
+}
+
+body.dark-theme .service-card:hover,
+body.dark-theme .team-member:hover,
+body.dark-theme .contact-item:hover,
+body.dark-theme .staff-member:hover,
+body.dark-theme .gallery-item:hover {
+    border-color: #63b3ed !important;
+    box-shadow: 0 10px 15px -3px rgba(99, 179, 237, 0.1), 0 4px 6px -4px rgba(99, 179, 237, 0.1) !important;
+}
+
+/* Pricing in dark theme */
+body.dark-theme .pricing-grid {
+    background: #1a202c !important;
+}
+
+body.dark-theme .pricing-item {
+    background: #1a202c !important;
+    color: #f7fafc !important;
+}
+
+body.dark-theme .pricing-item:hover {
+    background: #2d3748 !important;
+}
+
+body.dark-theme .pricing-item.free {
+    background: #63b3ed !important;
+    color: #1a202c !important;
+}
+
+body.dark-theme .pricing-item.free:hover {
+    background: #3182ce !important;
+}
+
+body.dark-theme .pricing-price {
+    color: #63b3ed !important;
+}
+
+body.dark-theme .pricing-item.free .pricing-price {
+    color: #1a202c !important;
+}
+
+/* Forms in dark theme */
+body.dark-theme .form-group input,
+body.dark-theme .form-group textarea {
+    background: #1a202c !important;
+    color: #f7fafc !important;
+    border-color: #4a5568 !important;
+}
+
+body.dark-theme .form-group input:focus,
+body.dark-theme .form-group textarea:focus {
+    border-color: #63b3ed !important;
+    box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.1) !important;
+}
+
+body.dark-theme .form-group input::placeholder,
+body.dark-theme .form-group textarea::placeholder {
+    color: #a0aec0 !important;
+}
+
+body.dark-theme .form-group label {
+    color: #f7fafc !important;
+}
+
+/* Links in dark theme */
+body.dark-theme a {
+    color: #63b3ed !important;
+}
+
+body.dark-theme a:hover {
+    color: #3182ce !important;
+}
+
+/* Images and media in dark theme */
+body.dark-theme .contact-image .building-image,
+body.dark-theme .gallery-image,
+body.dark-theme .about-img {
+    filter: brightness(0.8) contrast(1.1) !important;
+}
+
+body.dark-theme .map-container iframe {
+    filter: invert(0.9) hue-rotate(180deg) !important;
+    border-radius: 8px !important;
+}
+
+/* Special elements */
+body.dark-theme .hero-title,
+body.dark-theme .hero-subtitle {
+    color: #ffffff !important;
+}
+
+body.dark-theme .btn-primary {
+    background: #63b3ed !important;
+    color: #1a202c !important;
+}
+
+body.dark-theme .btn-primary:hover {
+    background: #3182ce !important;
+}
+
+body.dark-theme .btn-secondary {
+    border-color: #63b3ed !important;
+    color: #63b3ed !important;
+}
+
+body.dark-theme .btn-secondary:hover {
+    background: #63b3ed !important;
+    color: #1a202c !important;
+}
+
+/* Staff section text colors in dark theme */
+body.dark-theme .staff-name {
+    color: #f7fafc !important;
+}
+
+body.dark-theme .staff-role {
+    color: #a0aec0 !important;
+}
+
+/* Opening hours text colors in dark theme */
+body.dark-theme .day {
+    color: #f7fafc !important;
+}
+
+body.dark-theme .time {
+    color: #63b3ed !important;
+}

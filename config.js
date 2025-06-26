@@ -148,7 +148,11 @@ const LOCALIZED_MESSAGES = {
     previousImage: 'Předchozí obrázek',
     nextImage: 'Další obrázek',
     showImageLarger: 'Zobrazit obrázek ve větší velikosti',
-    imageCounter: 'Obrázek'
+    imageCounter: 'Obrázek',
+    
+    // Theme switcher messages
+    switchToDark: 'Přepnout na tmavý režim',
+    switchToLight: 'Přepnout na světlý režim'
   },
   en: {
     // Form validation messages
@@ -181,7 +185,11 @@ const LOCALIZED_MESSAGES = {
     previousImage: 'Previous image',
     nextImage: 'Next image',
     showImageLarger: 'Show image in larger size',
-    imageCounter: 'Image'
+    imageCounter: 'Image',
+    
+    // Theme switcher messages
+    switchToDark: 'Switch to dark mode',
+    switchToLight: 'Switch to light mode'
   }
 };
 

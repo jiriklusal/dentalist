@@ -1033,3 +1033,61 @@ function initRecaptchaState() {
       }
     }
   }
+
+// =============================================================================
+// DARK THEME IMPLEMENTATION
+// =============================================================================
+
+// Simple dark theme toggle
+document.addEventListener('DOMContentLoaded', function() {
+  const themeToggle = document.getElementById('theme-toggle');
+  
+  if (!themeToggle) {
+    console.log('❌ Theme toggle button not found');
+    return;
+  }
+  
+  console.log('✅ Theme toggle button found');
+  
+  // Initialize theme
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-theme');
+    updateThemeIcon(true);
+  }
+  
+  // Toggle event
+  themeToggle.addEventListener('click', function() {
+    console.log('🎯 Theme toggle clicked!');
+    
+    const isDark = document.body.classList.contains('dark-theme');
+    
+    if (isDark) {
+      // Switch to light
+      document.body.classList.remove('dark-theme');
+      localStorage.setItem('theme', 'light');
+      updateThemeIcon(false);
+      console.log('🌞 Switched to light theme');
+    } else {
+      // Switch to dark
+      document.body.classList.add('dark-theme');
+      localStorage.setItem('theme', 'dark');
+      updateThemeIcon(true);
+      console.log('🌙 Switched to dark theme');
+    }
+  });
+  
+  // Update icon function
+  function updateThemeIcon(isDark) {
+    const icon = themeToggle.querySelector('i');
+    const currentLang = localStorage.getItem('language') || window.DentalistConfig.DEFAULT_LANGUAGE;
+    
+    if (isDark) {
+      icon.className = 'fas fa-sun';
+      themeToggle.title = window.DentalistConfig.getMessage('switchToLight');
+    } else {
+      icon.className = 'fas fa-moon';
+      themeToggle.title = window.DentalistConfig.getMessage('switchToDark');
+    }
+  }
+});
