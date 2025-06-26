@@ -52,7 +52,7 @@ const EMAILJS_TEMPLATE_ID = "template_f0w827z";
 // 🧪 DEBUG_MODE = true  → jiri.klusal@seznam.cz (development/testing)
 // 🚀 DEBUG_MODE = false → info@dentalist.cz (production)
 const TARGET_EMAIL_DEBUG = "jiri.klusal@seznam.cz";
-const TARGET_EMAIL_PRODUCTION = "jiri.klusal@gmail.com";//"info@dentalist.cz";
+const TARGET_EMAIL_PRODUCTION = "info@dentalist.cz";
 const TARGET_EMAIL = DEBUG_MODE ? TARGET_EMAIL_DEBUG : TARGET_EMAIL_PRODUCTION;
 
 // =============================================================================
