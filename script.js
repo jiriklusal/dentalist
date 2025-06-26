@@ -260,7 +260,155 @@ function initScrollAnimations() {
 
 // Contact form functionality
 function initContactForm() {
-  // If you add a contact form later, this function will handle it
+  const contactForm = document.querySelector('#contactForm');
+  const formMessage = document.querySelector('#formMessage');
+
+  if (!contactForm) return;
+
+  contactForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    // Get form data
+    const formData = new FormData(contactForm);
+    const data = {
+      firstName: formData.get('firstName'),
+      lastName: formData.get('lastName'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      subject: formData.get('subject'),
+      message: formData.get('message')
+    };
+
+    // Validate form
+    if (!validateForm(data)) {
+      showMessage('Prosím vyplňte všechna povinná pole správně.', 'error');
+      return;
+    }
+
+    // Disable submit button
+    const submitBtn = contactForm.querySelector('.form-submit');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span>Odesílám...</span>';
+
+    try {
+      // Simulate form submission (replace with actual API call)
+      await sendContactForm(data);
+      
+      // Show success message
+      showMessage('Vaše zpráva byla úspěšně odeslána. Ozveme se vám co nejdříve.', 'success');
+      
+      // Reset form
+      contactForm.reset();
+    } catch (error) {
+      console.error('Form submission error:', error);
+      showMessage('Nastala chyba při odesílání zprávy. Zkuste to prosím později nebo nás kontaktujte telefonicky.', 'error');
+    } finally {
+      // Re-enable submit button
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
+    }
+  });
+
+  function validateForm(data) {
+    // Check required fields
+    if (!data.firstName || !data.lastName || !data.email || !data.phone || !data.subject || !data.message) {
+      return false;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+      return false;
+    }
+
+    // Validate phone format (basic check for numbers and common formatting)
+    const phoneRegex = /^[\+]?[0-9\s\-\(\)]{9,}$/;
+    if (!phoneRegex.test(data.phone)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  function showMessage(message, type) {
+    formMessage.textContent = message;
+    formMessage.className = `form-message ${type}`;
+    formMessage.style.display = 'block';
+
+    // Auto-hide message after 5 seconds
+    setTimeout(() => {
+      formMessage.style.display = 'none';
+    }, 5000);
+  }
+
+  async function sendContactForm(data) {
+    // For testing purposes, we'll use a simple mailto approach
+    // In production, you would send this to your backend API
+    
+    // Create mailto link with form data
+    const subject = encodeURIComponent(`Kontaktní formulář: ${data.subject}`);
+    const body = encodeURIComponent(
+      `Jméno: ${data.firstName} ${data.lastName}\n` +
+      `Email: ${data.email}\n` +
+      `Telefon: ${data.phone}\n` +
+      `Předmět: ${data.subject}\n\n` +
+      `Zpráva:\n${data.message}`
+    );
+    
+    const mailtoLink = `mailto:jiri.klusal@gmail.com?subject=${subject}&body=${body}`;
+    
+    // Open mail client (this is for testing - in production use proper API)
+    window.location.href = mailtoLink;
+    
+    // Simulate async operation
+    return new Promise((resolve) => {
+      setTimeout(resolve, 1000);
+    });
+  }
+
+  // Add real-time validation
+  const inputs = contactForm.querySelectorAll('input, textarea');
+  inputs.forEach(input => {
+    input.addEventListener('blur', function() {
+      validateField(this);
+    });
+  });
+
+  function validateField(field) {
+    const value = field.value.trim();
+    
+    // Remove any existing error styling
+    field.classList.remove('error');
+    
+    // Check if required field is empty
+    if (field.hasAttribute('required') && !value) {
+      field.classList.add('error');
+      return false;
+    }
+    
+    // Validate email field
+    if (field.type === 'email' && value) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        field.classList.add('error');
+        return false;
+      }
+    }
+    
+    // Validate phone field
+    if (field.type === 'tel' && value) {
+      const phoneRegex = /^[\+]?[0-9\s\-\(\)]{9,}$/;
+      if (!phoneRegex.test(value)) {
+        field.classList.add('error');
+        return false;
+      }
+    }
+    
+    return true;
+  }
+
+  // If you add real images later, this function will handle it
   const contactSection = document.querySelector('#contact');
 
   // Example: Add click-to-call functionality
