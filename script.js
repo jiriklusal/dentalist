@@ -1,5 +1,8 @@
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function () {
+  // Initialize EmailJS
+  initEmailJS();
+
   // Navigation functionality
   initNavigation();
 
@@ -24,6 +27,13 @@ document.addEventListener('DOMContentLoaded', function () {
   // Language switcher
   initLanguageSwitcher();
 });
+
+// EmailJS initialization
+function initEmailJS() {
+  // Initialize EmailJS with your public key
+  emailjs.init("qXByuv7y4-smb5Nug");
+  console.log('EmailJS initialized with public key: qXByuv7y4-smb5Nug');
+}
 
 // Navigation functionality
 function initNavigation() {
@@ -292,7 +302,7 @@ function initContactForm() {
     submitBtn.innerHTML = '<span>Odesílám...</span>';
 
     try {
-      // Simulate form submission (replace with actual API call)
+      // Send email via EmailJS
       await sendContactForm(data);
       
       // Show success message
@@ -302,7 +312,35 @@ function initContactForm() {
       contactForm.reset();
     } catch (error) {
       console.error('Form submission error:', error);
-      showMessage('Nastala chyba při odesílání zprávy. Zkuste to prosím později nebo nás kontaktujte telefonicky.', 'error');
+      console.error('Error details:', {
+        status: error.status,
+        text: error.text,
+        name: error.name,
+        message: error.message
+      });
+      
+      // More specific error messages
+      let errorMessage = 'Nastala chyba při odesílání zprávy. ';
+      
+      if (error.text && error.text.includes('service ID not found')) {
+        errorMessage += 'EmailJS služba není správně nakonfigurována. Service ID nebylo nalezeno.';
+      } else if (error.text && error.text.includes('template')) {
+        errorMessage += 'Problém s email template. Template ID nebylo nalezeno.';
+      } else if (error.status === 400) {
+        errorMessage += 'Neplatné údaje ve formuláři nebo chybná konfigurace EmailJS.';
+      } else if (error.status === 412) {
+        errorMessage += 'EmailJS služba není správně nakonfigurována.';
+      } else if (error.status === 422) {
+        errorMessage += 'Template obsahuje chyby.';
+      } else if (error.text && error.text.includes('service')) {
+        errorMessage += 'Problém s email službou.';
+      } else if (!navigator.onLine) {
+        errorMessage += 'Zkontrolujte internetové připojení.';
+      } else {
+        errorMessage += `Zkuste to prosím později. (Chyba: ${error.status || 'neznámá'})`;
+      }
+      
+      showMessage(errorMessage, 'error');
     } finally {
       // Re-enable submit button
       submitBtn.disabled = false;
@@ -343,28 +381,52 @@ function initContactForm() {
   }
 
   async function sendContactForm(data) {
-    // For testing purposes, we'll use a simple mailto approach
-    // In production, you would send this to your backend API
-    
-    // Create mailto link with form data
-    const subject = encodeURIComponent(`Kontaktní formulář: ${data.subject}`);
-    const body = encodeURIComponent(
-      `Jméno: ${data.firstName} ${data.lastName}\n` +
-      `Email: ${data.email}\n` +
-      `Telefon: ${data.phone}\n` +
-      `Předmět: ${data.subject}\n\n` +
-      `Zpráva:\n${data.message}`
-    );
-    
-    const mailtoLink = `mailto:jiri.klusal@gmail.com?subject=${subject}&body=${body}`;
-    
-    // Open mail client (this is for testing - in production use proper API)
-    window.location.href = mailtoLink;
-    
-    // Simulate async operation
-    return new Promise((resolve) => {
-      setTimeout(resolve, 1000);
-    });
+    try {
+      console.log('Odesílám data:', data); // Debug log
+      
+      // EmailJS template parameters
+      const templateParams = {
+        from_name: `${data.firstName} ${data.lastName}`,
+        from_email: data.email,
+        phone: data.phone,
+        subject: data.subject,
+        message: data.message,
+        to_email: 'jiri.klusal@gmail.com'
+      };
+
+      console.log('Template params:', templateParams); // Debug log
+
+      // DŮLEŽITÉ: Zkontrolujte tyto hodnoty ve vašem EmailJS dashboard!
+      const serviceId = 'service_lfqx5fh';     
+      const templateId = 'template_f0w827z';   
+      
+      console.log('Používám Service ID:', serviceId);
+      console.log('Používám Template ID:', templateId);
+      console.log('Odesílám na EmailJS API...');
+
+      // Send email via EmailJS
+      const response = await emailjs.send(
+        serviceId,
+        templateId,
+        templateParams
+      );
+
+      console.log('Email sent successfully:', response);
+      return response;
+
+    } catch (error) {
+      console.error('EmailJS error details:', error);
+      console.error('Error status:', error.status);
+      console.error('Error text:', error.text);
+      
+      // Specific error for Service ID not found
+      if (error.text && error.text.includes('service ID not found')) {
+        console.error('🔥 CHYBA: Service ID "service_lfqx5fh" nebyl nalezen!');
+        console.error('📋 Jděte na https://dashboard.emailjs.com/admin a zkontrolujte správné Service ID');
+      }
+      
+      throw error;
+    }
   }
 
   // Add real-time validation
@@ -428,6 +490,45 @@ function initContactForm() {
       console.log('Email clicked:', this.getAttribute('href'));
     });
   });
+
+  // Add test data fill functionality (REMOVE IN PRODUCTION)
+  const fillTestButton = document.querySelector('#fillTestData');
+  if (fillTestButton) {
+    fillTestButton.addEventListener('click', function() {
+      fillTestData();
+    });
+  }
+
+  function fillTestData() {
+    console.log('🧪 Vyplňuji testovací data...');
+    
+    // Test data
+    const testData = {
+      firstName: 'Jan',
+      lastName: 'Novák',
+      email: 'jan.novak@email.cz',
+      phone: '+420777123456',
+      subject: 'Testovací zpráva z formuláře',
+      message: 'Toto je testovací zpráva pro ověření funkčnosti EmailJS služby. Pokud tuto zprávu vidíte, formulář funguje správně!'
+    };
+    
+    // Fill form fields
+    document.getElementById('firstName').value = testData.firstName;
+    document.getElementById('lastName').value = testData.lastName;
+    document.getElementById('email').value = testData.email;
+    document.getElementById('phone').value = testData.phone;
+    document.getElementById('subject').value = testData.subject;
+    document.getElementById('message').value = testData.message;
+    
+    // Remove any error styling from fields
+    const allFields = contactForm.querySelectorAll('input, textarea');
+    allFields.forEach(field => {
+      field.classList.remove('error');
+    });
+    
+    console.log('✅ Testovací data vyplněna!');
+    showMessage('Testovací data byla vyplněna. Nyní můžete otestovat odeslání.', 'success');
+  }
 }
 
 // Mobile menu toggle

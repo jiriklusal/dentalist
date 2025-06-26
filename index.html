@@ -189,11 +189,11 @@
                 </div>
                 
                 <div class="staff-section">
-                    <h4 data-cs="Dentální hygiena a personál" data-en="Dental Hygiene and Staff">Dentální hygiena a personál</h4>
+                    <h4 data-cs="Personál" data-en="Staff">Personál</h4>
                     <div class="staff-grid">
                         <div class="staff-member">
-                            <span class="staff-name">Ing. Nikola Klusalová, DiS.</span>
-                            <span class="staff-role" data-cs="Dentální hygienistka" data-en="Dental Hygienist">Dentální hygienistka</span>
+                            <span class="staff-name">Nela Tyraliková</span>
+                            <span class="staff-role" data-cs="Zubní instrumentářka" data-en="Dental Assistant">Zubní instrumentářka</span>
                         </div>
                         <div class="staff-member">
                             <span class="staff-name">Karla Petrášová</span>
@@ -503,6 +503,11 @@
                         <button type="submit" class="btn btn-primary form-submit">
                             <span data-cs="Odeslat zprávu" data-en="Send Message">Odeslat zprávu</span>
                         </button>
+                        
+                        <!-- Testovací tlačítko - SMAZAT NEBO ZAKOMENTOVAT PŘED PRODUKČNÍM NASAZENÍM -->
+                        <button type="button" id="fillTestData" class="btn btn-secondary" style="margin-top: 15px; background: #718096; border-color: #718096;">
+                            <span data-cs="🧪 Vyplnit testovací data" data-en="🧪 Fill Test Data">🧪 Vyplnit testovací data</span>
+                        </button>
                     </form>
                     
                     <div class="form-message" id="formMessage" style="display: none;"></div>
@@ -540,6 +545,8 @@
         </div>
     </footer>
 
+    <!-- EmailJS Library -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
