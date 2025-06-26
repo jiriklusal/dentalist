@@ -2464,26 +2464,38 @@ body.dark-theme .time {
    ANTI-BOT PROTECTION STYLES
    ============================================================================= */
 
-/* Obfuscated email links */
-.obfuscated-email {
+/* Protected email styling - subtle and user-friendly */
+.protected-email {
+    color: inherit;
+    cursor: pointer;
+    border-bottom: 1px dotted currentColor;
+    transition: all 0.3s ease;
+}
+
+.protected-email:hover {
+    color: var(--primary-color);
+    border-bottom-style: solid;
+}
+
+/* Dark theme styles for protected emails */
+body.dark-theme .protected-email:hover {
+    color: #63b3ed;
+}
+
+/* Protected email links - for mailto links */
+a[data-email] {
     color: inherit;
     text-decoration: underline;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.obfuscated-email:hover {
+a[data-email]:hover {
     color: var(--primary-color);
     text-decoration: none;
 }
 
-.clickable-email {
-    border-bottom: 1px dotted;
-    padding-bottom: 1px;
-}
-
-/* Dark theme styles for obfuscated emails */
-body.dark-theme .obfuscated-email:hover {
+body.dark-theme a[data-email]:hover {
     color: #63b3ed;
 }
 

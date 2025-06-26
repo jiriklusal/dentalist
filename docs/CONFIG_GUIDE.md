@@ -40,7 +40,7 @@ const DEBUG_MODE = false;
 - `TEST_DATA` - Testovací data pro formulář
 
 ### 🔧 Development
-- `DEBUG_MODE` - Zapnutí debug režimu
+- `DEBUG_MODE` - Enable debug mode
 - `EMAILJS_DEBUG` - Debug pro EmailJS
 - `FORM_DEBUG` - Debug pro formulář
 - `RECAPTCHA_DEBUG` - Debug pro reCAPTCHA
@@ -71,7 +71,7 @@ const DEBUG_MODE = false;
 
 ## 🎛️ Helper funkce
 
-### Kontrola produkčního režimu:
+### Production Mode Check:
 ```javascript
 window.DentalistConfig.isProduction()
 // true pokud je vše nastaveno pro produkci

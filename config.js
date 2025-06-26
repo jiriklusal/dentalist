@@ -50,9 +50,9 @@ const EMAILJS_TEMPLATE_ID = "template_f0w827z";
 
 // Target email configuration based on environment
 // 🧪 DEBUG_MODE = true  → jiri.klusal@seznam.cz (development/testing)
-// 🚀 DEBUG_MODE = false → info@dentalist.cz (production) jiri.klusal@gmail.com
+// 🚀 DEBUG_MODE = false → info@dentalist.cz (production) 
 const TARGET_EMAIL_DEBUG = "jiri.klusal@seznam.cz";
-const TARGET_EMAIL_PRODUCTION = "jiri.klusal@gmail.com";
+const TARGET_EMAIL_PRODUCTION = "info@dentalist.cz";
 const TARGET_EMAIL = DEBUG_MODE ? TARGET_EMAIL_DEBUG : TARGET_EMAIL_PRODUCTION;
 
 // =============================================================================

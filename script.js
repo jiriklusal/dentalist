@@ -1262,92 +1262,67 @@ window.onRecaptchaReady = function() {
 // =============================================================================
 
 // Email obfuscation to protect from spam bots
-function createObfuscatedEmail(user, domain, displayText = null) {
-  const email = user + '@' + domain;
-  const obfuscated = btoa(email); // Base64 encode
-  const display = displayText || email;
-  
-  return `<a href="#" data-email="${obfuscated}" class="obfuscated-email" onclick="return revealEmail(this)">${display}</a>`;
-}
-
-// Reveal email when clicked (human interaction)
-function revealEmail(element) {
-  try {
-    const obfuscated = element.getAttribute('data-email');
-    const email = atob(obfuscated); // Base64 decode
-    element.href = 'mailto:' + email;
-    element.onclick = null; // Remove the onclick handler
-    
-    // Optional: Update the displayed text to show the actual email
-    if (element.textContent === element.getAttribute('data-original-text')) {
-      element.textContent = email;
-    }
-    
-    // Trigger the mailto
-    window.location.href = 'mailto:' + email;
-    return false;
-  } catch (error) {
-    console.warn('Email reveal failed:', error);
-    return false;
-  }
-}
-
 // Initialize email protection on page load
 function initEmailProtection() {
-  // Find all email links and obfuscate them
+  // Simple and effective email protection
+  // Only protect mailto links, leave display text normal
+  
   const emailLinks = document.querySelectorAll('a[href^="mailto:"]');
   
   emailLinks.forEach(link => {
     const href = link.getAttribute('href');
     const email = href.replace('mailto:', '');
-    const parts = email.split('@');
     
-    if (parts.length === 2) {
-      const user = parts[0];
-      const domain = parts[1];
-      const displayText = link.textContent;
+    // Store original email in encoded form
+    const encoded = btoa(email);
+    link.setAttribute('data-email', encoded);
+    
+    // Replace href with JavaScript function
+    link.setAttribute('href', 'javascript:void(0)');
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
       
-      // Store original text
-      link.setAttribute('data-original-text', displayText);
+      // Decode email and open mailto
+      const decodedEmail = atob(this.getAttribute('data-email'));
+      window.location.href = 'mailto:' + decodedEmail;
       
-      // Obfuscate
-      const obfuscated = btoa(email);
-      link.setAttribute('data-email', obfuscated);
-      link.setAttribute('href', '#');
-      link.setAttribute('onclick', 'return revealEmail(this)');
+      console.log(`📧 Email link clicked: ${decodedEmail}`);
+    });
+    
+    console.log(`🔒 Email link protected: ${email}`);
+  });
+  
+  // Light protection for plain text emails - just make them less scrapable
+  const textElements = document.querySelectorAll('p, div, span');
+  textElements.forEach(element => {
+    // Only process elements that contain exactly 'info@dentalist.cz'
+    if (element.textContent.trim() === 'info@dentalist.cz' && 
+        element.children.length === 0) {
       
-      console.log(`🔒 Email protected: ${email}`);
+      // Replace with clickable span that reveals email on hover/click
+      const email = element.textContent;
+      const encoded = btoa(email);
+      
+      element.innerHTML = `<span class="protected-email" data-email="${encoded}" title="Klikněte pro zobrazení emailu">${email}</span>`;
+      
+      const span = element.querySelector('.protected-email');
+      span.addEventListener('click', function() {
+        const decodedEmail = atob(this.getAttribute('data-email'));
+        // Copy to clipboard
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(decodedEmail);
+          this.title = 'Email zkopírován do schránky!';
+          setTimeout(() => {
+            this.title = 'Klikněte pro zobrazení emailu';
+          }, 2000);
+        }
+      });
+      
+      console.log(`🔒 Plain text email lightly protected: ${email}`);
     }
   });
   
-  // Protect plain text emails in footer and other places
-  const textNodes = document.querySelectorAll('p, div, span');
-  textNodes.forEach(node => {
-    if (node.textContent.includes('@') && node.textContent.includes('.')) {
-      const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
-      const matches = node.textContent.match(emailRegex);
-      
-      if (matches) {
-        matches.forEach(email => {
-          if (email === 'info@dentalist.cz') {
-            const parts = email.split('@');
-            const obfuscated = btoa(email);
-            const span = document.createElement('span');
-            span.setAttribute('data-email', obfuscated);
-            span.setAttribute('onclick', 'return revealEmail(this)');
-            span.className = 'obfuscated-email clickable-email';
-            span.style.cursor = 'pointer';
-            span.style.textDecoration = 'underline';
-            span.textContent = email;
-            
-            // Replace in text content
-            node.innerHTML = node.innerHTML.replace(email, span.outerHTML);
-            console.log(`🔒 Plain text email protected: ${email}`);
-          }
-        });
-      }
-    }
-  });
+  console.log('✅ Email protection initialized with subtle approach');
 }
 
 // Honeypot field detection

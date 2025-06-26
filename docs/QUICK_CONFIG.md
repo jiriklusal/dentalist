@@ -1,23 +1,23 @@
-# 🎯 Dentalist - Rychlý přehled konfigurace
+# 🎯 Dentalist - Quick Configuration Overview
 
-## 📁 Soubory
-- **`config.js`** - Všechna nastavení
-- **`script.js`** - Používá config.js
-- **`index.html`** - Načítá config.js
+## 📁 Files
+- **`config.js`** - All settings
+- **`script.js`** - Uses config.js
+- **`index.html`** - Loads config.js
 
-## ⚡ SUPER RYCHLÉ PŘEPÍNÁNÍ - JEDNA PROMĚNNÁ!
+## ⚡ SUPER FAST SWITCHING - ONE VARIABLE!
 
-### 🔧 Development režim
+### 🔧 Development Mode
 ```javascript
-// V config.js - řádek 14:
+// In config.js - line 14:
 const DEBUG_MODE = true;
 ```
-**Automaticky nastaví:**
-- ❌ reCAPTCHA vypnuta
-- ✅ Testovací tlačítko zobrazeno
-- ✅ Debug výpisy zapnuty
+**Automatically sets:**
+- ❌ reCAPTCHA disabled
+- ✅ Test button shown
+- ✅ Debug outputs enabled
 
-### 🚀 Production režim
+### 🚀 Production Mode
 ```javascript
 // V config.js - řádek 14:
 const DEBUG_MODE = false;
@@ -60,21 +60,21 @@ const TEST_DATA = {
 const MESSAGE_AUTO_HIDE_DELAY = 5000;
 ```
 
-## ⚠️ Před produkčním nasazením
+## ⚠️ Before Production Deployment
 
-1. **Otevřete** `config.js`
-2. **Nastavte** `DEBUG_MODE = false` (řádek 14)
-3. **Uložte** soubor
-4. **Otevřete konzoli** (F12)
-5. **Spusťte:** `window.DentalistConfig.isProductionReady()`
-6. **Mělo by vrátit:** `true`
+1. **Open** `config.js`
+2. **Set** `DEBUG_MODE = false` (line 14)
+3. **Save** the file
+4. **Open console** (F12)
+5. **Run:** `window.DentalistConfig.isProductionReady()`
+6. **Should return:** `true`
 
-## 🎯 Výhody nového systému
+## 🎯 New System Benefits
 
-- ✅ **Jedna proměnná** ovládá vše
-- ✅ **Žádné chyby** při přepínání režimů
-- ✅ **Automatické nastavení** všech souvisejících hodnot
-- ✅ **Nemůžete zapomenout** na některé nastavení
+- ✅ **One variable** controls everything
+- ✅ **No errors** when switching modes
+- ✅ **Automatic configuration** of all related values
+- ✅ **You can't forget** any setting
 
 ## 📖 Plná dokumentace
 
