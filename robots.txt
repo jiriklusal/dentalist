@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://dentalist.cz/sitemap.xml
+
+# Disallow unnecessary files
+Disallow: /config.js
+Disallow: /script.js
+Disallow: /*.json
+
+# Allow important resources
+Allow: /img/
+Allow: /style.css
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+
+# Crawl-delay for bots
+Crawl-delay: 1
