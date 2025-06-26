@@ -1054,6 +1054,9 @@ document.addEventListener('DOMContentLoaded', function() {
   if (savedTheme === 'dark') {
     document.body.classList.add('dark-theme');
     updateThemeIcon(true);
+    updateRecaptchaTheme('dark');
+  } else {
+    updateRecaptchaTheme('light');
   }
   
   // Toggle event
@@ -1067,12 +1070,14 @@ document.addEventListener('DOMContentLoaded', function() {
       document.body.classList.remove('dark-theme');
       localStorage.setItem('theme', 'light');
       updateThemeIcon(false);
+      updateRecaptchaTheme('light');
       console.log('🌞 Switched to light theme');
     } else {
       // Switch to dark
       document.body.classList.add('dark-theme');
       localStorage.setItem('theme', 'dark');
       updateThemeIcon(true);
+      updateRecaptchaTheme('dark');
       console.log('🌙 Switched to dark theme');
     }
   });
@@ -1091,3 +1096,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
+
+// Function to update reCAPTCHA theme
+function updateRecaptchaTheme(theme) {
+  const recaptchaElement = document.querySelector('.g-recaptcha');
+  if (!recaptchaElement) return;
+  
+  try {
+    // Update the data-theme attribute
+    recaptchaElement.setAttribute('data-theme', theme);
+    
+    // If reCAPTCHA is already rendered, re-render it with new theme
+    if (typeof grecaptcha !== 'undefined' && grecaptcha.getResponse) {
+      // Get the current response (if any)
+      const currentResponse = grecaptcha.getResponse();
+      
+      // Reset and re-render with new theme
+      if (recaptchaElement.children.length > 0) {
+        grecaptcha.reset();
+        // Re-render with new theme parameters
+        setTimeout(() => {
+          grecaptcha.render(recaptchaElement, {
+            'sitekey': recaptchaElement.getAttribute('data-sitekey'),
+            'theme': theme
+          });
+        }, 100);
+      }
+    }
+    
+    console.log(`🔄 reCAPTCHA theme updated to: ${theme}`);
+  } catch (error) {
+    console.warn('⚠️ Could not update reCAPTCHA theme:', error);
+  }
+}

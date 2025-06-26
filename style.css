@@ -84,6 +84,11 @@ body {
     filter: invert(1) brightness(1.1) contrast(1.1);
 }
 
+/* Logo in dark theme */
+body.dark-theme .logo-img {
+    filter: none; /* Remove invert filter to show original white/light logo */
+}
+
 .nav-logo h2 {
     display: none;
 }
@@ -117,6 +122,18 @@ body {
     background: var(--primary-color);
     color: var(--text-white);
     border-color: var(--primary-color);
+}
+
+/* Language switcher in dark theme */
+body.dark-theme .lang-btn {
+    color: var(--text-white);
+    border-color: var(--border-gray);
+}
+
+body.dark-theme .lang-btn:hover {
+    background: var(--accent-primary);
+    color: var(--text-dark);
+    border-color: var(--accent-primary);
 }
 
 .lang-btn.active {
@@ -164,6 +181,11 @@ body {
     background-color: var(--text-dark);
     margin: 3px 0;
     transition: 0.3s;
+}
+
+/* Hamburger menu bars in dark theme */
+body.dark-theme .bar {
+    background-color: var(--text-white);
 }
 
 /* Hero Section */
@@ -1517,6 +1539,20 @@ body {
         padding: 20px 0;
     }
 
+    /* Mobile nav menu in dark theme */
+    body.dark-theme .nav-menu {
+        background-color: var(--bg-primary);
+        color: var(--text-white);
+    }
+
+    body.dark-theme .nav-menu a {
+        color: var(--text-white);
+    }
+
+    body.dark-theme .nav-menu a:hover {
+        color: var(--accent-primary);
+    }
+
     .nav-menu.active {
         left: 0;
     }
@@ -1981,6 +2017,11 @@ body {
     font-weight: 500;
 }
 
+/* reCAPTCHA error in dark theme */
+body.dark-theme #recaptcha-error {
+    color: #fca5a5 !important; /* Light red for dark theme */
+}
+
 /* reCAPTCHA disabled state */
 .recaptcha-disabled .g-recaptcha {
     display: none !important;
@@ -2182,6 +2223,10 @@ body.dark-theme .gallery-item:hover {
 }
 
 /* Pricing in dark theme */
+body.dark-theme .pricing {
+    background: #1a202c !important;
+}
+
 body.dark-theme .pricing-grid {
     background: #1a202c !important;
 }
@@ -2196,12 +2241,12 @@ body.dark-theme .pricing-item:hover {
 }
 
 body.dark-theme .pricing-item.free {
-    background: #63b3ed !important;
-    color: #1a202c !important;
+    background: #1a202c !important;
+    color: #63b3ed !important;
 }
 
 body.dark-theme .pricing-item.free:hover {
-    background: #3182ce !important;
+    background: #2d3748 !important;
 }
 
 body.dark-theme .pricing-price {
@@ -2209,7 +2254,7 @@ body.dark-theme .pricing-price {
 }
 
 body.dark-theme .pricing-item.free .pricing-price {
-    color: #1a202c !important;
+    color: #63b3ed !important;
 }
 
 /* Forms in dark theme */
