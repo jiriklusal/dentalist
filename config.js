@@ -48,8 +48,12 @@ const EMAILJS_SERVICE_ID = "service_6htqe2e";
 // Find it at: https://dashboard.emailjs.com/admin/templates
 const EMAILJS_TEMPLATE_ID = "template_f0w827z";
 
-// Target email for receiving messages from the form
-const TARGET_EMAIL = "jiri.klusal@seznam.cz";
+// Target email configuration based on environment
+// 🧪 DEBUG_MODE = true  → jiri.klusal@seznam.cz (development/testing)
+// 🚀 DEBUG_MODE = false → info@dentalist.cz (production)
+const TARGET_EMAIL_DEBUG = "jiri.klusal@seznam.cz";
+const TARGET_EMAIL_PRODUCTION = "jiri.klusal@gmail.com";//"info@dentalist.cz";
+const TARGET_EMAIL = DEBUG_MODE ? TARGET_EMAIL_DEBUG : TARGET_EMAIL_PRODUCTION;
 
 // =============================================================================
 // 🧪 TEST SETTINGS

@@ -447,6 +447,8 @@ function initContactForm() {
         console.log('Template params:', templateParams);
         console.log('Using Service ID:', window.DentalistConfig.EMAILJS_SERVICE_ID);
         console.log('Using Template ID:', window.DentalistConfig.EMAILJS_TEMPLATE_ID);
+        console.log('📧 Target Email:', window.DentalistConfig.TARGET_EMAIL);
+        console.log('🔧 Debug Mode:', window.DentalistConfig.DEBUG_MODE ? 'ON (Development)' : 'OFF (Production)');
         console.log('Sending to EmailJS API...');
       }
 
