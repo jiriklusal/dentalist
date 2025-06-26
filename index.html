@@ -500,6 +500,14 @@
                             <textarea id="message" name="message" rows="5" required></textarea>
                         </div>
                         
+                        <!-- reCAPTCHA -->
+                        <div class="form-group">
+                            <div class="g-recaptcha" data-sitekey="6LccuG4rAAAAAKxHyObMhxb-Cab_-8-a5FoNQicp" data-theme="light"></div>
+                            <div id="recaptcha-error" style="color: #ef4444; font-size: 0.875rem; margin-top: 5px; display: none;">
+                                <span data-cs="Prosím potvrďte, že nejste robot." data-en="Please verify that you are not a robot.">Prosím potvrďte, že nejste robot.</span>
+                            </div>
+                        </div>
+                        
                         <button type="submit" class="btn btn-primary form-submit">
                             <span data-cs="Odeslat zprávu" data-en="Send Message">Odeslat zprávu</span>
                         </button>
@@ -547,6 +555,8 @@
 
     <!-- EmailJS Library -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="script.js"></script>
 </body>
 </html>

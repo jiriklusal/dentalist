@@ -295,6 +295,21 @@ function initContactForm() {
       return;
     }
 
+    // Validate reCAPTCHA (only if enabled)
+    if (RECAPTCHA_ENABLED) {
+      const recaptchaResponse = grecaptcha.getResponse();
+      if (!recaptchaResponse) {
+        showMessage('Prosím potvrďte, že nejste robot.', 'error');
+        document.getElementById('recaptcha-error').style.display = 'block';
+        return;
+      } else {
+        document.getElementById('recaptcha-error').style.display = 'none';
+      }
+    } else {
+      // reCAPTCHA is disabled, hide error message if visible
+      document.getElementById('recaptcha-error').style.display = 'none';
+    }
+
     // Disable submit button
     const submitBtn = contactForm.querySelector('.form-submit');
     const originalText = submitBtn.innerHTML;
@@ -310,6 +325,11 @@ function initContactForm() {
       
       // Reset form
       contactForm.reset();
+      
+      // Reset reCAPTCHA (only if enabled)
+      if (RECAPTCHA_ENABLED && typeof grecaptcha !== 'undefined') {
+        grecaptcha.reset();
+      }
     } catch (error) {
       console.error('Form submission error:', error);
       console.error('Error details:', {
@@ -393,6 +413,12 @@ function initContactForm() {
         message: data.message,
         to_email: 'jiri.klusal@gmail.com'
       };
+
+      // Add reCAPTCHA response only if enabled
+      if (RECAPTCHA_ENABLED) {
+        const recaptchaResponse = grecaptcha.getResponse();
+        templateParams['g-recaptcha-response'] = recaptchaResponse;
+      }
 
       console.log('Template params:', templateParams); // Debug log
 
@@ -491,12 +517,19 @@ function initContactForm() {
     });
   });
 
+  // Initialize reCAPTCHA state
+  initRecaptchaState();
+
   // Add test data fill functionality (REMOVE IN PRODUCTION)
   const fillTestButton = document.querySelector('#fillTestData');
   if (fillTestButton) {
+    console.log('✅ Testovací tlačítko nalezeno, přidávám event listener...');
     fillTestButton.addEventListener('click', function() {
+      console.log('🧪 Tlačítko pro testovací data bylo kliknuto!');
       fillTestData();
     });
+  } else {
+    console.log('❌ Testovací tlačítko nebylo nalezeno!');
   }
 
   function fillTestData() {
@@ -513,21 +546,48 @@ function initContactForm() {
     };
     
     // Fill form fields
-    document.getElementById('firstName').value = testData.firstName;
-    document.getElementById('lastName').value = testData.lastName;
-    document.getElementById('email').value = testData.email;
-    document.getElementById('phone').value = testData.phone;
-    document.getElementById('subject').value = testData.subject;
-    document.getElementById('message').value = testData.message;
+    const firstNameField = document.getElementById('firstName');
+    const lastNameField = document.getElementById('lastName');
+    const emailField = document.getElementById('email');
+    const phoneField = document.getElementById('phone');
+    const subjectField = document.getElementById('subject');
+    const messageField = document.getElementById('message');
+    
+    console.log('🔍 Kontrolujem pole formuláře...');
+    console.log('firstName pole:', firstNameField ? 'nalezeno' : 'NENALEZENO');
+    console.log('lastName pole:', lastNameField ? 'nalezeno' : 'NENALEZENO');
+    console.log('email pole:', emailField ? 'nalezeno' : 'NENALEZENO');
+    console.log('phone pole:', phoneField ? 'nalezeno' : 'NENALEZENO');
+    console.log('subject pole:', subjectField ? 'nalezeno' : 'NENALEZENO');
+    console.log('message pole:', messageField ? 'nalezeno' : 'NENALEZENO');
+    
+    if (firstNameField) firstNameField.value = testData.firstName;
+    if (lastNameField) lastNameField.value = testData.lastName;
+    if (emailField) emailField.value = testData.email;
+    if (phoneField) phoneField.value = testData.phone;
+    if (subjectField) subjectField.value = testData.subject;
+    if (messageField) messageField.value = testData.message;
     
     // Remove any error styling from fields
-    const allFields = contactForm.querySelectorAll('input, textarea');
+    const allFields = document.querySelectorAll('#contactForm input, #contactForm textarea');
     allFields.forEach(field => {
       field.classList.remove('error');
     });
     
     console.log('✅ Testovací data vyplněna!');
-    showMessage('Testovací data byla vyplněna. Nyní můžete otestovat odeslání.', 'success');
+    
+    // Hide reCAPTCHA error if visible
+    const recaptchaError = document.getElementById('recaptcha-error');
+    if (recaptchaError) {
+      recaptchaError.style.display = 'none';
+    }
+    
+    const recaptchaStatus = RECAPTCHA_ENABLED ? 'zapnutá' : 'vypnutá';
+    const message = RECAPTCHA_ENABLED ? 
+      'Testovací data byla vyplněna. Nyní potvrďte reCAPTCHA a můžete otestovat odeslání.' :
+      'Testovací data byla vyplněna. reCAPTCHA je vypnutá - můžete rovnou otestovat odeslání.';
+    
+    showMessage(`${message} (reCAPTCHA: ${recaptchaStatus})`, 'success');
   }
 }
 
@@ -786,3 +846,34 @@ function initLanguageSwitcher() {
   // Expose switchLanguage function globally for potential external use
   window.switchLanguage = switchLanguage;
 }
+
+// reCAPTCHA Configuration - ZMĚŇTE NA false PRO VYPNUTÍ reCAPTCHA
+const RECAPTCHA_ENABLED = false; // Změňte na false pro vypnutí reCAPTCHA
+
+// If reCAPTCHA is enabled, initialize it
+if (RECAPTCHA_ENABLED) {
+  // Initialize reCAPTCHA (v2 or v3 based on your preference)
+  // For v2:
+  // grecaptcha.render('recaptcha', { 'sitekey' : 'your-site-key' });
+
+  // For v3 (invisible):
+  // grecaptcha.ready(function() {
+  //   grecaptcha.execute('your-site-key', {action: 'homepage'}).then(function(token) {
+  //      // Add your logic to submit to your backend server here.
+  //   });
+  // });
+}
+
+function initRecaptchaState() {
+    const contactFormSection = document.querySelector('.contact-form-section');
+    
+    if (!RECAPTCHA_ENABLED && contactFormSection) {
+      // Add CSS class to hide reCAPTCHA
+      contactFormSection.classList.add('recaptcha-disabled');
+      console.log('🔒 reCAPTCHA je vypnutá (RECAPTCHA_ENABLED = false)');
+    } else if (RECAPTCHA_ENABLED && contactFormSection) {
+      // Remove CSS class to show reCAPTCHA
+      contactFormSection.classList.remove('recaptcha-disabled');
+      console.log('🛡️ reCAPTCHA je zapnutá (RECAPTCHA_ENABLED = true)');
+    }
+  }
