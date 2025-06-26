@@ -50,9 +50,9 @@ const EMAILJS_TEMPLATE_ID = "template_f0w827z";
 
 // Target email configuration based on environment
 // 🧪 DEBUG_MODE = true  → jiri.klusal@seznam.cz (development/testing)
-// 🚀 DEBUG_MODE = false → info@dentalist.cz (production)
+// 🚀 DEBUG_MODE = false → info@dentalist.cz (production) jiri.klusal@gmail.com
 const TARGET_EMAIL_DEBUG = "jiri.klusal@seznam.cz";
-const TARGET_EMAIL_PRODUCTION = "info@dentalist.cz";
+const TARGET_EMAIL_PRODUCTION = "jiri.klusal@gmail.com";
 const TARGET_EMAIL = DEBUG_MODE ? TARGET_EMAIL_DEBUG : TARGET_EMAIL_PRODUCTION;
 
 // =============================================================================
@@ -128,6 +128,12 @@ const LOCALIZED_MESSAGES = {
     sending: 'Odesílám...',
     messageSentSuccess: 'Vaše zpráva byla úspěšně odeslána. Ozveme se vám co nejdříve.',
     
+    // Security and anti-bot messages
+    rateLimitExceeded: 'Příliš mnoho pokusů. Zkuste to znovu za několik minut.',
+    suspiciousActivity: 'Byla detekována podezřelá aktivita. Zkuste to znovu pomaleji.',
+    securityBlock: 'Formulář nebyl odeslán kvůli bezpečnostním důvodům.',
+    fillSlowly: 'Prosím, vyplňte formulář pomaleji.',
+    
     // Error messages
     errorSending: 'Nastala chyba při odesílání zprávy. ',
     emailjsServiceNotConfigured: 'EmailJS služba není správně nakonfigurována. Service ID nebylo nalezeno.',
@@ -164,6 +170,12 @@ const LOCALIZED_MESSAGES = {
     confirmNotRobot: 'Please confirm that you are not a robot.',
     sending: 'Sending...',
     messageSentSuccess: 'Your message has been sent successfully. We will contact you as soon as possible.',
+    
+    // Security and anti-bot messages
+    rateLimitExceeded: 'Too many attempts. Please try again in a few minutes.',
+    suspiciousActivity: 'Suspicious activity detected. Please try again more slowly.',
+    securityBlock: 'Form was not sent due to security reasons.',
+    fillSlowly: 'Please fill the form more slowly.',
     
     // Error messages
     errorSending: 'An error occurred while sending the message. ',

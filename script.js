@@ -20,6 +20,13 @@ document.addEventListener('DOMContentLoaded', function () {
   // Language switcher (initialize first to set correct language)
   initLanguageSwitcher();
 
+  // Initialize reCAPTCHA state (show/hide based on configuration)
+  initRecaptchaState();
+
+  // Initialize anti-bot protection
+  initEmailProtection();
+  initFormProtection();
+
   // Initialize EmailJS
   initEmailJS();
 
@@ -316,6 +323,31 @@ function initContactForm() {
       return;
     }
 
+    // Anti-bot protection checks
+    const rateLimitCheck = submissionTracker.canSubmit();
+    if (!rateLimitCheck.allowed) {
+      showMessage(window.DentalistConfig.getMessage('rateLimitExceeded'), 'error');
+      return;
+    }
+
+    // Check honeypot field
+    const honeypot = document.getElementById('website');
+    if (honeypot && honeypot.value.trim() !== '') {
+      console.warn('🍯 Honeypot triggered - likely bot submission');
+      showMessage(window.DentalistConfig.getMessage('securityBlock'), 'error');
+      return;
+    }
+
+    // Check form fill time (basic bot detection)
+    if (formStartTime) {
+      const humanCheck = botDetector.checkFormFillTime(formStartTime);
+      if (!humanCheck && botDetector.isLikelyBot()) {
+        console.warn('🤖 Bot behavior detected');
+        showMessage(window.DentalistConfig.getMessage('fillSlowly'), 'error');
+        return;
+      }
+    }
+
     // Validate reCAPTCHA (only if enabled)
     if (window.DentalistConfig.RECAPTCHA_ENABLED) {
       const recaptchaResponse = grecaptcha.getResponse();
@@ -340,6 +372,13 @@ function initContactForm() {
     try {
       // Send email via EmailJS
       await sendContactForm(data);
+      
+      // Record successful submission for rate limiting
+      submissionTracker.recordSubmission();
+      
+      // Reset bot detector
+      botDetector.reset();
+      formStartTime = null;
       
       // Show success message
       showMessage(window.DentalistConfig.getMessage('messageSentSuccess'), 'success');
@@ -542,9 +581,6 @@ function initContactForm() {
       console.log('Email clicked:', this.getAttribute('href'));
     });
   });
-
-  // Initialize reCAPTCHA state
-  initRecaptchaState();
 
   // Add test data fill functionality (REMOVE IN PRODUCTION)
   const fillTestButton = document.querySelector('#fillTestData');
@@ -1220,5 +1256,240 @@ window.onRecaptchaReady = function() {
     console.warn('⚠️ Could not render reCAPTCHA:', error);
   }
 };
+
+// =============================================================================
+// ANTI-BOT PROTECTION SYSTEM
+// =============================================================================
+
+// Email obfuscation to protect from spam bots
+function createObfuscatedEmail(user, domain, displayText = null) {
+  const email = user + '@' + domain;
+  const obfuscated = btoa(email); // Base64 encode
+  const display = displayText || email;
+  
+  return `<a href="#" data-email="${obfuscated}" class="obfuscated-email" onclick="return revealEmail(this)">${display}</a>`;
+}
+
+// Reveal email when clicked (human interaction)
+function revealEmail(element) {
+  try {
+    const obfuscated = element.getAttribute('data-email');
+    const email = atob(obfuscated); // Base64 decode
+    element.href = 'mailto:' + email;
+    element.onclick = null; // Remove the onclick handler
+    
+    // Optional: Update the displayed text to show the actual email
+    if (element.textContent === element.getAttribute('data-original-text')) {
+      element.textContent = email;
+    }
+    
+    // Trigger the mailto
+    window.location.href = 'mailto:' + email;
+    return false;
+  } catch (error) {
+    console.warn('Email reveal failed:', error);
+    return false;
+  }
+}
+
+// Initialize email protection on page load
+function initEmailProtection() {
+  // Find all email links and obfuscate them
+  const emailLinks = document.querySelectorAll('a[href^="mailto:"]');
+  
+  emailLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    const email = href.replace('mailto:', '');
+    const parts = email.split('@');
+    
+    if (parts.length === 2) {
+      const user = parts[0];
+      const domain = parts[1];
+      const displayText = link.textContent;
+      
+      // Store original text
+      link.setAttribute('data-original-text', displayText);
+      
+      // Obfuscate
+      const obfuscated = btoa(email);
+      link.setAttribute('data-email', obfuscated);
+      link.setAttribute('href', '#');
+      link.setAttribute('onclick', 'return revealEmail(this)');
+      
+      console.log(`🔒 Email protected: ${email}`);
+    }
+  });
+  
+  // Protect plain text emails in footer and other places
+  const textNodes = document.querySelectorAll('p, div, span');
+  textNodes.forEach(node => {
+    if (node.textContent.includes('@') && node.textContent.includes('.')) {
+      const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
+      const matches = node.textContent.match(emailRegex);
+      
+      if (matches) {
+        matches.forEach(email => {
+          if (email === 'info@dentalist.cz') {
+            const parts = email.split('@');
+            const obfuscated = btoa(email);
+            const span = document.createElement('span');
+            span.setAttribute('data-email', obfuscated);
+            span.setAttribute('onclick', 'return revealEmail(this)');
+            span.className = 'obfuscated-email clickable-email';
+            span.style.cursor = 'pointer';
+            span.style.textDecoration = 'underline';
+            span.textContent = email;
+            
+            // Replace in text content
+            node.innerHTML = node.innerHTML.replace(email, span.outerHTML);
+            console.log(`🔒 Plain text email protected: ${email}`);
+          }
+        });
+      }
+    }
+  });
+}
+
+// Honeypot field detection
+function createHoneypot() {
+  const honeypot = document.createElement('input');
+  honeypot.type = 'text';
+  honeypot.name = 'website'; // Common bot field name
+  honeypot.id = 'website';
+  honeypot.style.position = 'absolute';
+  honeypot.style.left = '-9999px';
+  honeypot.style.width = '1px';
+  honeypot.style.height = '1px';
+  honeypot.style.opacity = '0';
+  honeypot.style.pointerEvents = 'none';
+  honeypot.tabIndex = -1;
+  honeypot.setAttribute('autocomplete', 'off');
+  
+  return honeypot;
+}
+
+// Rate limiting for form submissions
+const submissionTracker = {
+  submissions: [],
+  maxSubmissions: 3,
+  timeWindow: 300000, // 5 minutes in milliseconds
+  
+  canSubmit() {
+    const now = Date.now();
+    
+    // Remove old submissions outside time window
+    this.submissions = this.submissions.filter(time => now - time < this.timeWindow);
+    
+    // Check if under limit
+    if (this.submissions.length >= this.maxSubmissions) {
+      const oldestSubmission = Math.min(...this.submissions);
+      const timeUntilNext = Math.ceil((oldestSubmission + this.timeWindow - now) / 60000);
+      
+      console.warn(`⚠️ Rate limit exceeded. Try again in ${timeUntilNext} minutes.`);
+      return {
+        allowed: false,
+        message: `Příliš mnoho pokusů. Zkuste to znovu za ${timeUntilNext} minut.`,
+        messageEn: `Too many attempts. Try again in ${timeUntilNext} minutes.`
+      };
+    }
+    
+    return { allowed: true };
+  },
+  
+  recordSubmission() {
+    this.submissions.push(Date.now());
+    console.log(`📝 Submission recorded. Count: ${this.submissions.length}/${this.maxSubmissions}`);
+  }
+};
+
+// Bot behavior detection
+const botDetector = {
+  suspiciousActivity: 0,
+  flags: [],
+  
+  checkFormFillTime(startTime) {
+    const fillTime = Date.now() - startTime;
+    const minHumanTime = 5000; // 5 seconds minimum for human
+    
+    if (fillTime < minHumanTime) {
+      this.suspiciousActivity++;
+      this.flags.push('Fast form fill');
+      console.warn(`⚠️ Suspicious: Form filled too quickly (${fillTime}ms)`);
+      return false;
+    }
+    return true;
+  },
+  
+  checkMouseActivity() {
+    // This would be set by mouse movement listeners
+    const hasMouseActivity = window.humanMouseActivity || false;
+    if (!hasMouseActivity) {
+      this.suspiciousActivity++;
+      this.flags.push('No mouse activity');
+      console.warn('⚠️ Suspicious: No mouse activity detected');
+      return false;
+    }
+    return true;
+  },
+  
+  isLikelyBot() {
+    return this.suspiciousActivity >= 2;
+  },
+  
+  reset() {
+    this.suspiciousActivity = 0;
+    this.flags = [];
+  }
+};
+
+// Human activity tracking
+let humanMouseActivity = false;
+let humanKeyboardActivity = false;
+let formStartTime = null;
+
+// Track human mouse activity
+document.addEventListener('mousemove', function() {
+  if (!humanMouseActivity) {
+    humanMouseActivity = true;
+    window.humanMouseActivity = true;
+    console.log('👆 Human mouse activity detected');
+  }
+});
+
+// Track human keyboard activity
+document.addEventListener('keydown', function() {
+  if (!humanKeyboardActivity) {
+    humanKeyboardActivity = true;
+    window.humanKeyboardActivity = true;
+    console.log('⌨️ Human keyboard activity detected');
+  }
+});
+
+// Initialize form protection
+function initFormProtection() {
+  const contactForm = document.getElementById('contact-form');
+  if (!contactForm) {
+    console.log('❌ Contact form not found');
+    return;
+  }
+  
+  // Add honeypot field
+  const honeypot = createHoneypot();
+  contactForm.appendChild(honeypot);
+  console.log('🍯 Honeypot field added to form');
+  
+  // Track when user starts interacting with form
+  const formInputs = contactForm.querySelectorAll('input, textarea');
+  formInputs.forEach(input => {
+    input.addEventListener('focus', function() {
+      if (!formStartTime) {
+        formStartTime = Date.now();
+        console.log('⏱️ Form interaction started');
+      }
+    });
+  });
+  
+  console.log('🛡️ Form protection initialized');
+}
 
 // =============================================================================

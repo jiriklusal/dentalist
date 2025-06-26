@@ -2459,3 +2459,80 @@ body.dark-theme .day {
 body.dark-theme .time {
     color: #63b3ed !important;
 }
+
+/* =============================================================================
+   ANTI-BOT PROTECTION STYLES
+   ============================================================================= */
+
+/* Obfuscated email links */
+.obfuscated-email {
+    color: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.obfuscated-email:hover {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.clickable-email {
+    border-bottom: 1px dotted;
+    padding-bottom: 1px;
+}
+
+/* Dark theme styles for obfuscated emails */
+body.dark-theme .obfuscated-email:hover {
+    color: #63b3ed;
+}
+
+/* Security notice (if needed) */
+.security-notice {
+    font-size: 0.85em;
+    color: #666;
+    margin-top: 10px;
+    opacity: 0.8;
+}
+
+body.dark-theme .security-notice {
+    color: #a0aec0;
+}
+
+/* =============================================================================
+   reCAPTCHA STYLES
+   ============================================================================= */
+
+/* reCAPTCHA hiding when disabled in development mode */
+.recaptcha-disabled .g-recaptcha,
+.recaptcha-disabled #recaptcha-error {
+    display: none !important;
+}
+
+/* Show notice when reCAPTCHA is disabled in development */
+.recaptcha-disabled::after {
+    content: "🔧 reCAPTCHA je vypnuta v development módu";
+    display: block;
+    background: #f0f9ff;
+    color: #0369a1;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    border: 1px solid #bae6fd;
+    margin: 10px 0;
+    text-align: center;
+}
+
+/* Dark theme for development notice */
+body.dark-theme .recaptcha-disabled::after {
+    background: #1e293b;
+    color: #93c5fd;
+    border-color: #334155;
+}
+
+/* English version */
+html[lang="en"] .recaptcha-disabled::after {
+    content: "🔧 reCAPTCHA is disabled in development mode";
+}
+
+/* =============================================================================*/

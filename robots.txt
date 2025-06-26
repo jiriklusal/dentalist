@@ -1,10 +1,42 @@
 User-agent: *
 Allow: /
 
+# Block aggressive crawlers and spam bots
+User-agent: *
+Crawl-delay: 2
+
+# Block known spam bots
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: EmailSiphon
+Disallow: /
+
+User-agent: EmailCollector
+Disallow: /
+
+User-agent: EmailExtractor
+Disallow: /
+
+User-agent: WebEmailExtract
+Disallow: /
+
+User-agent: ExtractorPro
+Disallow: /
+
 # Sitemaps
 Sitemap: https://dentalist.cz/sitemap.xml
 
-# Disallow unnecessary files
+# Disallow unnecessary files and directories
 Disallow: /config.js
 Disallow: /script.js
 Disallow: /*.json
