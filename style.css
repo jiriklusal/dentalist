@@ -606,6 +606,21 @@ body {
     padding: 16px;
     background: var(--bg-light);
     border-radius: 8px;
+    align-items: center;
+    text-align: center;
+}
+
+.staff-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.125rem;
+    margin-bottom: 8px;
 }
 
 .staff-name {
@@ -616,6 +631,71 @@ body {
 .staff-role {
     color: var(--text-light);
     font-size: 0.875rem;
+}
+
+/* Cooperation Section */
+.cooperation-section {
+    background: var(--bg-light);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    margin-top: 40px;
+}
+
+.cooperation-section h4 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    color: var(--text-dark);
+}
+
+.cooperation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.cooperation-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px;
+    background: var(--bg-white);
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cooperation-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.cooperation-icon {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.cooperation-content h5 {
+    margin: 0 0 8px 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.cooperation-content p {
+    margin: 0;
+    color: var(--text-light);
+    line-height: 1.5;
+    font-size: 0.9rem;
 }
 
 /* Services Section */
@@ -1908,4 +1988,16 @@ body {
 
 .recaptcha-disabled #recaptcha-error {
     display: none !important;
+}
+
+/* Favicon styling - rounded corners */
+link[rel="icon"],
+link[rel="shortcut icon"],
+link[rel="apple-touch-icon"] {
+    border-radius: 50%;
+}
+
+/* Apple touch icon specific styling for better appearance */
+link[rel="apple-touch-icon"] {
+    border-radius: 20%;
 }
