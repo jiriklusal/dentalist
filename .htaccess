@@ -1,0 +1,45 @@
+# =============================================================================
+# DENTALIST - SECURITY CONFIGURATION (.htaccess)
+# =============================================================================
+# This file protects sensitive directories and files from direct access
+# Only index.html and public assets should be accessible
+
+# Prevent access to sensitive files
+<Files ~ "^(config\.js|script\.js|sw\.js|.*\.md|.*\.txt|.*\.log)$">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Prevent access to docs directory
+<Directory "docs">
+    Order allow,deny
+    Deny from all
+</Directory>
+
+# Prevent directory listing
+Options -Indexes
+
+# Redirect all requests to index.html (except assets)
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !\.(css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|eot)$ [NC]
+RewriteRule ^(.*)$ index.html [L,QSA]
+
+# Allow only specific file types for direct access
+<FilesMatch "\.(html|css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|eot)$">
+    Order allow,deny
+    Allow from all
+</FilesMatch>
+
+# Security headers
+Header always set X-Content-Type-Options nosniff
+Header always set X-Frame-Options DENY
+Header always set X-XSS-Protection "1; mode=block"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+# Cache control for assets
+<FilesMatch "\.(css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|eot)$">
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+</FilesMatch>

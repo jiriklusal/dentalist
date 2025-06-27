@@ -1,4 +1,12 @@
 // =============================================================================
+// 🛡️ SECURITY CHECK - Prevent direct access to this file
+// =============================================================================
+if (window.location.pathname.includes('/config.js') || 
+    window.location.pathname.endsWith('config.js')) {
+    window.location.href = '/index.html';
+}
+
+// =============================================================================
 // DENTALIST - CONFIGURATION FILE
 // =============================================================================
 // This file contains all configurable variables for the Dentalist website.

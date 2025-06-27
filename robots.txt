@@ -36,10 +36,19 @@ Disallow: /
 # Sitemaps
 Sitemap: https://dentalist.cz/sitemap.xml
 
-# Disallow unnecessary files and directories
+# Disallow sensitive files and directories
 Disallow: /config.js
 Disallow: /script.js
+Disallow: /sw.js
 Disallow: /*.json
+Disallow: /*.md
+Disallow: /*.txt
+Disallow: /*.log
+Disallow: /docs/
+Disallow: /.htaccess
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /package*.json
 
 # Allow important resources
 Allow: /img/
@@ -47,6 +56,11 @@ Allow: /style.css
 Allow: /*.png
 Allow: /*.jpg
 Allow: /*.jpeg
+Allow: /*.ico
+Allow: /*.svg
+Allow: /*.woff*
+Allow: /*.ttf
+Allow: /*.eot
 
 # Crawl-delay for bots
 Crawl-delay: 1
