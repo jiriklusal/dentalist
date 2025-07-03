@@ -131,15 +131,15 @@ body.dark-theme .lang-btn {
 }
 
 body.dark-theme .lang-btn:hover {
-    background: #63b3ed !important;
-    color: #1a202c !important;
-    border-color: #63b3ed !important;
+    background: #4a5568 !important;
+    color: #f7fafc !important;
+    border-color: #4a5568 !important;
 }
 
 body.dark-theme .lang-btn.active {
-    background: #63b3ed !important;
-    color: #1a202c !important;
-    border-color: #63b3ed !important;
+    background: #4a5568 !important;
+    color: #f7fafc !important;
+    border-color: #4a5568 !important;
 }
 
 .lang-btn.active {
@@ -1562,7 +1562,7 @@ body.dark-theme .bar {
     }
 
     body.dark-theme .nav-menu a:hover {
-        color: #63b3ed !important;
+        color: #a0aec0 !important;
     }
 
     /* Theme switcher in mobile menu dark theme */
@@ -1572,9 +1572,9 @@ body.dark-theme .bar {
     }
 
     body.dark-theme .nav-menu .theme-btn:hover {
-        background: #63b3ed !important;
+        background: #a0aec0 !important;
         color: #1a202c !important;
-        border-color: #63b3ed !important;
+        border-color: #a0aec0 !important;
     }
 
     /* Language switcher in mobile menu dark theme */
@@ -1585,9 +1585,9 @@ body.dark-theme .bar {
 
     body.dark-theme .nav-menu .lang-btn:hover,
     body.dark-theme .nav-menu .lang-btn.active {
-        background: #63b3ed !important;
+        background: #a0aec0 !important;
         color: #1a202c !important;
-        border-color: #63b3ed !important;
+        border-color: #a0aec0 !important;
     }
 
     .nav-menu.active {
@@ -2179,11 +2179,11 @@ body.dark-theme .nav-link {
 }
 
 body.dark-theme .nav-link:hover {
-    color: #63b3ed !important;
+    color: #a0aec0 !important;
 }
 
 body.dark-theme .nav-link.active {
-    color: #63b3ed !important;
+    color: #a0aec0 !important;
 }
 
 body.dark-theme .nav-logo h2 {
@@ -2196,9 +2196,9 @@ body.dark-theme .theme-btn {
 }
 
 body.dark-theme .theme-btn:hover {
-    background: #63b3ed !important;
-    color: #1a202c !important;
-    border-color: #63b3ed !important;
+    background: #4a5568 !important;
+    color: #f7fafc !important;
+    border-color: #a0aec0 !important;
 }
 
 body.dark-theme .lang-btn {
@@ -2208,9 +2208,9 @@ body.dark-theme .lang-btn {
 
 body.dark-theme .lang-btn:hover,
 body.dark-theme .lang-btn.active {
-    background: #63b3ed !important;
-    color: #1a202c !important;
-    border-color: #63b3ed !important;
+    background: #4a5568 !important;
+    color: #f7fafc !important;
+    border-color: #4a5568 !important;
 }
 
 body.dark-theme .bar {
@@ -2315,130 +2315,41 @@ body.dark-theme .service-card:hover,
 body.dark-theme .team-member:hover,
 body.dark-theme .contact-item:hover,
 body.dark-theme .gallery-item:hover {
-    border-color: #63b3ed !important;
-    box-shadow: 0 10px 15px -3px rgba(99, 179, 237, 0.1), 0 4px 6px -4px rgba(99, 179, 237, 0.1) !important;
+    border-color: #a0aec0 !important;
+    box-shadow: 0 10px 15px -3px rgba(160, 174, 192, 0.1), 0 4px 6px -4px rgba(160, 174, 192, 0.1) !important;
 }
 
-body.dark-theme .staff-member:hover {
-    background: #4a5568 !important;
-    border-color: #63b3ed !important;
-    box-shadow: 0 10px 15px -3px rgba(99, 179, 237, 0.1), 0 4px 6px -4px rgba(99, 179, 237, 0.1) !important;
-}
-
-/* Cooperation items hover - all same lighter hover */
-body.dark-theme .cooperation-item:hover {
-    background: #4a5568 !important; /* All cooperation items hover to lightest */
-    border-color: #63b3ed !important;
-    box-shadow: 0 10px 15px -3px rgba(99, 179, 237, 0.1), 0 4px 6px -4px rgba(99, 179, 237, 0.1) !important;
-}
-
-body.dark-theme .highlight-item:hover {
-    background: #4a5568 !important;
-    border-color: #63b3ed !important;
-    box-shadow: 0 10px 15px -3px rgba(99, 179, 237, 0.1), 0 4px 6px -4px rgba(99, 179, 237, 0.1) !important;
-}
-
-/* Pricing in dark theme */
-body.dark-theme .pricing {
-    background: #1a202c !important;
-}
-
-body.dark-theme .pricing-grid {
-    background: #4a5568 !important; /* Darker background for separators */
-}
-
-body.dark-theme .pricing-item {
-    background: #1a202c !important;
-    color: #f7fafc !important;
-}
-
-body.dark-theme .pricing-item:hover {
-    background: #2d3748 !important;
-}
-
-body.dark-theme .pricing-item.free {
-    background: #1a202c !important;
-    color: #63b3ed !important;
-}
-
-body.dark-theme .pricing-item.free:hover {
-    background: #2d3748 !important;
-}
-
-body.dark-theme .pricing-price {
-    color: #63b3ed !important;
-}
-
-body.dark-theme .pricing-item.free .pricing-price {
-    color: #63b3ed !important;
-}
-
-/* Forms in dark theme */
-body.dark-theme .form-group input,
-body.dark-theme .form-group textarea {
-    background: #1a202c !important;
-    color: #f7fafc !important;
-    border-color: #4a5568 !important;
-}
-
-body.dark-theme .form-group input:focus,
-body.dark-theme .form-group textarea:focus {
-    border-color: #63b3ed !important;
-    box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.1) !important;
-}
-
-body.dark-theme .form-group input::placeholder,
-body.dark-theme .form-group textarea::placeholder {
+/* Contact details and time elements in dark theme */
+body.dark-theme .contact-details a,
+body.dark-theme .time {
     color: #a0aec0 !important;
 }
 
-body.dark-theme .form-group label {
+body.dark-theme .contact-details a:hover {
     color: #f7fafc !important;
 }
 
-/* Links in dark theme */
-body.dark-theme a {
-    color: #63b3ed !important;
-}
-
-body.dark-theme a:hover {
-    color: #3182ce !important;
-}
-
-/* Images and media in dark theme */
-body.dark-theme .contact-image .building-image,
-body.dark-theme .gallery-image,
-body.dark-theme .about-img {
-    filter: brightness(0.8) contrast(1.1) !important;
-}
-
-body.dark-theme .map-container iframe {
-    filter: invert(0.9) hue-rotate(180deg) !important;
-    border-radius: 8px !important;
-}
-
-/* Special elements */
-body.dark-theme .hero-title,
-body.dark-theme .hero-subtitle {
-    color: #ffffff !important;
+body.dark-theme .day,
+body.dark-theme .hours-item .day {
+    color: #f7fafc !important;
 }
 
 body.dark-theme .btn-primary {
-    background: #63b3ed !important;
+    background: #a0aec0 !important;
     color: #1a202c !important;
 }
 
 body.dark-theme .btn-primary:hover {
-    background: #3182ce !important;
+    background: #718096 !important;
 }
 
 body.dark-theme .btn-secondary {
-    border-color: #63b3ed !important;
-    color: #63b3ed !important;
+    border-color: #a0aec0 !important;
+    color: #a0aec0 !important;
 }
 
 body.dark-theme .btn-secondary:hover {
-    background: #63b3ed !important;
+    background: #a0aec0 !important;
     color: #1a202c !important;
 }
 
@@ -2457,46 +2368,65 @@ body.dark-theme .day {
 }
 
 body.dark-theme .time {
-    color: #63b3ed !important;
+    color: #a0aec0 !important;
 }
 
-/* =============================================================================
-   ANTI-BOT PROTECTION STYLES
-   ============================================================================= */
-
-/* Protected email styling - subtle and user-friendly */
-.protected-email {
-    color: inherit;
-    cursor: pointer;
-    border-bottom: 1px dotted currentColor;
-    transition: all 0.3s ease;
+/* Pricing items dark theme */
+body.dark-theme .pricing-item {
+    background: #2d3748 !important;
+    border: 1px solid #4a5568 !important;
+    color: #f7fafc !important;
 }
 
-.protected-email:hover {
-    color: var(--primary-color);
-    border-bottom-style: solid;
+body.dark-theme .pricing-item:hover {
+    background: #4a5568 !important;
 }
 
-/* Dark theme styles for protected emails */
-body.dark-theme .protected-email:hover {
-    color: #63b3ed;
+body.dark-theme .pricing-item.free {
+    background: #1a202c !important;
+    border-color: #a0aec0 !important;
+    color: #f7fafc !important;
 }
 
-/* Protected email links - for mailto links */
-a[data-email] {
-    color: inherit;
-    text-decoration: underline;
-    cursor: pointer;
-    transition: all 0.3s ease;
+body.dark-theme .pricing-item.free:hover {
+    background: #2d3748 !important;
 }
 
-a[data-email]:hover {
-    color: var(--primary-color);
-    text-decoration: none;
+body.dark-theme .pricing-service {
+    color: #f7fafc !important;
 }
 
-body.dark-theme a[data-email]:hover {
-    color: #63b3ed;
+body.dark-theme .pricing-price {
+    color: #a0aec0 !important;
+}
+
+body.dark-theme .pricing-item.free .pricing-price {
+    color: #a0aec0 !important;
+}
+
+/* Form inputs dark theme */
+body.dark-theme .form-group input,
+body.dark-theme .form-group textarea,
+body.dark-theme .form-group select {
+    background: #2d3748 !important;
+    border: 1px solid #4a5568 !important;
+    color: #f7fafc !important;
+}
+
+body.dark-theme .form-group input::placeholder,
+body.dark-theme .form-group textarea::placeholder {
+    color: #a0aec0 !important;
+}
+
+body.dark-theme .form-group input:focus,
+body.dark-theme .form-group textarea:focus,
+body.dark-theme .form-group select:focus {
+    border-color: #a0aec0 !important;
+    box-shadow: 0 0 0 3px rgba(160, 174, 192, 0.1) !important;
+}
+
+body.dark-theme .form-group label {
+    color: #f7fafc !important;
 }
 
 /* Security notice (if needed) */
@@ -2710,4 +2640,40 @@ body.dark-theme .theme-color-option.active {
         width: 12px;
         height: 12px;
     }
+}
+
+/* Google Maps styling in dark theme */
+body.dark-theme .contact-map {
+    background: #1a202c !important;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+body.dark-theme .contact-map h3 {
+    color: #f7fafc !important;
+}
+
+body.dark-theme .map-container {
+    border: 1px solid #4a5568 !important;
+    background: #2d3748 !important;
+}
+
+body.dark-theme .map-container iframe {
+    border-radius: 8px;
+    filter: invert(90%) hue-rotate(180deg);
+}
+
+/* Contact form section dark theme */
+body.dark-theme .contact-form-section {
+    background: #1a202c !important;
+    border: 1px solid #4a5568 !important;
+}
+
+body.dark-theme .contact-form-section h3 {
+    color: #f7fafc !important;
+}
+
+body.dark-theme .footer {
+    background: #2d3748 !important;
+    color: #ffffff !important;
 }

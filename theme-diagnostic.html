@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Diagnostic - Dentalist</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/theme-light.css">
+    <link rel="stylesheet" href="css/theme-dark.css">
+    <link rel="stylesheet" href="css/theme-green.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        
+        .diagnostic-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .theme-controls {
+            margin-bottom: 30px;
+        }
+        
+        .theme-btn {
+            padding: 10px 20px;
+            margin: 5px;
+            border: 2px solid #333;
+            background: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        .color-dots {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .color-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid #333;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .color-dot.active::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .light-dot { background: #ffffff; }
+        .dark-dot { background: #1a202c; }
+        .green-dot { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); }
+        
+        .sample-content {
+            margin: 20px 0;
+        }
+        
+        .pricing-item {
+            background: var(--bg-white);
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        
+        .opening-hours {
+            background: var(--bg-white);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        .hours-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .day {
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+        
+        .time {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .contact-map {
+            background: var(--bg-white);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        .info-display {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <h1>Theme Diagnostic Tool</h1>
+    
+    <div class="theme-controls">
+        <h2>Theme Controls</h2>
+        <button class="theme-btn" onclick="setTheme('light')">Light Theme</button>
+        <button class="theme-btn" onclick="setTheme('dark')">Dark Theme</button>
+        <button class="theme-btn" onclick="setTheme('green')">Black-Gold Theme</button>
+        
+        <div class="color-dots">
+            <div class="color-dot light-dot active" data-theme="light" onclick="setTheme('light')"></div>
+            <div class="color-dot dark-dot" data-theme="dark" onclick="setTheme('dark')"></div>
+            <div class="color-dot green-dot" data-theme="green" onclick="setTheme('green')"></div>
+        </div>
+    </div>
+    
+    <div class="info-display">
+        <strong>Current Theme Info:</strong><br>
+        <span id="theme-info">Loading...</span>
+    </div>
+    
+    <div class="diagnostic-section">
+        <h3>Opening Hours Test</h3>
+        <div class="opening-hours">
+            <h4>Ordinační hodiny</h4>
+            <div class="hours-item">
+                <span class="day">Pondělí</span>
+                <span class="time">7:00 – 17:00</span>
+            </div>
+            <div class="hours-item">
+                <span class="day">Úterý</span>
+                <span class="time">7:00 – 20:00</span>
+            </div>
+            <div class="hours-item">
+                <span class="day">Středa</span>
+                <span class="time">7:00 – 17:00</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="diagnostic-section">
+        <h3>Pricing Test</h3>
+        <div class="pricing-item">
+            <h4>Kontrolní prohlídka</h4>
+            <span class="pricing-price">300 Kč</span>
+        </div>
+        <div class="pricing-item">
+            <h4>Dentální hygiena</h4>
+            <span class="pricing-price">800 Kč</span>
+        </div>
+    </div>
+    
+    <div class="diagnostic-section">
+        <h3>Contact Map Test</h3>
+        <div class="contact-map">
+            <h4>Kde nás najdete</h4>
+            <p>Testovací obsah pro Google Maps sekci</p>
+        </div>
+    </div>
+
+    <script>
+        function setTheme(theme) {
+            console.log('Setting theme to:', theme);
+            
+            // Remove old classes and attributes
+            document.body.classList.remove('dark-theme');
+            document.body.removeAttribute('data-theme');
+            
+            // Set new theme
+            if (theme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+            document.body.setAttribute('data-theme', theme);
+            
+            // Update color dots
+            document.querySelectorAll('.color-dot').forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.dataset.theme === theme) {
+                    dot.classList.add('active');
+                }
+            });
+            
+            // Update info display
+            updateThemeInfo();
+            
+            // Update additional theme CSS
+            updateAdditionalThemeCSS(theme);
+        }
+        
+        function updateAdditionalThemeCSS(theme) {
+            // Remove existing additional theme stylesheets
+            const existingThemeLinks = document.querySelectorAll('link[data-theme-css]');
+            existingThemeLinks.forEach(link => link.remove());
+            
+            // Add new theme CSS if it's not light/dark
+            if (theme !== 'light' && theme !== 'dark') {
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = `css/theme-${theme}.css`;
+                link.setAttribute('data-theme-css', theme);
+                document.head.appendChild(link);
+            }
+        }
+        
+        function updateThemeInfo() {
+            const body = document.body;
+            const dataTheme = body.getAttribute('data-theme');
+            const darkClass = body.classList.contains('dark-theme');
+            const computed = window.getComputedStyle(body);
+            
+            const info = `
+                data-theme: ${dataTheme || 'none'}<br>
+                dark-theme class: ${darkClass}<br>
+                Background color: ${computed.backgroundColor}<br>
+                Text color: ${computed.color}<br>
+                Current timestamp: ${new Date().toLocaleTimeString()}
+            `;
+            
+            document.getElementById('theme-info').innerHTML = info;
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateThemeInfo();
+        });
+    </script>
+</body>
+</html>
