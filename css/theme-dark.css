@@ -1,0 +1,321 @@
+/* =============================================================================
+   DENTALIST - DARK THEME STYLES (Original Reference Implementation)
+   ============================================================================= */
+
+/* Dark theme styles - using simple body class approach */
+[data-theme="dark"] body {
+    background-color: #1a202c !important;
+    color: #f7fafc !important;
+    transition: all 0.3s ease !important;
+}
+
+/* Navigation in dark theme */
+[data-theme="dark"] #navbar {
+    background: #1a202c !important;
+    border-bottom: 1px solid #4a5568 !important;
+    backdrop-filter: none !important;
+}
+
+[data-theme="dark"] .nav-link {
+    color: #f7fafc !important;
+}
+
+[data-theme="dark"] .nav-link:hover {
+    color: #a0aec0 !important;
+}
+
+[data-theme="dark"] .nav-link.active {
+    color: #a0aec0 !important;
+}
+
+[data-theme="dark"] .nav-logo h2 {
+    color: #f7fafc !important;
+}
+
+[data-theme="dark"] .theme-btn {
+    color: #f7fafc !important;
+    border-color: #4a5568 !important;
+}
+
+[data-theme="dark"] .theme-btn:hover {
+    background: #4a5568 !important;
+    color: #f7fafc !important;
+    border-color: #4a5568 !important;
+}
+
+[data-theme="dark"] .lang-btn {
+    color: #f7fafc !important;
+    border-color: #4a5568 !important;
+}
+
+[data-theme="dark"] .lang-btn:hover,
+[data-theme="dark"] .lang-btn.active {
+    background: #4a5568 !important;
+    color: #f7fafc !important;
+    border-color: #4a5568 !important;
+}
+
+[data-theme="dark"] .bar {
+    background-color: #f7fafc !important;
+}
+
+/* Buttons - Dark Theme */
+[data-theme="dark"] .btn-primary {
+    background: var(--btn-primary-bg);
+    color: var(--btn-primary-color);
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    background: var(--btn-primary-hover);
+}
+
+[data-theme="dark"] .btn-secondary {
+    background: var(--btn-secondary-bg);
+    color: var(--btn-secondary-color);
+    border: 2px solid var(--btn-secondary-border);
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: var(--btn-secondary-hover);
+    color: var(--text-inverse);
+}
+
+/* Cards - Dark Theme */
+[data-theme="dark"] .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--card-shadow);
+}
+
+/* Forms - Dark Theme */
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group textarea,
+[data-theme="dark"] .form-group select {
+    background: var(--input-bg);
+    border-color: var(--input-border);
+    color: var(--input-color);
+}
+
+[data-theme="dark"] .form-group input::placeholder,
+[data-theme="dark"] .form-group textarea::placeholder {
+    color: var(--input-placeholder);
+}
+
+[data-theme="dark"] .form-group input:focus,
+[data-theme="dark"] .form-group textarea:focus,
+[data-theme="dark"] .form-group select:focus {
+    border-color: var(--input-border-focus);
+    box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.1);
+}
+
+/* Hero Section - Dark Theme */
+[data-theme="dark"] .hero {
+    background: var(--gradient-hero);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .hero-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .hero-subtitle {
+    color: var(--text-secondary);
+}
+
+/* Sections - Dark Theme */
+[data-theme="dark"] .about,
+[data-theme="dark"] .services,
+[data-theme="dark"] .gallery,
+[data-theme="dark"] .pricing,
+[data-theme="dark"] .contact {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .about:nth-child(even),
+[data-theme="dark"] .services:nth-child(even),
+[data-theme="dark"] .gallery:nth-child(even),
+[data-theme="dark"] .pricing:nth-child(even),
+[data-theme="dark"] .contact:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+/* Text Colors - Dark Theme */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] p {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .text-muted {
+    color: var(--text-muted);
+}
+
+/* Service Cards - Dark Theme */
+[data-theme="dark"] .service-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-lg);
+}
+
+[data-theme="dark"] .service-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+    border-color: var(--primary-color);
+}
+
+[data-theme="dark"] .service-icon {
+    color: var(--primary-color);
+}
+
+/* Team Section - Dark Theme */
+[data-theme="dark"] .team-member {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+}
+
+[data-theme="dark"] .staff-member {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+}
+
+/* Pricing Section - Dark Theme */
+[data-theme="dark"] .pricing-item {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+}
+
+[data-theme="dark"] .pricing-item.free {
+    background: var(--bg-secondary);
+    border-color: var(--primary-color);
+}
+
+/* Contact Section - Dark Theme */
+[data-theme="dark"] .contact-item {
+    background: #2d3748 !important;
+    border: 1px solid #4a5568 !important;
+    color: #f7fafc !important;
+}
+
+[data-theme="dark"] .contact-item h4 {
+    color: #f7fafc !important;
+}
+
+[data-theme="dark"] .contact-item p {
+    color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .contact-item a {
+    color: #a0aec0 !important;
+}
+
+[data-theme="dark"] .contact-item a:hover {
+    color: #f7fafc !important;
+}
+
+[data-theme="dark"] .contact-details {
+    color: #f7fafc !important;
+}
+
+[data-theme="dark"] .contact-icon {
+    color: #f7fafc !important;
+    background: linear-gradient(135deg, #a0aec0 0%, #718096 100%) !important;
+}
+
+/* Gallery - Dark Theme */
+[data-theme="dark"] .gallery-item {
+    border: 1px solid var(--border-primary);
+}
+
+[data-theme="dark"] .gallery-overlay {
+    background: rgba(160, 174, 192, 0.8) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Footer - Dark Theme */
+[data-theme="dark"] .footer {
+    background: var(--bg-dark);
+    color: var(--text-primary);
+}
+
+/* Theme Switcher - Dark Theme */
+[data-theme="dark"] .theme-btn {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-primary);
+}
+
+[data-theme="dark"] .theme-btn:hover {
+    background: var(--bg-tertiary);
+    color: var(--primary-color);
+}
+
+/* Language Switcher - Dark Theme */
+[data-theme="dark"] .lang-btn {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-primary);
+}
+
+[data-theme="dark"] .lang-btn:hover {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+}
+
+[data-theme="dark"] .lang-btn.active {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+}
+
+/* reCAPTCHA - Dark Theme */
+[data-theme="dark"] .g-recaptcha {
+    filter: invert(1) hue-rotate(180deg);
+    border-radius: var(--radius-md);
+}
+
+[data-theme="dark"] .g-recaptcha > div {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+/* Mobile Menu - Dark Theme */
+@media (max-width: 768px) {
+    [data-theme="dark"] .nav-menu {
+        background: var(--nav-bg);
+        border: 1px solid var(--nav-border);
+        backdrop-filter: blur(10px);
+    }
+    
+    [data-theme="dark"] .bar {
+        background: var(--text-primary);
+    }
+}
+
+/* Scrollbar - Dark Theme */
+[data-theme="dark"] ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: var(--border-primary);
+    border-radius: 4px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+/* Selection - Dark Theme */
+[data-theme="dark"] ::selection {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+}

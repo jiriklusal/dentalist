@@ -1,0 +1,243 @@
+/* =============================================================================
+   DENTALIST - LIGHT THEME STYLES
+   ============================================================================= */
+
+/* Aplikuje se pouze pro světlé téma */
+:root,
+[data-theme="light"] {
+    /* Body a základní elementy */
+    color-scheme: light;
+}
+
+[data-theme="light"] body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Navigation - Light Theme */
+[data-theme="light"] #navbar {
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--nav-border);
+}
+
+[data-theme="light"] .nav-link {
+    color: var(--nav-color);
+}
+
+[data-theme="light"] .nav-link:hover {
+    color: var(--nav-hover);
+}
+
+[data-theme="light"] .logo-img {
+    filter: var(--logo-filter);
+}
+
+/* Buttons - Light Theme */
+[data-theme="light"] .btn-primary {
+    background: var(--btn-primary-bg);
+    color: var(--btn-primary-color);
+}
+
+[data-theme="light"] .btn-primary:hover {
+    background: var(--btn-primary-hover);
+}
+
+[data-theme="light"] .btn-secondary {
+    background: var(--btn-secondary-bg);
+    color: var(--btn-secondary-color);
+    border: 2px solid var(--btn-secondary-border);
+}
+
+[data-theme="light"] .btn-secondary:hover {
+    background: var(--btn-secondary-hover);
+    color: var(--text-white);
+}
+
+/* Cards - Light Theme */
+[data-theme="light"] .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--card-shadow);
+}
+
+/* Forms - Light Theme */
+[data-theme="light"] .form-group input,
+[data-theme="light"] .form-group textarea,
+[data-theme="light"] .form-group select {
+    background: var(--input-bg);
+    border-color: var(--input-border);
+    color: var(--input-color);
+}
+
+[data-theme="light"] .form-group input::placeholder,
+[data-theme="light"] .form-group textarea::placeholder {
+    color: var(--input-placeholder);
+}
+
+[data-theme="light"] .form-group input:focus,
+[data-theme="light"] .form-group textarea:focus,
+[data-theme="light"] .form-group select:focus {
+    border-color: var(--input-border-focus);
+    box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+}
+
+/* Hero Section - Light Theme */
+[data-theme="light"] .hero {
+    background: var(--gradient-hero);
+    color: var(--text-white);
+}
+
+[data-theme="light"] .hero-title {
+    color: var(--text-white);
+}
+
+[data-theme="light"] .hero-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Sections - Light Theme */
+[data-theme="light"] .about,
+[data-theme="light"] .services,
+[data-theme="light"] .gallery,
+[data-theme="light"] .pricing,
+[data-theme="light"] .contact {
+    background: var(--bg-primary);
+}
+
+[data-theme="light"] .about:nth-child(even),
+[data-theme="light"] .services:nth-child(even),
+[data-theme="light"] .gallery:nth-child(even),
+[data-theme="light"] .pricing:nth-child(even),
+[data-theme="light"] .contact:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+/* Text Colors - Light Theme */
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4,
+[data-theme="light"] h5,
+[data-theme="light"] h6 {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] p {
+    color: var(--text-secondary);
+}
+
+[data-theme="light"] .text-muted {
+    color: var(--text-muted);
+}
+
+/* Service Cards - Light Theme */
+[data-theme="light"] .service-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-md);
+}
+
+[data-theme="light"] .service-card:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+[data-theme="light"] .service-icon {
+    color: var(--primary-color);
+}
+
+/* Team Section - Light Theme */
+[data-theme="light"] .team-member {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+}
+
+[data-theme="light"] .staff-member {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+}
+
+/* Pricing Section - Light Theme */
+[data-theme="light"] .pricing-item {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+}
+
+[data-theme="light"] .pricing-item.free {
+    background: var(--bg-secondary);
+    border-color: var(--primary-color);
+}
+
+/* Contact Section - Light Theme */
+[data-theme="light"] .contact-item {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+}
+
+[data-theme="light"] .contact-icon {
+    color: var(--primary-color);
+}
+
+/* Gallery - Light Theme */
+[data-theme="light"] .gallery-item {
+    border: 1px solid var(--border-primary);
+}
+
+[data-theme="light"] .gallery-overlay {
+    background: rgba(74, 85, 104, 0.8);
+    color: var(--text-white);
+}
+
+/* Footer - Light Theme */
+[data-theme="light"] .footer {
+    background: var(--bg-dark);
+    color: var(--text-white);
+}
+
+/* Theme Switcher - Light Theme */
+[data-theme="light"] .theme-btn {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-primary);
+}
+
+[data-theme="light"] .theme-btn:hover {
+    background: var(--bg-tertiary);
+    color: var(--primary-color);
+}
+
+/* Language Switcher - Light Theme */
+[data-theme="light"] .lang-btn {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-primary);
+}
+
+[data-theme="light"] .lang-btn:hover {
+    background: var(--primary-color);
+    color: var(--text-white);
+}
+
+[data-theme="light"] .lang-btn.active {
+    background: var(--primary-color);
+    color: var(--text-white);
+}
+
+/* reCAPTCHA - Light Theme */
+[data-theme="light"] .g-recaptcha {
+    filter: none;
+}
+
+/* Mobile Menu - Light Theme */
+@media (max-width: 768px) {
+    [data-theme="light"] .nav-menu {
+        background: var(--nav-bg);
+        border: 1px solid var(--nav-border);
+        backdrop-filter: blur(10px);
+    }
+    
+    [data-theme="light"] .bar {
+        background: var(--text-primary);
+    }
+}

@@ -1073,66 +1073,117 @@ function initRecaptchaState() {
   }
 
 // =============================================================================
-// DARK THEME IMPLEMENTATION
+// UNIFIED THEME COLOR PICKER SYSTEM
 // =============================================================================
 
-// Simple dark theme toggle
+// Theme management with color picker
 document.addEventListener('DOMContentLoaded', function() {
-  const themeToggle = document.getElementById('theme-toggle');
+  const themeColorPicker = document.getElementById('theme-color-picker');
+  const themeColorOptions = document.querySelectorAll('.theme-color-option');
   
-  if (!themeToggle) {
-    console.log('❌ Theme toggle button not found');
+  if (!themeColorPicker) {
+    console.log('❌ Theme color picker not found');
     return;
   }
   
-  console.log('✅ Theme toggle button found');
+  console.log('✅ Theme color picker found');
+  
+  // Available themes
+  const THEMES = {
+    LIGHT: 'light',
+    DARK: 'dark',
+    GREEN: 'green'
+  };
   
   // Initialize theme
-  const savedTheme = localStorage.getItem('theme') || 'light';
-  if (savedTheme === 'dark') {
-    document.body.classList.add('dark-theme');
-    updateThemeIcon(true);
-    updateRecaptchaTheme('dark');
-  } else {
-    updateRecaptchaTheme('light');
-  }
+  const savedTheme = localStorage.getItem('theme') || THEMES.LIGHT;
+  setTheme(savedTheme);
   
-  // Toggle event
-  themeToggle.addEventListener('click', function() {
-    console.log('🎯 Theme toggle clicked!');
+  // Color picker events
+  themeColorOptions.forEach(option => {
+    option.addEventListener('click', function() {
+      const selectedTheme = this.dataset.theme;
+      console.log('🎨 Theme selected from color picker:', selectedTheme);
+      setTheme(selectedTheme);
+    });
     
-    const isDark = document.body.classList.contains('dark-theme');
-    
-    if (isDark) {
-      // Switch to light
-      document.body.classList.remove('dark-theme');
-      localStorage.setItem('theme', 'light');
-      updateThemeIcon(false);
-      updateRecaptchaTheme('light');
-      console.log('🌞 Switched to light theme');
-    } else {
-      // Switch to dark
-      document.body.classList.add('dark-theme');
-      localStorage.setItem('theme', 'dark');
-      updateThemeIcon(true);
-      updateRecaptchaTheme('dark');
-      console.log('🌙 Switched to dark theme');
-    }
+    // Keyboard support
+    option.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const selectedTheme = this.dataset.theme;
+        console.log('🎨 Theme selected via keyboard:', selectedTheme);
+        setTheme(selectedTheme);
+      }
+    });
   });
   
-  // Update icon function
-  function updateThemeIcon(isDark) {
-    const icon = themeToggle.querySelector('i');
-    const currentLang = localStorage.getItem('language') || window.DentalistConfig.DEFAULT_LANGUAGE;
+  // Function to set theme
+  function setTheme(theme) {
+    // Remove old classes and set new ones for compatibility
+    document.body.classList.remove('dark-theme');
+    document.body.removeAttribute('data-theme');
     
-    if (isDark) {
-      icon.className = 'fas fa-sun';
-      themeToggle.title = window.DentalistConfig.getMessage('switchToLight');
-    } else {
-      icon.className = 'fas fa-moon';
-      themeToggle.title = window.DentalistConfig.getMessage('switchToDark');
+    if (theme === THEMES.DARK) {
+      document.body.classList.add('dark-theme');
+    }
+    
+    // Always set data-theme for new theme system
+    document.body.setAttribute('data-theme', theme);
+    
+    // Save to localStorage
+    localStorage.setItem('theme', theme);
+    
+    // Update reCAPTCHA theme (use dark theme for dark and green themes)
+    const recaptchaTheme = (theme === THEMES.LIGHT) ? 'light' : 'dark';
+    updateRecaptchaTheme(recaptchaTheme);
+    
+    // Add theme-specific CSS if not light/dark
+    updateAdditionalThemeCSS(theme);
+    
+    // Update color picker UI
+    updateColorPickerUI(theme);
+    
+    console.log(`🎨 Theme switched to: ${theme}`);
+  }
+  
+  // Function to get current theme
+  function getCurrentTheme() {
+    return document.body.getAttribute('data-theme') || 
+           (document.body.classList.contains('dark-theme') ? THEMES.DARK : THEMES.LIGHT);
+  }
+  
+  // Function to add additional theme CSS
+  function updateAdditionalThemeCSS(theme) {
+    // Remove existing additional theme stylesheets
+    const existingThemeLinks = document.querySelectorAll('link[data-theme-css]');
+    existingThemeLinks.forEach(link => link.remove());
+    
+    // Add new theme CSS if it's not light/dark (these are handled by original CSS)
+    if (theme !== THEMES.LIGHT && theme !== THEMES.DARK) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = `css/theme-${theme}.css`;
+      link.setAttribute('data-theme-css', theme);
+      document.head.appendChild(link);
     }
   }
+  
+  // Update color picker UI
+  function updateColorPickerUI(theme) {
+    themeColorOptions.forEach(option => {
+      const isActive = option.dataset.theme === theme;
+      option.classList.toggle('active', isActive);
+      option.setAttribute('aria-checked', isActive.toString());
+    });
+  }
+  
+  // Expose theme functions globally for potential external use
+  window.DentalistTheme = {
+    setTheme: setTheme,
+    getCurrentTheme: getCurrentTheme,
+    THEMES: THEMES
+  };
 });
 
 // Function to update reCAPTCHA theme
@@ -1236,22 +1287,23 @@ window.onRecaptchaReady = function() {
   }
   
   // Set initial theme based on current state
-  const isDark = document.body.classList.contains('dark-theme');
-  const theme = isDark ? 'dark' : 'light';
+  const currentTheme = document.body.getAttribute('data-theme') || 
+                      (document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+  const recaptchaTheme = (currentTheme === 'light') ? 'light' : 'dark';
   
   // Update the data-theme attribute
-  recaptchaElement.setAttribute('data-theme', theme);
+  recaptchaElement.setAttribute('data-theme', recaptchaTheme);
   
   try {
     // Render reCAPTCHA with correct theme
     const widgetId = grecaptcha.render(recaptchaElement, {
       'sitekey': recaptchaElement.getAttribute('data-sitekey'),
-      'theme': theme
+      'theme': recaptchaTheme
     });
     
     // Store widget ID for future theme changes
     recaptchaElement.setAttribute('data-widget-id', widgetId);
-    console.log(`✅ reCAPTCHA rendered with ${theme} theme, widget ID: ${widgetId}`);
+    console.log(`✅ reCAPTCHA rendered with ${recaptchaTheme} theme (current site theme: ${currentTheme}), widget ID: ${widgetId}`);
   } catch (error) {
     console.warn('⚠️ Could not render reCAPTCHA:', error);
   }

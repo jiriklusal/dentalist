@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reCAPTCHA Theme Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+            transition: all 0.3s ease;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .theme-buttons {
+            margin-bottom: 30px;
+        }
+        
+        .theme-btn {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .theme-btn.light { background: #e2e8f0; color: #1a202c; }
+        .theme-btn.dark { background: #2d3748; color: #f7fafc; }
+        .theme-btn.green { background: linear-gradient(135deg, #1a1a1a, #d4af37); color: white; }
+        
+        .recaptcha-container {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        
+        .status {
+            margin: 20px 0;
+            padding: 10px;
+            border-radius: 5px;
+            background: #e6f3ff;
+            border: 1px solid #b3d9ff;
+        }
+        
+        /* Dark theme styles */
+        body[data-theme="dark"] {
+            background: #1a202c;
+            color: #f7fafc;
+        }
+        
+        body[data-theme="dark"] .test-container {
+            background: #2d3748;
+            color: #f7fafc;
+        }
+        
+        body[data-theme="dark"] .recaptcha-container {
+            background: #4a5568;
+            border-color: #718096;
+        }
+        
+        /* Green theme styles */
+        body[data-theme="green"] {
+            background: #0f0f0f;
+            color: #ffffff;
+        }
+        
+        body[data-theme="green"] .test-container {
+            background: #1a1a1a;
+            color: #ffffff;
+            border: 1px solid #d4af37;
+        }
+        
+        body[data-theme="green"] .recaptcha-container {
+            background: #2d2d2d;
+            border-color: #d4af37;
+        }
+        
+        body[data-theme="green"] .g-recaptcha {
+            background: #2d2d2d !important;
+            border: 1px solid #404040 !important;
+            border-radius: 8px !important;
+            padding: 10px !important;
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <div class="test-container">
+        <h1>reCAPTCHA Theme Test</h1>
+        <p>Tento test ověřuje funkčnost přepínání témat pro reCAPTCHA.</p>
+        
+        <div class="theme-buttons">
+            <button class="theme-btn light" onclick="switchTheme('light')">Světlé téma</button>
+            <button class="theme-btn dark" onclick="switchTheme('dark')">Tmavé téma</button>
+            <button class="theme-btn green" onclick="switchTheme('green')">Černozlaté téma</button>
+        </div>
+        
+        <div class="status" id="status">
+            Aktuální téma: <span id="current-theme">light</span>
+        </div>
+        
+        <div class="recaptcha-container">
+            <h3>reCAPTCHA Test</h3>
+            <div class="g-recaptcha" 
+                 data-sitekey="6LccuG4rAAAAAKxHyObMhxb-Cab_-8-a5FoNQicp" 
+                 data-theme="light">
+            </div>
+        </div>
+        
+        <div id="debug-info">
+            <h4>Debug informace:</h4>
+            <pre id="debug-output"></pre>
+        </div>
+    </div>
+    
+    <script>
+        let currentTheme = 'light';
+        
+        function switchTheme(theme) {
+            currentTheme = theme;
+            document.body.setAttribute('data-theme', theme);
+            document.getElementById('current-theme').textContent = theme;
+            
+            // Determine reCAPTCHA theme
+            const recaptchaTheme = (theme === 'light') ? 'light' : 'dark';
+            updateRecaptchaTheme(recaptchaTheme);
+            
+            logDebug(`Switched to theme: ${theme}, reCAPTCHA theme: ${recaptchaTheme}`);
+        }
+        
+        function updateRecaptchaTheme(theme) {
+            const recaptchaElement = document.querySelector('.g-recaptcha');
+            if (!recaptchaElement) {
+                logDebug('reCAPTCHA element not found');
+                return;
+            }
+            
+            try {
+                recaptchaElement.setAttribute('data-theme', theme);
+                logDebug(`reCAPTCHA data-theme updated to: ${theme}`);
+                
+                if (typeof grecaptcha !== 'undefined' && grecaptcha.getResponse !== undefined) {
+                    if (recaptchaElement.children.length > 0) {
+                        try {
+                            const widgetId = recaptchaElement.getAttribute('data-widget-id');
+                            
+                            if (widgetId !== null) {
+                                grecaptcha.reset(parseInt(widgetId));
+                                logDebug('reCAPTCHA reset with widget ID');
+                                
+                                setTimeout(() => {
+                                    try {
+                                        const newWidgetId = grecaptcha.render(recaptchaElement, {
+                                            'sitekey': recaptchaElement.getAttribute('data-sitekey'),
+                                            'theme': theme
+                                        });
+                                        recaptchaElement.setAttribute('data-widget-id', newWidgetId);
+                                        logDebug(`reCAPTCHA re-rendered with ${theme} theme`);
+                                    } catch (renderError) {
+                                        logDebug('Could not re-render reCAPTCHA: ' + renderError);
+                                    }
+                                }, 200);
+                            } else {
+                                recaptchaElement.innerHTML = '';
+                                setTimeout(() => {
+                                    try {
+                                        const newWidgetId = grecaptcha.render(recaptchaElement, {
+                                            'sitekey': recaptchaElement.getAttribute('data-sitekey'),
+                                            'theme': theme
+                                        });
+                                        recaptchaElement.setAttribute('data-widget-id', newWidgetId);
+                                        logDebug(`reCAPTCHA rendered fresh with ${theme} theme`);
+                                    } catch (renderError) {
+                                        logDebug('Could not render fresh reCAPTCHA: ' + renderError);
+                                    }
+                                }, 200);
+                            }
+                        } catch (resetError) {
+                            logDebug('Could not reset reCAPTCHA: ' + resetError);
+                        }
+                    } else {
+                        logDebug('reCAPTCHA not yet rendered, theme will be applied on load');
+                    }
+                } else {
+                    logDebug('reCAPTCHA API not loaded yet');
+                }
+            } catch (error) {
+                logDebug('Error updating reCAPTCHA theme: ' + error);
+            }
+        }
+        
+        function logDebug(message) {
+            const debugOutput = document.getElementById('debug-output');
+            const timestamp = new Date().toLocaleTimeString();
+            debugOutput.textContent += `[${timestamp}] ${message}\n`;
+            debugOutput.scrollTop = debugOutput.scrollHeight;
+            console.log(message);
+        }
+        
+        // Initialize reCAPTCHA when ready
+        window.onRecaptchaReady = function() {
+            logDebug('reCAPTCHA API loaded');
+            
+            const recaptchaElement = document.querySelector('.g-recaptcha');
+            if (!recaptchaElement) {
+                logDebug('reCAPTCHA element not found');
+                return;
+            }
+            
+            try {
+                const widgetId = grecaptcha.render(recaptchaElement, {
+                    'sitekey': recaptchaElement.getAttribute('data-sitekey'),
+                    'theme': 'light'
+                });
+                recaptchaElement.setAttribute('data-widget-id', widgetId);
+                logDebug(`reCAPTCHA rendered with light theme, widget ID: ${widgetId}`);
+            } catch (error) {
+                logDebug('Error rendering reCAPTCHA: ' + error);
+            }
+        };
+    </script>
+    
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaReady&render=explicit" async defer></script>
+</body>
+</html>

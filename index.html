@@ -47,10 +47,12 @@
     
     <!-- Preload Critical Resources -->
     <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="css/variables.css" as="style">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
     
-    <!-- Stylesheets -->
+    <!-- Stylesheets - Original + Theme Variables -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/variables.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -155,9 +157,18 @@
                     <button class="lang-btn" data-lang="en">EN</button>
                 </div>
                 <div class="theme-switcher">
-                    <button class="theme-btn" id="theme-toggle" title="Přepnout na tmavý režim">
-                        <i class="fas fa-moon"></i>
-                    </button>
+                    <!-- Unified Theme Color Picker -->
+                    <div class="theme-color-picker" id="theme-color-picker" role="radiogroup" aria-label="Theme selector">
+                        <div class="theme-color-option active" data-theme="light" role="radio" aria-checked="true" tabindex="0">
+                            <div class="color-dot light"></div>
+                        </div>
+                        <div class="theme-color-option" data-theme="dark" role="radio" aria-checked="false" tabindex="0">
+                            <div class="color-dot dark"></div>
+                        </div>
+                        <div class="theme-color-option" data-theme="green" role="radio" aria-checked="false" tabindex="0">
+                            <div class="color-dot green"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="nav-toggle" id="nav-toggle">

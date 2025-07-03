@@ -1,0 +1,578 @@
+/* =============================================================================
+   DENTALIST - BLACK-GOLD THEME
+   Černo-zlaté téma podle původních stránek
+   ============================================================================= */
+
+[data-theme="green"] {
+    /* Základní barvy - kombinace černé a zlaté */
+    --primary-color: #1a1a1a;
+    --primary-dark: #000000;
+    --primary-light: #333333;
+    --secondary-color: #2d2d2d;
+    --accent-color: #d4af37;
+    
+    /* Text barvy - zlepšené kontrasty */
+    --text-primary: #ffffff;
+    --text-secondary: #e0e0e0;
+    --text-muted: #b0b0b0;
+    --text-inverse: #000000;
+    
+    /* Pozadí barvy - všechno tmavé ale s lepšími kontrasty */
+    --bg-primary: #0f0f0f;
+    --bg-secondary: #1a1a1a;
+    --bg-tertiary: #252525;
+    --bg-accent: #d4af37;
+    --bg-card: #1a1a1a;
+    --bg-overlay: rgba(15, 15, 15, 0.95);
+    
+    /* Border barvy - světlejší pro lepší viditelnost */
+    --border-primary: #d4af37;
+    --border-secondary: #404040;
+    --border-light: #333333;
+    
+    /* Button barvy */
+    --btn-primary-bg: #d4af37;
+    --btn-primary-hover: #b8941f;
+    --btn-primary-text: #000000;
+    --btn-secondary-bg: #333333;
+    --btn-secondary-hover: #404040;
+    --btn-secondary-text: #ffffff;
+    
+    /* Navigation barvy */
+    --nav-bg: rgba(15, 15, 15, 0.98);
+    --nav-border: rgba(212, 175, 55, 0.3);
+    --nav-link-color: #e0e0e0;
+    --nav-link-hover: #d4af37;
+    --nav-link-active: #d4af37;
+    
+    /* Hero section barvy */
+    --hero-bg: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+    --gradient-hero: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+    --hero-text-primary: #ffffff;
+    --hero-text-secondary: #e0e0e0;
+    
+    /* Card barvy - světlejší pozadí pro lepší čitelnost */
+    --card-bg: #1e1e1e;
+    --card-border: #404040;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.6), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+    --card-hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.7), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
+    
+    /* Service card barvy */
+    --service-icon-bg: #333333;
+    --service-icon-color: #d4af37;
+    --service-hover-bg: #1e1e1e;
+    
+    /* Pricing barvy */
+    --pricing-accent: #d4af37;
+    --pricing-free-bg: #333333;
+    --pricing-free-text: #d4af37;
+    
+    /* Form barvy */
+    --input-bg: #1e1e1e;
+    --input-border: #404040;
+    --input-focus: #d4af37;
+    --input-text: #ffffff;
+    
+    /* Gallery overlay */
+    --gallery-overlay: rgba(15, 15, 15, 0.9);
+    
+    /* Footer barvy */
+    --footer-bg: #000000;
+    --footer-text: #cccccc;
+    --footer-border: #262626;
+    
+    /* Success/Error barvy */
+    --success-color: #d4af37;
+    --success-bg: #1a1a1a;
+    --error-color: #ef4444;
+    --error-bg: #2a1a1a;
+    
+    /* Speciální akcenty */
+    --highlight-gold: #d4af37;
+    --highlight-gold-light: #f4e4a6;
+    --deep-black: #000000;
+    --charcoal: #1a1a1a;
+}
+
+/* =============================================================================
+   SPECIFICKÉ STYLY PRO ČERNO-ZLATÉ TÉMA
+   ============================================================================= */
+
+/* Logo a branding zvýraznění */
+[data-theme="green"] .nav-logo h2,
+[data-theme="green"] .footer-logo h3 {
+    background: linear-gradient(135deg, var(--accent-color), #f4e4a6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Tlačítka s speciálními efekty - zlaté primární tlačítko */
+[data-theme="green"] .btn-primary {
+    background: linear-gradient(135deg, var(--accent-color), #f4e4a6) !important;
+    color: var(--text-inverse) !important;
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 4px 14px 0 rgba(212, 175, 55, 0.3) !important;
+}
+
+[data-theme="green"] .btn-primary:hover {
+    background: linear-gradient(135deg, #b8941f, var(--accent-color)) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px 0 rgba(212, 175, 55, 0.4) !important;
+}
+
+[data-theme="green"] .btn-secondary {
+    background: transparent !important;
+    color: var(--accent-color) !important;
+    border: 1px solid var(--accent-color) !important;
+    box-shadow: 0 4px 14px 0 rgba(212, 175, 55, 0.15) !important;
+}
+
+[data-theme="green"] .btn-secondary:hover {
+    background: var(--accent-color) !important;
+    color: var(--text-inverse) !important;
+    border-color: var(--accent-color) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px 0 rgba(212, 175, 55, 0.25) !important;
+}
+
+/* Hero section speciální gradient */
+[data-theme="green"] .hero {
+    background: var(--bg-primary) !important;
+    color: var(--text-primary);
+}
+
+[data-theme="green"] .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 70% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+/* Team, Staff a Cooperation sekce - tmavé pozadí */
+[data-theme="green"] .team-section,
+[data-theme="green"] .staff-section,
+[data-theme="green"] .cooperation-section {
+    background: var(--bg-primary) !important;
+}
+
+[data-theme="green"] .team-section h3,
+[data-theme="green"] .team-section h4,
+[data-theme="green"] .staff-section h4,
+[data-theme="green"] .cooperation-section h4 {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="green"] .team-member,
+[data-theme="green"] .staff-member,
+[data-theme="green"] .cooperation-item {
+    background: var(--bg-card) !important;
+    border-color: var(--border-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="green"] .team-member h4,
+[data-theme="green"] .team-member p,
+[data-theme="green"] .staff-member .staff-name,
+[data-theme="green"] .staff-member .staff-role,
+[data-theme="green"] .cooperation-item h5,
+[data-theme="green"] .cooperation-item p {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="green"] .member-image,
+[data-theme="green"] .staff-icon,
+[data-theme="green"] .cooperation-icon {
+    background: var(--secondary-color) !important;
+    color: var(--accent-color) !important;
+    border: 2px solid var(--accent-color) !important;
+}
+
+/* Service ikony se zlatými akcenty */
+[data-theme="green"] .service-card:hover .service-icon {
+    background: var(--accent-color);
+    color: var(--text-inverse);
+    transform: scale(1.1);
+}
+
+/* Pricing tabulka s barevnými akcenty */
+[data-theme="green"] .pricing-item:nth-child(even) {
+    border-left: 4px solid var(--accent-color);
+    background: rgba(212, 175, 55, 0.05);
+}
+
+[data-theme="green"] .pricing-item:nth-child(odd) {
+    border-left: 4px solid var(--secondary-color);
+}
+
+/* Zvýraznění kontaktních informací */
+[data-theme="green"] .contact-item .contact-icon {
+    background: linear-gradient(135deg, var(--accent-color), #f4e4a6);
+    color: var(--text-inverse);
+}
+
+/* Speciální scrollbar pro black-gold téma */
+[data-theme="green"] ::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--accent-color), #f4e4a6);
+}
+
+[data-theme="green"] ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #b8941f, var(--accent-color));
+}
+
+/* Gallery overlay s black-gold efektem */
+[data-theme="green"] .gallery-overlay {
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(212, 175, 55, 0.1));
+}
+
+/* Form inputs s gold focus */
+[data-theme="green"] .form-group input:focus,
+[data-theme="green"] .form-group textarea:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+/* Highlight items s alternating colors */
+[data-theme="green"] .highlight-item:nth-child(odd) .highlight-icon {
+    background: var(--secondary-color);
+    color: var(--accent-color);
+}
+
+[data-theme="green"] .highlight-item:nth-child(even) .highlight-icon {
+    background: var(--accent-color);
+    color: var(--text-inverse);
+}
+
+/* Team members s gold theme */
+[data-theme="green"] .team-member .member-image,
+[data-theme="green"] .staff-member .staff-icon {
+    background: var(--secondary-color);
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+}
+
+/* About images s gold border efektem */
+[data-theme="green"] .about-image-main img,
+[data-theme="green"] .about-small-item img {
+    border: 3px solid transparent;
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, var(--primary-color), var(--accent-color)) border-box;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+[data-theme="green"] .about-image-main:hover img,
+[data-theme="green"] .about-small-item:hover img {
+    transform: scale(1.05);
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, var(--accent-color), #f4e4a6) border-box;
+}
+
+/* Gallery images se zlatými okraji */
+[data-theme="green"] .gallery-item img {
+    border: 3px solid transparent !important;
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, var(--primary-color), var(--accent-color)) border-box !important;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+[data-theme="green"] .gallery-item:hover img {
+    transform: scale(1.05);
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, var(--accent-color), #f4e4a6) border-box !important;
+}
+
+/* Service card images se zlatými okraji */
+[data-theme="green"] .service-card img,
+[data-theme="green"] .highlight-item img {
+    border: 3px solid transparent;
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, var(--primary-color), var(--accent-color)) border-box;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+[data-theme="green"] .service-card:hover img,
+[data-theme="green"] .highlight-item:hover img {
+    transform: scale(1.05);
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, var(--accent-color), #f4e4a6) border-box;
+}
+
+/* Google Maps styling pro black-gold theme */
+[data-theme="green"] .contact-map {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--border-secondary);
+}
+
+[data-theme="green"] .contact-map h3 {
+    color: var(--text-primary);
+    margin-bottom: 15px;
+}
+
+[data-theme="green"] .map-container {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid var(--border-secondary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="green"] .map-container iframe {
+    filter: grayscale(30%) brightness(0.7) contrast(1.2) hue-rotate(15deg);
+    border-radius: 6px;
+}
+
+/* reCAPTCHA styling pro black-gold theme */
+[data-theme="green"] .g-recaptcha {
+    background: var(--bg-secondary) !important;
+    border: 1px solid var(--border-secondary) !important;
+    border-radius: 8px !important;
+    padding: 10px !important;
+    margin: 10px 0 !important;
+}
+
+/* reCAPTCHA dark theme support */
+[data-theme="green"] .g-recaptcha > div {
+    background: var(--bg-secondary) !important;
+    border-radius: 6px !important;
+}
+
+[data-theme="green"] .g-recaptcha iframe {
+    background: var(--bg-secondary) !important;
+    border-radius: 6px !important;
+}
+
+/* Form styling enhancement pro black-gold theme */
+[data-theme="green"] .contact-form-section {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid var(--border-secondary);
+}
+
+[data-theme="green"] .contact-form-section h3 {
+    color: var(--text-primary);
+    margin-bottom: 15px;
+}
+
+/* Form inputs viditelné texty */
+[data-theme="green"] .form-group label {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="green"] .form-group input,
+[data-theme="green"] .form-group textarea {
+    background: var(--input-bg) !important;
+    border-color: var(--input-border) !important;
+    color: var(--input-text) !important;
+}
+
+[data-theme="green"] .form-group input::placeholder,
+[data-theme="green"] .form-group textarea::placeholder {
+    color: var(--text-muted) !important;
+}
+
+/* Kompletní text a ikony override pro black-gold theme */
+[data-theme="green"] h1,
+[data-theme="green"] h2,
+[data-theme="green"] h3,
+[data-theme="green"] h4,
+[data-theme="green"] h5,
+[data-theme="green"] h6,
+[data-theme="green"] p,
+[data-theme="green"] span,
+[data-theme="green"] div,
+[data-theme="green"] .section-header h2,
+[data-theme="green"] .section-header p,
+[data-theme="green"] .about-text h3,
+[data-theme="green"] .about-text p,
+[data-theme="green"] .highlight-content h4,
+[data-theme="green"] .highlight-content p,
+[data-theme="green"] .image-caption h4,
+[data-theme="green"] .image-caption p,
+[data-theme="green"] .small-caption h5,
+[data-theme="green"] .small-caption p {
+    color: var(--text-primary) !important;
+}
+
+/* Všechny ikony zlaté */
+[data-theme="green"] .highlight-icon,
+[data-theme="green"] .service-icon,
+[data-theme="green"] .contact-icon,
+[data-theme="green"] .cooperation-icon,
+[data-theme="green"] .about-icon,
+[data-theme="green"] i {
+    background: var(--secondary-color) !important;
+    color: var(--accent-color) !important;
+    border: 2px solid var(--accent-color) !important;
+}
+
+/* Speciální styling pro about sekci */
+[data-theme="green"] .about-highlights .highlight-item {
+    background: var(--bg-card) !important;
+}
+
+[data-theme="green"] .about-image-main,
+[data-theme="green"] .about-small-item {
+    background: var(--bg-primary) !important;
+}
+
+[data-theme="green"] .image-caption,
+[data-theme="green"] .small-caption {
+    background: var(--bg-secondary) !important;
+    border-top: 2px solid var(--accent-color);
+}
+
+/* Všechny sekce a kontejnery tmavé - kompletní override */
+[data-theme="green"] *,
+[data-theme="green"] body,
+[data-theme="green"] html {
+    background: transparent !important;
+}
+
+[data-theme="green"] body {
+    background: var(--bg-primary) !important;
+}
+
+[data-theme="green"] section,
+[data-theme="green"] .section,
+[data-theme="green"] .container,
+[data-theme="green"] .about,
+[data-theme="green"] .about-section,
+[data-theme="green"] .services,
+[data-theme="green"] .services-section,
+[data-theme="green"] .gallery,
+[data-theme="green"] .gallery-section,
+[data-theme="green"] .pricing,
+[data-theme="green"] .pricing-section,
+[data-theme="green"] .contact,
+[data-theme="green"] .contact-section,
+[data-theme="green"] .footer {
+    background: var(--bg-primary) !important;
+}
+
+/* Všechny karty a boxy tmavé */
+[data-theme="green"] .card,
+[data-theme="green"] .service-card,
+[data-theme="green"] .gallery-item,
+[data-theme="green"] .pricing-item,
+[data-theme="green"] .contact-item,
+[data-theme="green"] .about-item,
+[data-theme="green"] .highlight-item,
+[data-theme="green"] .about-content,
+[data-theme="green"] .about-text,
+[data-theme="green"] .about-highlights,
+[data-theme="green"] .about-images,
+[data-theme="green"] .about-image-grid {
+    background: var(--bg-primary) !important;
+    border-color: var(--border-secondary) !important;
+}
+
+/* Services sekce kompletně tmavá */
+[data-theme="green"] .services-grid .service-card {
+    background: var(--bg-card) !important;
+    border-color: var(--border-secondary) !important;
+}
+
+[data-theme="green"] .service-card h3,
+[data-theme="green"] .service-card p {
+    color: var(--text-primary) !important;
+}
+
+/* Gallery sekce kompletně tmavá */
+[data-theme="green"] .gallery-grid,
+[data-theme="green"] .gallery-item {
+    background: var(--bg-primary) !important;
+}
+
+[data-theme="green"] .gallery-item img {
+    border: 2px solid var(--border-secondary) !important;
+}
+
+/* Pricing sekce kompletně tmavá */
+[data-theme="green"] .pricing-grid,
+[data-theme="green"] .pricing-table {
+    background: var(--bg-primary) !important;
+}
+
+[data-theme="green"] .pricing-item {
+    background: var(--bg-card) !important;
+    border-color: var(--border-secondary) !important;
+}
+
+[data-theme="green"] .pricing-item h4,
+[data-theme="green"] .pricing-item p,
+[data-theme="green"] .pricing-item span,
+[data-theme="green"] .pricing-title,
+[data-theme="green"] .pricing-price,
+[data-theme="green"] .pricing-description {
+    color: var(--text-primary) !important;
+}
+
+/* Contact sekce kompletně tmavá */
+[data-theme="green"] .contact-info,
+[data-theme="green"] .contact-details,
+[data-theme="green"] .opening-hours,
+[data-theme="green"] .hours-grid {
+    background: var(--bg-primary) !important;
+}
+
+[data-theme="green"] .contact-item {
+    background: var(--bg-card) !important;
+}
+
+[data-theme="green"] .contact-item h4,
+[data-theme="green"] .contact-item p,
+[data-theme="green"] .contact-item span,
+[data-theme="green"] .hours-item .day,
+[data-theme="green"] .hours-item .time {
+    color: var(--text-primary) !important;
+}
+
+/* Navigation kompletně tmavá s viditelnými texty */
+[data-theme="green"] #navbar {
+    background: var(--nav-bg) !important;
+    border-bottom: 1px solid var(--nav-border) !important;
+}
+
+[data-theme="green"] .nav-menu a,
+[data-theme="green"] .nav-link {
+    color: var(--nav-link-color) !important;
+}
+
+[data-theme="green"] .nav-menu a:hover,
+[data-theme="green"] .nav-link:hover {
+    color: var(--nav-link-hover) !important;
+}
+
+[data-theme="green"] .nav-logo h2 {
+    color: var(--accent-color) !important;
+}
+
+[data-theme="green"] .logo-img {
+    filter: none !important; /* Show original logo in dark theme */
+}
+
+[data-theme="green"] .lang-btn {
+    color: var(--nav-link-color) !important;
+    border-color: var(--nav-link-color) !important;
+}
+
+[data-theme="green"] .lang-btn:hover,
+[data-theme="green"] .lang-btn.active {
+    color: var(--nav-link-hover) !important;
+    border-color: var(--nav-link-hover) !important;
+}
+
+/* Mobile menu toggle */
+[data-theme="green"] .nav-toggle .bar {
+    background-color: var(--nav-link-color) !important;
+}

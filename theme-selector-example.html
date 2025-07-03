@@ -1,0 +1,109 @@
+<!-- =============================================================================
+     THEME SELECTOR COMPONENT - Volitelné rozšíření pro více témat
+     ============================================================================= -->
+
+<!-- Místo jednoduchého theme-toggle můžete použít tento rozšířený selector -->
+
+<!-- Multi-theme selector (umístit do navigace) -->
+<div class="theme-selector" id="theme-selector">
+    <button class="theme-selector-btn" id="theme-selector-btn">
+        <span class="theme-color light" id="current-theme-color"></span>
+        <span id="current-theme-name">Světlé</span>
+        <i class="fas fa-chevron-down"></i>
+    </button>
+    
+    <div class="theme-selector-dropdown" id="theme-selector-dropdown">
+        <button class="theme-option active" data-theme="light">
+            <span class="theme-color light"></span>
+            Světlé téma
+        </button>
+        <button class="theme-option" data-theme="dark">
+            <span class="theme-color dark"></span>
+            Tmavé téma
+        </button>
+        <button class="theme-option" data-theme="blue">
+            <span class="theme-color blue"></span>
+            Modré téma
+        </button>
+        <button class="theme-option" data-theme="purple">
+            <span class="theme-color purple"></span>
+            Fialové téma
+        </button>
+    </div>
+</div>
+
+<!-- JavaScript pro theme selector -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const themeSelector = document.getElementById('theme-selector');
+    const themeSelectorBtn = document.getElementById('theme-selector-btn');
+    const themeSelectorDropdown = document.getElementById('theme-selector-dropdown');
+    const currentThemeColor = document.getElementById('current-theme-color');
+    const currentThemeName = document.getElementById('current-theme-name');
+    const themeOptions = document.querySelectorAll('.theme-option');
+    
+    if (!themeSelector) return;
+    
+    // Mapa názvů témat
+    const themeNames = {
+        light: 'Světlé',
+        dark: 'Tmavé', 
+        blue: 'Modré',
+        purple: 'Fialové'
+    };
+    
+    // Inicializace
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    updateSelectorUI(currentTheme);
+    
+    // Toggle dropdown
+    themeSelectorBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        themeSelectorDropdown.classList.toggle('show');
+    });
+    
+    // Výběr tématu
+    themeOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            const selectedTheme = this.dataset.theme;
+            
+            // Nastavit téma (použije se funkce z hlavního script.js)
+            if (window.DentalistTheme) {
+                window.DentalistTheme.setTheme(selectedTheme);
+            }
+            
+            // Aktualizovat UI
+            updateSelectorUI(selectedTheme);
+            
+            // Zavřít dropdown
+            themeSelectorDropdown.classList.remove('show');
+        });
+    });
+    
+    // Zavřít dropdown při kliknutí mimo
+    document.addEventListener('click', function() {
+        themeSelectorDropdown.classList.remove('show');
+    });
+    
+    // Aktualizace UI selectoru
+    function updateSelectorUI(theme) {
+        // Aktualizovat aktivní option
+        themeOptions.forEach(option => {
+            option.classList.toggle('active', option.dataset.theme === theme);
+        });
+        
+        // Aktualizovat aktuální téma indikátor
+        currentThemeColor.className = `theme-color ${theme}`;
+        currentThemeName.textContent = themeNames[theme] || theme;
+    }
+});
+</script>
+
+<!-- CSS pro theme selector -->
+<link rel="stylesheet" href="css/theme-selector.css">
+
+<!-- 
+POZNÁMKA: Tento theme selector je volitelné rozšíření.
+Pro jednoduchý light/dark toggle stačí stávající theme-toggle button.
+Tento selector použijte pouze pokud chcete podporovat více než 2 témata.
+-->

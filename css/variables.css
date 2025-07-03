@@ -1,0 +1,166 @@
+/* =============================================================================
+   DENTALIST - THEME VARIABLES
+   ============================================================================= */
+
+/* Společné proměnné pro všechna témata */
+:root {
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    
+    /* Spacing */
+    --nav-height: 70px;
+    --section-padding: 80px;
+    --container-max-width: 1200px;
+    
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    
+    /* Z-index */
+    --z-navbar: 1000;
+    --z-modal: 1050;
+    --z-tooltip: 1100;
+}
+
+/* =============================================================================
+   LIGHT THEME (výchozí)
+   ============================================================================= */
+:root,
+[data-theme="light"] {
+    /* Základní barvy */
+    --primary-color: #4a5568;
+    --primary-dark: #2d3748;
+    --primary-light: #718096;
+    --secondary-color: #718096;
+    --accent-color: #e2e8f0;
+    
+    /* Text barvy */
+    --text-primary: #1a202c;
+    --text-secondary: #4a5568;
+    --text-muted: #718096;
+    --text-white: #ffffff;
+    --text-inverse: #ffffff;
+    
+    /* Background barvy */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f7fafc;
+    --bg-tertiary: #edf2f7;
+    --bg-dark: #2d3748;
+    --bg-overlay: rgba(0, 0, 0, 0.5);
+    
+    /* Border barvy */
+    --border-primary: #e2e8f0;
+    --border-secondary: #cbd5e0;
+    --border-focus: #4a5568;
+    
+    /* Button barvy */
+    --btn-primary-bg: #4a5568;
+    --btn-primary-color: #ffffff;
+    --btn-primary-hover: #2d3748;
+    --btn-secondary-bg: transparent;
+    --btn-secondary-color: #4a5568;
+    --btn-secondary-border: #4a5568;
+    --btn-secondary-hover: #4a5568;
+    
+    /* Card barvy */
+    --card-bg: #ffffff;
+    --card-border: #e2e8f0;
+    --card-shadow: var(--shadow-md);
+    
+    /* Form barvy */
+    --input-bg: #ffffff;
+    --input-border: #e2e8f0;
+    --input-border-focus: #4a5568;
+    --input-color: #1a202c;
+    --input-placeholder: #a0aec0;
+    
+    /* Gradient */
+    --gradient-primary: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+    --gradient-secondary: linear-gradient(135deg, #718096 0%, #4a5568 100%);
+    --gradient-hero: linear-gradient(135deg, #2d3748 0%, #4a5568 50%, #718096 100%);
+    
+    /* Navigation */
+    --nav-bg: rgba(255, 255, 255, 0.95);
+    --nav-color: #1a202c;
+    --nav-hover: #4a5568;
+    --nav-border: rgba(226, 232, 240, 0.8);
+    
+    /* Logo */
+    --logo-filter: none;
+}
+
+/* =============================================================================
+   DARK THEME
+   ============================================================================= */
+[data-theme="dark"] {
+    /* Základní barvy - šedé tóny podle původní reference */
+    --primary-color: #a0aec0;
+    --primary-dark: #718096;
+    --primary-light: #cbd5e0;
+    --secondary-color: #a0aec0;
+    --accent-color: #4a5568;
+    
+    /* Text barvy */
+    --text-primary: #f7fafc;
+    --text-secondary: #e2e8f0;
+    --text-muted: #a0aec0;
+    --text-white: #ffffff;
+    --text-inverse: #1a202c;
+    
+    /* Background barvy */
+    --bg-primary: #1a202c;
+    --bg-secondary: #2d3748;
+    --bg-tertiary: #4a5568;
+    --bg-dark: #0d1117;
+    --bg-overlay: rgba(0, 0, 0, 0.7);
+    
+    /* Border barvy */
+    --border-primary: #4a5568;
+    --border-secondary: #2d3748;
+    --border-focus: #a0aec0;
+    
+    /* Button barvy - šedé místo modrých */
+    --btn-primary-bg: #a0aec0;
+    --btn-primary-color: #1a202c;
+    --btn-primary-hover: #718096;
+    --btn-secondary-bg: transparent;
+    --btn-secondary-color: #a0aec0;
+    --btn-secondary-border: #a0aec0;
+    --btn-secondary-hover: #a0aec0;
+    
+    /* Card barvy */
+    --card-bg: #2d3748;
+    --card-border: #4a5568;
+    --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+    
+    /* Form barvy */
+    --input-bg: #2d3748;
+    --input-border: #4a5568;
+    --input-border-focus: #a0aec0;
+    --input-color: #f7fafc;
+    --input-placeholder: #718096;
+    
+    /* Gradient - šedé gradienty */
+    --gradient-primary: linear-gradient(135deg, #a0aec0 0%, #718096 100%);
+    --gradient-secondary: linear-gradient(135deg, #4a5568 0%, #a0aec0 100%);
+    --gradient-hero: linear-gradient(135deg, #1a202c 0%, #2d3748 50%, #4a5568 100%);
+    
+    /* Navigation */
+    --nav-bg: rgba(26, 32, 44, 0.95);
+    --nav-color: #f7fafc;
+    --nav-hover: #a0aec0;
+    --nav-border: rgba(74, 85, 104, 0.8);
+    
+    /* Logo */
+    --logo-filter: none;
+}

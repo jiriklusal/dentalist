@@ -2548,3 +2548,133 @@ html[lang="en"] .recaptcha-disabled::after {
 }
 
 /* =============================================================================*/
+
+/* Theme Color Picker - Unified theme selector */
+.theme-color-picker {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    padding: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+}
+
+.theme-color-picker:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.theme-color-option {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+}
+
+.theme-color-option:hover {
+    transform: scale(1.15);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.theme-color-option:focus {
+    outline: none;
+    transform: scale(1.15);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+.theme-color-option.active {
+    border-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+}
+
+.color-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.theme-color-option:hover .color-dot {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Theme colors with refined gradients */
+.color-dot.light {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%);
+    border-color: #dee2e6;
+}
+
+.color-dot.dark {
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 50%, #718096 100%);
+    border-color: #1a202c;
+}
+
+.color-dot.green {
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 35%, #d4af37 100%);
+    border-color: #2a2a2a;
+}
+
+/* Dark theme adjustments */
+body.dark-theme .theme-color-picker {
+    background: rgba(0, 0, 0, 0.15);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-theme .theme-color-picker:hover {
+    background: rgba(0, 0, 0, 0.25);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+body.dark-theme .theme-color-option.active {
+    border-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+
+
+/* Green theme adjustments */
+[data-theme="green"] .theme-color-picker {
+    background: rgba(15, 15, 15, 0.95);
+    border-color: rgba(212, 175, 55, 0.4);
+}
+
+[data-theme="green"] .theme-color-picker:hover {
+    background: rgba(15, 15, 15, 0.98);
+    border-color: rgba(212, 175, 55, 0.6);
+}
+
+[data-theme="green"] .theme-color-option.active {
+    border-color: rgba(212, 175, 55, 0.9);
+    box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.7);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .theme-color-picker {
+        gap: 3px;
+        padding: 3px;
+    }
+    
+    .theme-color-option {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .color-dot {
+        width: 12px;
+        height: 12px;
+    }
+}
