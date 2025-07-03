@@ -2552,24 +2552,26 @@ html[lang="en"] .recaptcha-disabled::after {
 /* Theme Color Picker - Unified theme selector */
 .theme-color-picker {
     display: flex;
-    gap: 6px;
+    gap: 8px;
     align-items: center;
-    padding: 6px;
-    background: rgba(255, 255, 255, 0.08);
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.25);
     border-radius: 24px;
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .theme-color-picker:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.35);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .theme-color-option {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     cursor: pointer;
     position: relative;
@@ -2577,32 +2579,34 @@ html[lang="en"] .recaptcha-disabled::after {
     align-items: center;
     justify-content: center;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 2px solid transparent;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .theme-color-option:hover {
-    transform: scale(1.15);
-    border-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .theme-color-option:focus {
     outline: none;
-    transform: scale(1.15);
-    border-color: rgba(255, 255, 255, 0.6);
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
 }
 
 .theme-color-option.active {
-    border-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
     transform: scale(1.05);
 }
 
 .color-dot {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.8);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
 }
@@ -2629,44 +2633,73 @@ html[lang="en"] .recaptcha-disabled::after {
 
 /* Dark theme adjustments */
 body.dark-theme .theme-color-picker {
-    background: rgba(0, 0, 0, 0.15);
-    border-color: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
 }
 
 body.dark-theme .theme-color-picker:hover {
-    background: rgba(0, 0, 0, 0.25);
-    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+body.dark-theme .theme-color-option {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+body.dark-theme .theme-color-option:hover {
+    border-color: rgba(255, 255, 255, 0.7);
 }
 
 body.dark-theme .theme-color-option.active {
-    border-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
 }
 
 
 
 /* Green theme adjustments */
 [data-theme="green"] .theme-color-picker {
-    background: rgba(15, 15, 15, 0.95);
-    border-color: rgba(212, 175, 55, 0.4);
+    background: rgba(26, 26, 26, 0.9);
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="green"] .theme-color-picker:hover {
-    background: rgba(15, 15, 15, 0.98);
-    border-color: rgba(212, 175, 55, 0.6);
+    background: rgba(26, 26, 26, 0.95);
+    border-color: rgba(212, 175, 55, 0.8);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="green"] .theme-color-option {
+    border-color: rgba(212, 175, 55, 0.5);
+}
+
+[data-theme="green"] .theme-color-option:hover {
+    border-color: rgba(212, 175, 55, 0.8);
 }
 
 [data-theme="green"] .theme-color-option.active {
-    border-color: rgba(212, 175, 55, 0.9);
-    box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.7);
+    border-color: rgba(212, 175, 55, 1);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.7);
 }
 
 /* Mobile responsive */
 @media (max-width: 768px) {
     .theme-color-picker {
-        gap: 3px;
-        padding: 3px;
+        gap: 6px;
+        padding: 6px 8px;
     }
+    
+    .theme-color-option {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .color-dot {
+        width: 16px;
+        height: 16px;
+    }
+}
     
     .theme-color-option {
         width: 22px;
