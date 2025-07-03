@@ -1096,7 +1096,7 @@ document.addEventListener('DOMContentLoaded', function() {
   };
   
   // Initialize theme
-  const savedTheme = localStorage.getItem('theme') || THEMES.LIGHT;
+  const savedTheme = localStorage.getItem('theme') || THEMES.GREEN;
   setTheme(savedTheme);
   
   // Color picker events
