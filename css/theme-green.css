@@ -519,22 +519,33 @@
 
 /* Contact sekce kompletně tmavá */
 [data-theme="green"] .contact-info,
-[data-theme="green"] .contact-details,
 [data-theme="green"] .opening-hours,
 [data-theme="green"] .hours-grid {
     background: var(--bg-primary) !important;
 }
 
-[data-theme="green"] .contact-item {
+[data-theme="green"] .contact-details {
     background: var(--bg-card) !important;
+    padding: 8px 12px !important;
+    border-radius: 6px !important;
+}
+
+[data-theme="green"] .contact-item {
+    background: var(--bg-secondary) !important;
+    border: 1px solid var(--border-secondary) !important;
 }
 
 [data-theme="green"] .contact-item h4,
 [data-theme="green"] .contact-item p,
 [data-theme="green"] .contact-item span,
+[data-theme="green"] .contact-item a,
 [data-theme="green"] .hours-item .day,
 [data-theme="green"] .hours-item .time {
     color: var(--text-primary) !important;
+}
+
+[data-theme="green"] .contact-item a:hover {
+    color: var(--accent-color) !important;
 }
 
 /* Navigation kompletně tmavá s viditelnými texty */
