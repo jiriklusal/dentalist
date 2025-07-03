@@ -38,10 +38,10 @@
     --btn-secondary-hover: #404040;
     --btn-secondary-text: #ffffff;
     
-    /* Navigation barvy */
-    --nav-bg: rgba(15, 15, 15, 0.98);
-    --nav-border: rgba(212, 175, 55, 0.3);
-    --nav-link-color: #e0e0e0;
+    /* Navigation barvy - světlejší pro lepší viditelnost */
+    --nav-bg: rgba(26, 26, 26, 0.95);
+    --nav-border: rgba(212, 175, 55, 0.4);
+    --nav-link-color: #f0f0f0;
     --nav-link-hover: #d4af37;
     --nav-link-active: #d4af37;
     
@@ -99,7 +99,12 @@
    ============================================================================= */
 
 /* Logo a branding zvýraznění */
-[data-theme="green"] .nav-logo h2,
+[data-theme="green"] .nav-logo h2 {
+    color: var(--text-primary) !important;
+    background: none !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+}
+
 [data-theme="green"] .footer-logo h3 {
     background: linear-gradient(135deg, var(--accent-color), #f4e4a6);
     -webkit-background-clip: text;
@@ -564,26 +569,62 @@
     color: var(--nav-link-hover) !important;
 }
 
-[data-theme="green"] .nav-logo h2 {
-    color: var(--accent-color) !important;
-}
-
 [data-theme="green"] .logo-img {
-    filter: none !important; /* Show original logo in dark theme */
+    filter: brightness(1.2) !important;
 }
 
 [data-theme="green"] .lang-btn {
     color: var(--nav-link-color) !important;
-    border-color: var(--nav-link-color) !important;
+    border-color: var(--border-secondary) !important;
+    background: transparent !important;
 }
 
 [data-theme="green"] .lang-btn:hover,
 [data-theme="green"] .lang-btn.active {
-    color: var(--nav-link-hover) !important;
-    border-color: var(--nav-link-hover) !important;
+    color: var(--text-inverse) !important;
+    background: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
 }
 
-/* Mobile menu toggle */
 [data-theme="green"] .nav-toggle .bar {
-    background-color: var(--nav-link-color) !important;
+    background: var(--nav-link-color) !important;
+}
+
+/* Mobile menu styling for black-gold theme */
+@media (max-width: 768px) {
+    [data-theme="green"] .nav-menu {
+        background: var(--bg-secondary) !important;
+        border: 1px solid var(--border-secondary) !important;
+        backdrop-filter: none !important;
+        opacity: 1 !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
+    }
+    
+    [data-theme="green"] .nav-menu a {
+        color: var(--text-primary) !important;
+        background: transparent !important;
+    }
+    
+    [data-theme="green"] .nav-menu a:hover {
+        color: var(--accent-color) !important;
+        background: var(--bg-tertiary) !important;
+    }
+    
+    [data-theme="green"] .nav-menu .theme-color-picker {
+        background: var(--bg-tertiary) !important;
+        border: 1px solid var(--border-secondary) !important;
+    }
+    
+    [data-theme="green"] .nav-menu .lang-btn {
+        color: var(--text-primary) !important;
+        border-color: var(--border-secondary) !important;
+        background: transparent !important;
+    }
+    
+    [data-theme="green"] .nav-menu .lang-btn:hover,
+    [data-theme="green"] .nav-menu .lang-btn.active {
+        color: var(--text-inverse) !important;
+        background: var(--accent-color) !important;
+        border-color: var(--accent-color) !important;
+    }
 }
